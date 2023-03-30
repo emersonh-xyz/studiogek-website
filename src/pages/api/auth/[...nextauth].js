@@ -12,7 +12,26 @@ export const authOptions = {
             clientSecret: process.env.PATREON_CLIENT_SECRET
         })
     ],
-    secret: process.env.JWT_SECRET
+    secret: process.env.JWT_SECRET,
+    callbacks: {
+        async jwt(token, user, account = {}, profile, isNewUser) {
+
+            if (account.provider && !token[account.provider]) {
+                token[account.provider] = {};
+
+            }
+
+            if (account.accessToken) {
+                token[account.provider].accessToken = account.accessToken;
+            }
+
+            if (account.refreshToken) {
+                token[account.provider].refreshToken = account.refreshToken;
+            }
+
+            return token
+        }
+    }
 }
 
 
