@@ -15,7 +15,7 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
-        console.log(results.data.relationships.tiers)
+        // console.log(results.data.relationships.tiers)
 
         return res.status(200).json({
             status: "Ok",

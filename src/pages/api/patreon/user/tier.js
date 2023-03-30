@@ -17,7 +17,6 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
-
         for (const obj of results.included) {
             const tier = tierList.find((tier) => tier.id === obj.id);
             if (tier) {

@@ -1,28 +1,43 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { useSession, signOut, signIn } from 'next-auth/react'
+import Navbar from '@/components/Navbar';
 
 
 export default function Home() {
 
-  const [data, setData] = useState();
+  const [tier, setTier] = useState();
+  const { data: session, status } = useSession({ required: true });
+  const tierList = require("../config/tiers")
 
-  const handleClick = async () => {
-    const results = await fetch('/api/patreon/user/tiers')
-      .then(res => res.json());
 
-    setData(results.data);
+  useEffect(() => {
+    if (!session) {
+      // do stuff
+      return;
+    }
 
-  }
+    // Fetch the tierID from the users Patreon profile
+    const getUserTier = async () => {
+      const results = await fetch('/api/patreon/user/tier')
+        .then((res) => {
+          return res.json();
+        })
 
-  const handleClick2 = async () => {
-    const results = await fetch('/api/patreon/admin/creator-tiers')
-      .then(res => res.json());
 
-    setData(results.data);
+      // Filter out the tier from tierList.json
+      const tierObject = tierList.find((tier) => tier.id === results.data);
 
-  }
+      // Update state
+      setTier(tierObject)
+
+    };
+
+    getUserTier()
+
+
+
+  })
 
   return (
     <>
@@ -33,10 +48,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <main>
 
-      <button onClick={() => handleClick()} class="btn">Get User Tiers</button>
-      <button onClick={() => handleClick2()} class="btn">Get Creator Tiers</button>
+        <Navbar tier={tier} />
 
+        <div className='bg-base-300'>
+          <section className="text-center">
+            Content
+          </section>
+        </div>
+
+      </main>
     </>
   )
 }

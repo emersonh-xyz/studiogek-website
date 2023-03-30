@@ -7,13 +7,7 @@ export default function Login() {
 
     if (session) {
 
-        return (
-            <div className="mt-10 text-center">
-                <img className="mx-auto" src={session.user.image}></img>
-                <h1 className="text-lg text-blue-400">Signed in as {session.user.name} </h1><br />
-                <button className="btn" onClick={() => signOut()}>Sign out</button>
-            </div>
-        )
+        return router
     }
     return (
         <div className="mt-20 text-center">
