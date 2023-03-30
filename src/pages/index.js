@@ -9,7 +9,15 @@ export default function Home() {
   const [data, setData] = useState();
 
   const handleClick = async () => {
-    const results = await fetch('/api/patreon/tier')
+    const results = await fetch('/api/patreon/user/tiers')
+      .then(res => res.json());
+
+    setData(results.data);
+
+  }
+
+  const handleClick2 = async () => {
+    const results = await fetch('/api/patreon/admin/creator-tiers')
       .then(res => res.json());
 
     setData(results.data);
@@ -26,9 +34,8 @@ export default function Home() {
       </Head>
 
 
-      <button onClick={() => handleClick()} class="btn">Get Data</button>
-
-      {data}
+      <button onClick={() => handleClick()} class="btn">Get User Tiers</button>
+      <button onClick={() => handleClick2()} class="btn">Get Creator Tiers</button>
 
     </>
   )
