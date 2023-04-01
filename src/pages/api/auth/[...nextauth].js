@@ -15,6 +15,9 @@ export const authOptions = {
     secret: process.env.JWT_SECRET,
     callbacks: {
         async jwt({ token, account, profile }) {
+
+            console.log(token);
+
             if (account) {
                 token.accessToken = account.access_token
                 token.id = profile.id

@@ -5,10 +5,7 @@ export default function Login() {
     const { data: session } = useSession()
     console.log(session);
 
-    if (session) {
 
-        return router
-    }
     return (
         <div className="mt-20 text-center">
             <br />

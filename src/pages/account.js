@@ -29,11 +29,18 @@ export default function Account() {
     if (status === 'authenticated') {
 
         return (
-            <div className="text-center">
-                <img className="mx-auto" src={session.user.image}></img>
-                <h1 className="text-lg text-blue-400">Signed in as {session.user.name} </h1><br />
-                <h1 className="text-lg text-blue-400">Current membership: {tier?.display}</h1><br />
-                <button className="btn" onClick={() => signOut()}>Sign out</button>
+
+
+            <div className="card w-96 glass mx-auto">
+                <figure><img src={session.user.image} alt="car!" /></figure>
+                <div className="card-body">
+                    <h2 className="card-title">Welcome back, {session.user.name}</h2> <br />
+                    <h1 className="">Email: {session.user.email} </h1>
+                    <h1 className="">Tier: {tier?.display}</h1>
+                    <div className="card-actions justify-end">
+                        <button className="btn" onClick={() => signOut()}>Sign out</button>
+                    </div>
+                </div>
             </div>
         )
     }

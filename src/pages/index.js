@@ -7,7 +7,7 @@ import Navbar from '@/components/Navbar';
 export default function Home() {
 
   const [tier, setTier] = useState();
-  const { data: session, status } = useSession({ required: true });
+  const { data: session, status } = useSession();
   const tierList = require("../config/tiers")
 
 
