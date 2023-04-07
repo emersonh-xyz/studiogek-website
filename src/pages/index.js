@@ -2,42 +2,57 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { useSession, signOut, signIn } from 'next-auth/react'
 import Navbar from '@/components/Navbar';
+import PostCard from '@/components/PostCard';
+import fetchUserTier from '@/utils/fetch_user_tier';
+import fetchCampaignPosts from '@/utils/fetch_campaign_posts'
 
 
 export default function Home() {
 
-  const [tier, setTier] = useState();
-  const { data: session, status } = useSession();
-  const tierList = require("../config/tiers")
+  const [userTier, setUserTier] = useState();
+  const [postData, setPostData] = useState([]);
 
+  const { data: session } = useSession();
+
+  // Get all of the posts from the campaign
+  const getPosts = async () => {
+    const results = await fetchCampaignPosts();
+    setPostData(results.data);
+  }
+
+  // Get the current tier of the user
+  const getTier = async () => {
+    const results = await fetchUserTier();
+    setUserTier(results);
+  }
+
+  console.log(session)
 
   useEffect(() => {
-    if (!session) {
-      // do stuff
-      return;
+
+    // Call our asyncronous functions
+    getTier()
+    getPosts()
+
+
+
+    return () => {
+      // this now gets called when the component unmounts
     }
 
-    // Fetch the tierID from the users Patreon profile
-    const getUserTier = async () => {
-      const results = await fetch('/api/patreon/user/tier')
-        .then((res) => {
-          return res.json();
-        })
+
+  }, [])
 
 
-      // Filter out the tier from tierList.json
-      const tierObject = tierList.find((tier) => tier.id === results.data);
+  // Loop over all post data
+  const PostItems = () => {
+    return (
+      postData.map((data) => {
+        return <PostCard props={data} />
+      })
+    )
+  }
 
-      // Update state
-      setTier(tierObject)
-
-    };
-
-    getUserTier()
-
-
-
-  })
 
   return (
     <>
@@ -48,17 +63,30 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <header>
+        <Navbar tier={userTier} />
+      </header>
+
       <main>
+        <div className='h-screen bg-base-200'>
+          <section className="">
 
-        <Navbar tier={tier} />
+            {postData &&
 
-        <div className='bg-base-300'>
-          <section className="text-center">
-            Content
+              <div className="flex">
+                < PostItems />
+              </div>
+            }
+
           </section>
-        </div>
+        </div >
 
-      </main>
+      </main >
+
+      <footer>
+
+      </footer>
+
     </>
   )
 }

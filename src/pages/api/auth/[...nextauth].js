@@ -1,6 +1,31 @@
 import NextAuth from "next-auth/next";
 import PatreonProvider from "next-auth/providers/patreon"
 
+
+
+const getTierId = async (account) => {
+
+    const tierList = require("../../../config/tiers.json")
+
+    const url = `https://www.patreon.com/api/oauth2/v2/identity?include=memberships.currently_entitled_tiers`
+
+    const results = await fetch(url, {
+        headers: {
+            'Authorization': 'Bearer ' + account.access_token,
+            'user-agent': 'Chrome: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'
+        },
+    }).then((res) => res.json())
+
+    for (const obj of results.included) {
+        const tier = tierList.find((tier) => tier.id === obj.id);
+        if (tier) {
+            return tier.id;
+        }
+    }
+
+    return "";
+}
+
 export const authOptions = {
     providers: [
         // DiscordProvider({
@@ -14,13 +39,12 @@ export const authOptions = {
     ],
     secret: process.env.JWT_SECRET,
     callbacks: {
-        async jwt({ token, account, profile }) {
-
-            console.log(token);
+        async jwt({ token, account, profile, user }) {
 
             if (account) {
                 token.accessToken = account.access_token
                 token.id = profile.id
+
             }
             return token;
         },
@@ -31,9 +55,26 @@ export const authOptions = {
             session.user.id = token.id
 
             return session
-        }
+        },
+
+        // async signIn(user, account, profile) {
+
+
+        //     console.log(user)
+
+        //     if (user.account.provider === 'patreon') {
+        //         const tier = await getTierId(user)
+        //         console.log(tier);
+
+        //         return {
+        //             ...user,
+        //             tier,
+        //         }
+        //     }
+        // }
 
     }
+
 }
 
 

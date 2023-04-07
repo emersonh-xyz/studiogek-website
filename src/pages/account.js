@@ -30,7 +30,6 @@ export default function Account() {
 
         return (
 
-
             <div className="card w-96 glass mx-auto">
                 <figure><img src={session.user.image} alt="car!" /></figure>
                 <div className="card-body">

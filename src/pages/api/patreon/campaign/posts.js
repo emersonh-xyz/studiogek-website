@@ -3,11 +3,10 @@ import { getToken } from 'next-auth/jwt'
 export default async (req, res) => {
     const secret = process.env.JWT_SECRET
     const token = await getToken({ req, secret: secret })
-    const tierList = require("../../../../config/tiers.json")
 
-    const getTierId = async () => {
+    const getPosts = async () => {
 
-        const url = `https://www.patreon.com/api/oauth2/v2/identity?include=memberships.currently_entitled_tiers`
+        const url = `https://www.patreon.com/api/oauth2/v2/campaigns/${process.env.PATREON_CAMPAIGN_ID}/posts?fields${encodeURIComponent("[post]")}=content,title,url,embed_data,embed_url,tiers,published_at`
 
         const results = await fetch(url, {
             headers: {
@@ -16,23 +15,16 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
-        for (const obj of results.included) {
-            const tier = tierList.find((tier) => tier.id === obj.id);
-            if (tier) {
-                return tier.id;
-            }
-        }
-
-        return "";
+        return results.data;
     }
 
     try {
 
-        const tierId = await getTierId();
+        const posts = await getPosts();
 
         return res.status(200).json({
             status: "Ok",
-            data: tierId
+            data: posts
         })
 
     } catch (e) {
