@@ -15,6 +15,8 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
+        console.log(results.data)
+
         return results.data;
     }
 
