@@ -5,14 +5,17 @@ import Navbar from '@/components/Navbar';
 import PostCard from '@/components/PostCard';
 import fetchUserTier from '@/utils/fetch_user_tier';
 import fetchCampaignPosts from '@/utils/fetch_campaign_posts'
+import { useRouter } from 'next/router';
 
 
-export default function Home() {
+export default function Patreon() {
+
+  const { data: session, status } = useSession()
 
   const [userTier, setUserTier] = useState();
   const [postData, setPostData] = useState([]);
 
-  const { data: session } = useSession();
+  const router = useRouter();
 
   // Get all of the posts from the campaign
   const getPosts = async () => {
@@ -32,23 +35,29 @@ export default function Home() {
     getTier()
     getPosts()
 
-
     return () => {
       // this now gets called when the component unmounts
     }
 
 
   }, [])
-
-
   // Loop over all post data
   const PostItems = () => {
     return (
       postData.map((data) => {
-        return <PostCard props={data} />
+        return <PostCard key={data.id} props={data} content={data.attributes.content} />
       })
     )
   }
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    router.push("/login?redirect_to=/patreon")
+  }
+
 
 
   return (
@@ -61,16 +70,16 @@ export default function Home() {
       </Head>
 
       <header>
-        <Navbar tier={userTier} />
+        <Navbar />
       </header>
 
       <main>
-        <div className='h-screen bg-base-200'>
+        <div className=''>
           <section className="">
 
             {postData &&
 
-              <div className="flex">
+              <div className="">
                 < PostItems />
               </div>
             }

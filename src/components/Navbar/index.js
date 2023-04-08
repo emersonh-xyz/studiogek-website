@@ -1,4 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react"
+import { Icon } from "@iconify/react";
 
 export default function Navbar() {
 
@@ -29,9 +30,11 @@ export default function Navbar() {
                                 </label>
                             </div>
 
-                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-52">
+                            <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
 
+                                <li><a onClick={() => signOut()}>Profile</a></li>
                                 <li><a onClick={() => signOut()}>Logout</a></li>
+
                             </ul>
                         </div>
                         :

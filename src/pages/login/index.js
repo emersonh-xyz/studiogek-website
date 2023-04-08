@@ -29,7 +29,7 @@ export default function Login() {
                 <div className='h-screen bg-base-300'>
                     <div className="flex flex-col justify-center items-center">
                         <div className="card w-96 flex flex-col justify-center items-center bg-base-100 mt-20 shadow-xl">
-                            <Image width="256" height="256" src="/static/logo_white.png" />
+                            <Image width="256" height="256" src="/static/logo_black.png" />
                             <div className="card-title text-">Thanks for joining us at Studio Gek!</div>
                             <div className="card-title font-thin text-md">Please login to continue</div>
                             <div className="divider"></div>
