@@ -1,6 +1,7 @@
-import { Fragment } from "react";
 import parse from 'html-react-parser';
 import { useRouter } from "next/router";
+import { Card, Text, Grid, Button, Link } from "@nextui-org/react";
+import { Icon } from '@iconify/react';
 
 export default function PostCard({ props }) {
 
@@ -30,30 +31,42 @@ export default function PostCard({ props }) {
 
 
     return (
-        <div className="card card-compact w-96 bg-base-100 shadow-xl m-10">
-            <figure>
-
-            </figure>
-            <div className="card-body">
-                <h2 className="card-title">{props.attributes.title}</h2>
-                {/* // TO:DO Match Tier to post before showing description.. */}
-
-                {parse(props.attributes.content)}
-
-                {getDate()}
-
-
-                <div className="card-actions justify-end">
-                    <button onClick={() => {
-                        router.push({
-                            pathname: '/post/[pid]',
-                            query: { pid: props.id }
-                        })
-                    }}
-                        className="btn btn-sm ">Read More</button>
-                </div>
-
-            </div>
-        </div>
+        <Grid xs={4}>
+            <Card css={{ p: "$6", mw: "400px" }}>
+                <Card.Header>
+                    <Icon width={34} height={34} icon={"material-symbols:video-camera-back-rounded"} />
+                    <Grid.Container css={{ pl: "$6" }}>
+                        <Grid xs={12}>
+                            <Text h4 css={{ lineHeight: "$xs" }}>
+                                {props.attributes.title}
+                            </Text>
+                        </Grid>
+                        <Grid xs={12}>
+                            <Text css={{ color: "$accents8" }}>{getDate()}</Text>
+                        </Grid>
+                    </Grid.Container>
+                </Card.Header>
+                <Card.Body css={{ py: "$2" }}>
+                    <Text>
+                        {parse(props.attributes.content)}
+                    </Text>
+                </Card.Body>
+                <Card.Footer>
+                    <Text
+                        icon
+                        color="primary"
+                        target="_blank"
+                        onClick={() => {
+                            router.push({
+                                pathname: '/post/[pid]',
+                                query: { pid: props.id }
+                            })
+                        }}
+                    >
+                        View post
+                    </Text>
+                </Card.Footer>
+            </Card >
+        </Grid>
     )
 }

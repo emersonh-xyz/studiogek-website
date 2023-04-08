@@ -6,6 +6,7 @@ import PostCard from '@/components/PostCard';
 import fetchUserTier from '@/utils/fetch_user_tier';
 import fetchCampaignPosts from '@/utils/fetch_campaign_posts'
 import { useRouter } from 'next/router';
+import { Container, Card, Row, Text, Grid } from "@nextui-org/react";
 
 
 export default function Patreon() {
@@ -74,18 +75,18 @@ export default function Patreon() {
       </header>
 
       <main>
-        <div className=''>
-          <section className="">
+        <Container>
 
-            {postData &&
 
-              <div className="">
-                < PostItems />
-              </div>
-            }
+          {postData &&
 
-          </section>
-        </div >
+            <Grid.Container gap={2} justify="start">
+              < PostItems />
+            </Grid.Container >
+          }
+
+
+        </Container >
 
       </main >
 
