@@ -1,16 +1,17 @@
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
-import Image from 'next/image'
+import { Image } from "@nextui-org/react";
 import { useSession, signOut, signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation';
 import { Icon } from '@iconify/react';
+import { Button, Card, Container, Grid, Text } from "@nextui-org/react";
 
 export default function Login() {
 
     const searchParams = useSearchParams();
 
     // Get redirect address from Search Params
-    const search = searchParams.get('redirect_to') ?? '/'
+    const redirectURL = searchParams.get('redirect_to') ?? '/'
 
     return (
         <>
@@ -26,29 +27,37 @@ export default function Login() {
             </header>
 
             <main>
-                <div className='h-screen bg-base-300'>
-                    <div className="flex flex-col justify-center items-center">
-                        <div className="card w-96 flex flex-col justify-center items-center bg-base-100 mt-20 shadow-xl">
-                            <Image width="256" height="256" src="/static/logo_black.png" />
-                            <div className="card-title text-">Thanks for joining us at Studio Gek!</div>
-                            <div className="card-title font-thin text-md">Please login to continue</div>
-                            <div className="divider"></div>
-                            <div className="card-body">
 
-                                <button className="btn mt-2 bg-[#F96854] text-white border-0"
-                                    onClick={() => signIn('patreon', {
-                                        callbackUrl: `${window.location.origin}/${search}`
-                                    })}>
-                                    <Icon className="mr-2" icon="mdi:patreon" />Continue with Patreon</button>
+                <Container css={{ mt: "$2xl" }} justify="center" alignItems="center" alignContent="center" display="flex" >
 
-                                <span className="text-xs p-3 text-center">By continuing, you agree to <a className="link font-bold">Studio Gek's <br />Privacy Policy</a></span>
-                            </div>
+                    <Card variant="bordered" css={{ mw: "400px", d: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Card.Header css={{}}>
+                            <Image width={200} height={200} src="/static/logo_white.png" />
+
+                        </Card.Header>
 
 
+                        <Card.Body>
 
-                        </div>
-                    </div>
-                </div >
+                            <Button
+                                onClick={() => signIn('patreon', {
+                                    callbackUrl: `${redirectURL}`
+                                })}
+                                auto icon={<Icon icon={"mdi:patreon"} />} color="gradient">
+                                Continue with patreon
+                            </Button>
+
+                        </Card.Body>
+
+
+                        <Text css={{ ta: "center", pb: "$4" }}>By continuing, you agree to our <a className="link font-bold"> Privacy Policy</a></Text>
+
+                    </Card>
+
+
+                </Container>
+
+
 
             </main >
 

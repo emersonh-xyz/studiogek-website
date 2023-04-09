@@ -6,8 +6,9 @@ import PostCard from '@/components/PostCard';
 import fetchUserTier from '@/utils/fetch_user_tier';
 import fetchCampaignPosts from '@/utils/fetch_campaign_posts'
 import { useRouter } from 'next/router';
-import { Container, Card, Row, Text, Grid } from "@nextui-org/react";
-
+import { Container, Card, Row, Text, Grid, Badge } from "@nextui-org/react";
+import LoadingSpinner from '@/components/LoadingSpinner';
+import DiscordWidget from '@/components/DiscordWidget'
 
 export default function Patreon() {
 
@@ -15,6 +16,7 @@ export default function Patreon() {
 
   const [userTier, setUserTier] = useState();
   const [postData, setPostData] = useState([]);
+  const [authed, setAuthed] = useState();
 
   const router = useRouter();
 
@@ -52,14 +54,12 @@ export default function Patreon() {
   }
 
   if (status === "loading") {
-    return <p>Loading...</p>
+    return <LoadingSpinner />
   }
 
   if (status === "unauthenticated") {
-    router.push("/login?redirect_to=/patreon")
+
   }
-
-
 
   return (
     <>
@@ -75,18 +75,56 @@ export default function Patreon() {
       </header>
 
       <main>
-        <Container>
 
 
-          {postData &&
+        <Container lg gap={0}>
 
-            <Grid.Container gap={2} justify="start">
+          <Text
+
+            h1
+            size={60}
+            css={{
+              textGradient: "45deg, $yellow600 -20%, $red600 100%",
+            }}
+            weight="bold"
+
+          >
+            New from Patreon
+          </Text>
+
+          <div>
+            <Text
+              h4
+              weight="thin"
+            >
+              View the latest posts straight from Studio Gek
+            </Text>
+          </div>
+
+
+
+          {postData?.length > 0 ?
+
+            <Grid.Container gap={1} justify="flex-start">
               < PostItems />
             </Grid.Container >
+
+            :
+            status === "authenticated" && <LoadingSpinner />
+
           }
 
+          {status === "unauthenticated" &&
 
-        </Container >
+            <Badge disableOutline color="error">
+              You must be logged in to view this content
+            </Badge>
+
+
+          }
+
+        </Container>
+
 
       </main >
 

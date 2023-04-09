@@ -2,8 +2,11 @@ import parse from 'html-react-parser';
 import { useRouter } from "next/router";
 import { Card, Text, Grid, Button, Link } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
+import { useSession } from 'next-auth/react';
+
 
 export default function PostCard({ props }) {
+
 
     // props.attributes.title
     // props.attributes.content
@@ -31,10 +34,10 @@ export default function PostCard({ props }) {
 
 
     return (
-        <Grid xs={4}>
-            <Card css={{ p: "$6", mw: "400px" }}>
+        <Grid xs={6} sm={3} >
+            <Card variant="bordered" isPressable isHoverable css={{ p: "$10", h: "$90", w: "" }}>
                 <Card.Header>
-                    <Icon width={34} height={34} icon={"material-symbols:video-camera-back-rounded"} />
+                    <Icon width={34} height={34} icon={"mdi:patreon"} />
                     <Grid.Container css={{ pl: "$6" }}>
                         <Grid xs={12}>
                             <Text h4 css={{ lineHeight: "$xs" }}>
@@ -46,8 +49,15 @@ export default function PostCard({ props }) {
                         </Grid>
                     </Grid.Container>
                 </Card.Header>
-                <Card.Body css={{ py: "$2" }}>
-                    <Text>
+                <Card.Image
+                    src="https://yt3.ggpht.com/PafdZtxMbe6L3u7-V-GvBKAcAPNvOUjr7t0RHMM2pWPfuXrcA4ZnNDFmT33jltbLilbzodko3zZqwRA=s640-c-fcrop64=1,20000000dfffffff-nd-v1"
+                    objectFit="cover"
+                    width="100%"
+                    height={140}
+                    alt="Card image background"
+                />
+                <Card.Body css={{ p: 0 }}>
+                    <Text >
                         {parse(props.attributes.content)}
                     </Text>
                 </Card.Body>

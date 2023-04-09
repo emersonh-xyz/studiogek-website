@@ -5,11 +5,15 @@ import Navbar from '@/components/Navbar';
 import fetchCampaignPost from '@/utils/fetch_campaign_post';
 import { useRouter } from 'next/router'
 import { Icon } from '@iconify/react';
+import { Container, Text, Button, Spacer } from '@nextui-org/react';
+import parse from "html-react-parser"
 
 
 export default function Post() {
 
     const [post, setPost] = useState();
+    const [streamableId, setStreamableId] = useState();
+    const [postContent, setPostContent] = useState("")
 
     // Get search params
     const router = useRouter();
@@ -21,7 +25,28 @@ export default function Post() {
         const results = await fetchCampaignPost(id);
         setPost(results.data);
 
+        const urlId = getStreamableLink(results.data.attributes.content);
+        setStreamableId(urlId)
     }
+
+    // Get streamable link from the post
+    const getStreamableLink = (text) => {
+
+        const pattern = /https?:\/\/(?:www\.)?streamable\.com\/(\w{6})/;
+        // Use the match method to extract an array of all matches
+        const matches = text.match(pattern);
+
+        // Map the last 6 characters of each match
+
+        if (matches) {
+            const match = matches.map(match => match.slice(-6));
+            return match[0]
+        }
+
+        return null;
+
+    }
+
 
     useEffect(() => {
 
@@ -40,6 +65,7 @@ export default function Post() {
 
     }, [pid])
 
+
     return (
         <>
             <Head>
@@ -54,17 +80,41 @@ export default function Post() {
             </header>
 
             <main>
-                <div className='h-screen bg-base-200'>
-                    <section className="flex flex-col items-center align-middle">
 
+                <Container gap={0} lg>
 
-                        <h1>{post?.attributes.title}</h1>
-                        <button className="btn mt-2 bg-[#F96854] text-white border-0"
-                            onClick={{}}>
-                            <Icon className="mr-2" icon="mdi:patreon" />View post on Patreon</button>
+                    {!streamableId &&
+                        <div>
+                            <Text h1>{post?.attributes.title}</Text>
+                            <div dangerouslySetInnerHTML={{ __html: post?.attributes.content }} />
 
-                    </section>
-                </div >
+                            <Button auto icon={<Icon icon={"mdi:patreon"} />} color="gradient">
+                                View post on Patreon
+                            </Button>
+                        </div>
+                    }
+
+                    {streamableId &&
+
+                        <Container alignContent='center' justify='center' display='flex' direction='column'>
+
+                            <Text css={{ ta: "center" }} h1>{post?.attributes.title}</Text>
+
+                            <iframe
+
+                                style={{
+                                    border: "2px solid #ffffff"
+                                }}
+                                className="streamable-embed"
+                                src={`https://streamable.com/o/${streamableId}`}
+                                frameBorder="0" scrolling="no" width="1280"
+                                height="720" allowFullScreen>
+                            </iframe>
+                        </Container>
+                    }
+
+                </Container>
+
 
             </main >
 
