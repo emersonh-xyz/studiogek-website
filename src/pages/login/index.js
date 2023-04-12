@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Utility/Navbar";
 import Head from "next/head";
 import { Image } from "@nextui-org/react";
 import { useSession, signOut, signIn } from 'next-auth/react'

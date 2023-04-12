@@ -1,7 +1,5 @@
 import { Card, Container, Text, Grid, Tooltip, Link, Modal, Image } from "@nextui-org/react";
-import Artwork from '../../config/fan_art_submissions'
-import { useState } from "react";
-import { Icon } from "@iconify/react";
+import Artwork from '../../../config/fan_art_submissions'
 
 
 export default function ArtContent() {
@@ -9,7 +7,7 @@ export default function ArtContent() {
 
     const Art = () => {
         return (
-            Artwork.map((art, index) => {
+            Artwork.map((art) => {
 
                 return (
                     <Grid xs={4}>
