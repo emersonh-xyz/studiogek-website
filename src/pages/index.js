@@ -11,7 +11,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import DiscordWidget from '@/components/DiscordWidget'
 import PatreonContent from '@/components/PatreonContent';
 import YoutubeContent from '@/components/YoutubeContent';
-import ArtContainer from '@/components/ArtContent';
+import ArtContent from '@/components/ArtContent';
 
 export default function Patreon() {
 
@@ -60,9 +60,9 @@ export default function Patreon() {
 
           <PatreonContent />
 
-          <ArtContainer />
-
           <YoutubeContent />
+
+          <ArtContent />
 
         </Container>
 

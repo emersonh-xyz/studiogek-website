@@ -1,66 +1,83 @@
 [
     {
-        "name": "Jay",
+        "author": "Jay",
+        "title": "Cannon!",
         "img": "https://cdn.discordapp.com/attachments/1090004355744276601/1090004355941412904/Cannon.png"
     },
     {
-        "name": "Jay",
+        "author": "Jay",
+        "title": "The Geks!",
         "img": "https://cdn.discordapp.com/attachments/1090023397595025448/1090023397867667456/geeks_PNG.png"
     },
     {
-        "name": "TDPixxie",
+        "author": "TDPixxie",
+        "title": "To Brig, 1 Week into The Future",
         "img": "https://cdn.discordapp.com/attachments/1090031063637696553/1090031063864180777/StudioGek_To-Brig-1-week-beforeA3.jpg"
     },
     {
-        "name": "Jay",
+        "author": "Jay",
+        "title": "Sus Carter",
         "img": "https://cdn.discordapp.com/attachments/1090040664504406066/1090040664730910771/SusCarter.png"
     },
     {
-        "name": "Senya",
+        "author": "Senya",
+        "title": "",
         "img": "https://cdn.discordapp.com/attachments/1090045597110784121/1090045597307895828/syghdfsgoik.png"
     },
     {
-        "name": "Klee",
+        "author": "Klee",
+        "title": "What hours of hard work delivers",
         "img": "https://cdn.discordapp.com/attachments/1090070945047253023/1090070945634471936/IMG_0437.png"
     },
     {
-        "name": "Neal",
+        "author": "Neal",
+        "title": "Carter Martinez",
         "img": "https://cdn.discordapp.com/attachments/1090100968089206804/1090100968324092035/carter1.png"
     },
     {
-        "name": "NeonKatt",
+        "author": "NeonKatt",
+        "title": "bois",
         "img": "https://cdn.discordapp.com/attachments/1090181101051445328/1090181101374414860/IMG_20230328_131857.jpg"
     },
     {
-        "name": "Jay",
+        "author": "Jay",
+        "title": "Sus Whisper",
         "img": "https://cdn.discordapp.com/attachments/1090202756431745034/1090202756695998504/Whisperin_PNG_Jay.png"
     },
     {
-        "name": "Jay",
+        "author": "Jay",
+        "title": "Jackson getting milk",
         "img": "https://cdn.discordapp.com/attachments/1090683252618051694/1090683252957794395/MilkstoreJack.png"
     },
     {
-        "name": "SizzCake",
+        "author": "SizzCake",
+        "title": "Invincible Cannon",
         "img": "https://cdn.discordapp.com/attachments/1090831720896528415/1090831721588600944/invincible.png"
     },
     {
-        "name": "SizzCake",
+        "author": "SizzCake",
+        "title": "The Boys",
         "img": "https://cdn.discordapp.com/attachments/1091577179151798302/1091577179604787251/april_fools.png"
     },
     {
-        "name": "Jay",
+        "author": "Jay",
+        "title": "Sus Whisper 2.0",
         "img": "https://cdn.discordapp.com/attachments/1092221653515259904/1092221653716574328/SUSWHISPER_2.png"
     },
     {
-        "name": "SizzCake",
+        "author": "Jay",
+        "title": "McOK",
         "img": "https://cdn.discordapp.com/attachments/1094997439523606630/1094997439792021514/McOK..png"
     },
     {
-        "name": "Jay",
-        "img": "https://cdn.discordapp.com/attachments/1095488351861223506/1095488352108679199/Jackson_Luffy_April_PNG.png"
-    }, 
-    {
-        "name": "Jay",
+        "author": "SizzCake",
+        "title": "Edgerunner Carter",
         "img": "https://cdn.discordapp.com/attachments/1090104637882904586/1090104638159720579/edgerunner.png"
+    },
+    {
+        "author": "Jay",
+        "title": "Luffy Jackson!",
+        "img": "https://cdn.discordapp.com/attachments/1095488351861223506/1095488352108679199/Jackson_Luffy_April_PNG.png"
     }
+   
 ]
