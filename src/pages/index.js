@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { useSession, signOut, signIn } from 'next-auth/react'
-import Navbar from '@/components/Utility/Navbar';
+import Navbar from '@/components/Layouts/Navbar';
 import PostCard from '@/components/Content/Patreon/PostCard';
 import fetchUserTier from '@/utils/fetch_user_tier';
 import fetchCampaignPosts from '@/utils/fetch_campaign_posts'

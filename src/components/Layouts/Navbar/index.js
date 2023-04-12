@@ -27,7 +27,7 @@ export default function App() {
             <Navbar.Content hideIn="xs">
 
 
-                <Navbar.Link href="#">Patreon</Navbar.Link>
+                <Navbar.Link target="_blank" href="https://www.patreon.com/studiogek/">Patreon</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://discord.gg/studiogek">Discord</Navbar.Link>
 
                 <Dropdown>
@@ -42,7 +42,7 @@ export default function App() {
                     </Dropdown.Menu>
                 </Dropdown>
                 <Navbar.Link href="#fan-art">Fan Art</Navbar.Link>
-                <Navbar.Link href="#">Shop</Navbar.Link>
+                <Navbar.Link target="_blank" href="https://shop.studiogekyt.com/">Shop</Navbar.Link>
 
             </Navbar.Content>
 
