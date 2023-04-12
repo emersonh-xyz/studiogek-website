@@ -8,6 +8,7 @@ export default async (req, res) => {
     const getTierId = async () => {
 
         const url = `https://www.patreon.com/api/oauth2/v2/identity?include=memberships.currently_entitled_tiers`
+        // const url = `https://www.patreon.com/api/oauth2/v2/identity`
 
         const results = await fetch(url, {
             headers: {
@@ -16,12 +17,14 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
-        for (const obj of results.included) {
-            const tier = tierList.find((tier) => tier.id === obj.id);
-            if (tier) {
-                return tier.id;
-            }
-        }
+        console.log(results.data.relationships.campaign)
+
+        // for (const obj of results.included) {
+        //     const tier = tierList.find((tier) => tier.id === obj.id);
+        //     if (tier) {
+        //         return tier.id;
+        //     }
+        // }
 
         return "";
     }
@@ -29,6 +32,7 @@ export default async (req, res) => {
     try {
 
         const tierId = await getTierId();
+
 
         return res.status(200).json({
             status: "Ok",

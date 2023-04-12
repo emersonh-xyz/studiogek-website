@@ -6,7 +6,9 @@ export default async (req, res) => {
 
     try {
 
-        const url = `https://www.patreon.com/api/oauth2/v2/campaigns/${process.env.PATREON_CAMPAIGN_ID}?include=benefits,creator,goals,tiers&fields${encodeURIComponent("[tier]")}=title,description `
+        // const url = `https://www.patreon.com/api/oauth2/v2/campaigns/${process.env.PATREON_CAMPAIGN_ID}?include=benefits,creator,goals,tiers&fields${encodeURIComponent("[tier]")}=title,description `
+        const url = `https://www.patreon.com/api/oauth2/v2/posts/81362626?fields${encodeURIComponent('[post]')}=title,content,is_paid,is_public,published_at,url,embed_data,embed_url,app_id,app_status`
+
 
         const results = await fetch(url, {
             headers: {
@@ -15,11 +17,13 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
-        // console.log(results.data.relationships.tiers)
+
+
+        console.log(results)
 
         return res.status(200).json({
             status: "Ok",
-            data: results.data.relationships.tiers
+            data: results.data
         })
 
     } catch (e) {

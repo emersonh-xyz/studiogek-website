@@ -33,25 +33,29 @@ export default function Login() {
                     <Card variant="bordered" css={{ mw: "400px", d: "flex", justifyContent: "center", alignItems: "center" }}>
                         <Card.Header css={{}}>
                             <Image width={200} height={200} src="/static/logo_white.png" />
-
                         </Card.Header>
 
+                        <Card.Header css={{ d: "flex", justifyContent: "center", flexDirection: "column" }}>
+                            <Text h4>Welcome to Studio Gek</Text>
+                            <Text weight={"thin"} h5>To get started, login to your Patreon account</Text>
+                        </Card.Header>
 
                         <Card.Body>
 
                             <Button
                                 onClick={() => signIn('patreon', {
-                                    callbackUrl: `${redirectURL}`
+                                    callbackUrl: `${redirectURL}`,
+
                                 })}
-                                auto icon={<Icon icon={"mdi:patreon"} />} color="gradient">
-                                Continue with patreon
+                                auto icon={<Icon icon={"mdi:patreon"} />} >
+                                Continue with Patreon
                             </Button>
 
                         </Card.Body>
 
-
-                        <Text css={{ ta: "center", pb: "$4" }}>By continuing, you agree to our <a className="link font-bold"> Privacy Policy</a></Text>
-
+                        <Card.Footer css={{ d: "flex", justifyContent: "center" }}>
+                            <Text>By continuing, you agree to our <a className="link font-bold"> Privacy Policy</a></Text>
+                        </Card.Footer>
                     </Card>
 
 

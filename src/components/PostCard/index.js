@@ -17,6 +17,11 @@ export default function PostCard({ props }) {
 
     const router = useRouter();
 
+
+    function getPostURLEnding(str) {
+        return str.replace(/\/posts\//, "");
+    }
+
     function getDate() {
         const pastDate = new Date(props.attributes.published_at);
         const timeSince = Date.now() - pastDate.getTime();
@@ -35,7 +40,12 @@ export default function PostCard({ props }) {
 
     return (
         <Grid xs={6} sm={3} >
-            <Card variant="bordered" isPressable isHoverable css={{ p: "$10", h: "$90", w: "" }}>
+            <Card variant="bordered" isPressable isHoverable css={{
+                p: "$10",
+                bgBlur: "#0f111466",
+                h: "$60",
+
+            }}>
                 <Card.Header>
                     <Icon width={34} height={34} icon={"mdi:patreon"} />
                     <Grid.Container css={{ pl: "$6" }}>
@@ -49,17 +59,18 @@ export default function PostCard({ props }) {
                         </Grid>
                     </Grid.Container>
                 </Card.Header>
-                <Card.Image
+                {/* <Card.Image
                     src="https://yt3.ggpht.com/PafdZtxMbe6L3u7-V-GvBKAcAPNvOUjr7t0RHMM2pWPfuXrcA4ZnNDFmT33jltbLilbzodko3zZqwRA=s640-c-fcrop64=1,20000000dfffffff-nd-v1"
                     objectFit="cover"
                     width="100%"
                     height={140}
                     alt="Card image background"
-                />
+                /> */}
                 <Card.Body css={{ p: 0 }}>
-                    <Text >
+                    <Text css={{ overflow: "hidden" }}>
                         {parse(props.attributes.content)}
                     </Text>
+
                 </Card.Body>
                 <Card.Footer>
                     <Text
@@ -69,7 +80,7 @@ export default function PostCard({ props }) {
                         onClick={() => {
                             router.push({
                                 pathname: '/post/[pid]',
-                                query: { pid: props.id }
+                                query: { pid: getPostURLEnding(props.attributes.url) }
                             })
                         }}
                     >

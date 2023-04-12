@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { Icon } from '@iconify/react';
 import { Container, Text, Button, Spacer } from '@nextui-org/react';
 import parse from "html-react-parser"
+import Link from 'next/link';
 
 
 export default function Post() {
@@ -20,24 +21,35 @@ export default function Post() {
     const { pid } = router.query;
 
 
+
+    // Get the seven digits at the end of the post url
+    function getPostID(str) {
+        const regex = /\d{8}$/; // match the last 7 digits
+        const match = str.match(regex);
+        console.log(match)
+        return match ? match[0] : null;
+    }
+
+
     // Get post from search params
     const getPost = async (id) => {
+
         const results = await fetchCampaignPost(id);
         setPost(results.data);
 
-        const urlId = getStreamableLink(results.data.attributes.content);
+        const urlId = getStreamableLink(results.data?.attributes.content);
         setStreamableId(urlId)
     }
+
 
     // Get streamable link from the post
     const getStreamableLink = (text) => {
 
         const pattern = /https?:\/\/(?:www\.)?streamable\.com\/(\w{6})/;
         // Use the match method to extract an array of all matches
-        const matches = text.match(pattern);
+        const matches = text?.match(pattern);
 
         // Map the last 6 characters of each match
-
         if (matches) {
             const match = matches.map(match => match.slice(-6));
             return match[0]
@@ -56,7 +68,8 @@ export default function Post() {
         }
 
         // Call our asyncronous function
-        getPost(pid)
+        const id = getPostID(pid);
+        getPost(id)
 
         return () => {
             // this now gets called when the component unmounts
@@ -88,27 +101,29 @@ export default function Post() {
                             <Text h1>{post?.attributes.title}</Text>
                             <div dangerouslySetInnerHTML={{ __html: post?.attributes.content }} />
 
-                            <Button auto icon={<Icon icon={"mdi:patreon"} />} color="gradient">
-                                View post on Patreon
-                            </Button>
+                            <a target="_blank" href={`https://patreon.com${post?.attributes.url}`}>
+                                <Button auto icon={<Icon icon={"mdi:patreon"} />} color="gradient">
+                                    View post on Patreon
+                                </Button>
+                            </a>
                         </div>
                     }
 
                     {streamableId &&
 
-                        <Container alignContent='center' justify='center' display='flex' direction='column'>
+                        <Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
 
                             <Text css={{ ta: "center" }} h1>{post?.attributes.title}</Text>
 
                             <iframe
 
                                 style={{
-                                    border: "2px solid #ffffff"
+                                    border: "2px solid "
                                 }}
-                                className="streamable-embed"
                                 src={`https://streamable.com/o/${streamableId}`}
-                                frameBorder="0" scrolling="no" width="1280"
-                                height="720" allowFullScreen>
+                                width="1600"
+                                height="900" allowFullScreen>
+                                Browser not compatible
                             </iframe>
                         </Container>
                     }

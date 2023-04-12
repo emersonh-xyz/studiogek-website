@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { createTheme, NextUIProvider } from "@nextui-org/react"
 import useDarkMode from "use-dark-mode"
+import '../styles/globals.css';
 
 export default function App({
 

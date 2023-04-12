@@ -2,30 +2,6 @@ import NextAuth from "next-auth/next";
 import PatreonProvider from "next-auth/providers/patreon"
 
 
-
-const getTierId = async (account) => {
-
-    const tierList = require("../../../config/tiers.json")
-
-    const url = `https://www.patreon.com/api/oauth2/v2/identity?include=memberships.currently_entitled_tiers`
-
-    const results = await fetch(url, {
-        headers: {
-            'Authorization': 'Bearer ' + account.access_token,
-            'user-agent': 'Chrome: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'
-        },
-    }).then((res) => res.json())
-
-    for (const obj of results.included) {
-        const tier = tierList.find((tier) => tier.id === obj.id);
-        if (tier) {
-            return tier.id;
-        }
-    }
-
-    return "";
-}
-
 export const authOptions = {
     providers: [
         // DiscordProvider({
