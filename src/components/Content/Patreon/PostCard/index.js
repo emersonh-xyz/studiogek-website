@@ -40,10 +40,10 @@ export default function PostCard({ props }) {
 
     return (
         <Grid xs={6} sm={3} >
-            <Card variant="bordered" isPressable isHoverable css={{
+            <Card variant="flat" isPressable isHoverable css={{
                 p: "$10",
                 h: "$60",
-                backgroundColor: "$accents2"
+                backgroundColor: "$accents0"
 
             }}>
                 <Card.Header>
