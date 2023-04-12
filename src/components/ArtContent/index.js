@@ -1,38 +1,38 @@
-import { Card, Container, Text, Grid, Col, Badge, Tooltip } from "@nextui-org/react";
+import { Card, Container, Text, Grid, Tooltip, Link, Modal, Image } from "@nextui-org/react";
 import Artwork from '../../config/fan_art_submissions'
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 
 
-export default function ArtContainer() {
+export default function ArtContent() {
+
 
     const Art = () => {
         return (
-            Artwork.map((art) => {
+            Artwork.map((art, index) => {
+
                 return (
-                    <Grid >
+                    <Grid xs={4}>
                         <Tooltip
-                            content={`Art by ${art.name}`}
+                            content={`${art.title} by ${art.author}`}
                             trigger="hover"
                             shadow
-                            color="secondary"
+                            color="invert"
+                            placement="bottom"
                         >
+                            <Card css={{ backgroundColor: "$background" }} isHoverable isPressable >
+                                <Image
+                                    src={art.img}
+                                    objectFit="scale-down"
+                                    height={400}
+                                    width={400}
+                                    alt="Card image background"
+                                />
+                            </Card>
 
-
-                            <a href={art.img} target="_blank">
-                                <Card isHoverable isPressable>
-                                    <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
-                                    </Card.Header>
-                                    <Card.Image
-                                        src={art.img}
-                                        objectFit="fill"
-                                        height={300}
-                                        alt="Card image background"
-                                    />
-                                </Card>
-                            </a>
                         </Tooltip>
                     </Grid >
+
                 )
             })
         )
@@ -41,41 +41,44 @@ export default function ArtContainer() {
 
     return (
 
-        <Card variant='bordered' css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }}>
-            <Container gap={0} css={{ d: "flex", }}>
+        <Card variant='bordered' css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }} id="fan-art">
+            <Container gap={0} css={{ d: "flex", justifyContent: "center" }}>
+
+
                 <Text
                     h1
                     size={60}
                     weight="bold"
+
                 >
-                    Fan Art
+                    Wall of
                 </Text>
 
                 <Text
                     h1
                     size={60}
                     weight="bold"
-                    css={{ ml: "$7", }}
-                    color='secondary'
+                    css={{ textGradient: "45deg, $purple600 -20%, $pink600 100%", ml: "$7" }}
                 >
-                    Submissions
+                    Fan Art
                 </Text>
 
 
             </Container>
 
 
-
             <Text
                 h4
-                weight="thin">
-                💗 Artwork submitted by members from our Discord
+                weight="thin"
+                css={{ ta: "center" }}>
+                Artwork submitted by members from our Discord
             </Text>
 
 
-            <Grid.Container gap={5} justify="center">
+            <Grid.Container gap={5} justify="flex-start">
 
                 <Art />
+
 
             </Grid.Container>
 

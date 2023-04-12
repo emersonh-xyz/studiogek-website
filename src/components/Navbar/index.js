@@ -30,6 +30,8 @@ export default function App() {
 
 
                 <Navbar.Link href="#">Patreon</Navbar.Link>
+                <Navbar.Link target="_blank" href="https://discord.gg/studiogek">Discord</Navbar.Link>
+
                 <Dropdown>
                     <Dropdown.Button bordered rounded color="gradient" auto >Reactions</Dropdown.Button>
                     <Dropdown.Menu aria-label="Static Actions">
@@ -41,9 +43,8 @@ export default function App() {
 
                     </Dropdown.Menu>
                 </Dropdown>
-                <Navbar.Link href="#">Merchandise</Navbar.Link>
-
-
+                <Navbar.Link href="#fan-art">Fan Art</Navbar.Link>
+                <Navbar.Link href="#">Shop</Navbar.Link>
 
             </Navbar.Content>
 
