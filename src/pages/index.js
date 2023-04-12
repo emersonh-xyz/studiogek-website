@@ -1,17 +1,18 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import { useSession, signOut, signIn } from 'next-auth/react'
-import Navbar from '@/components/Navbar';
-import PostCard from '@/components/PostCard';
+import Navbar from '@/components/Utility/Navbar';
+import PostCard from '@/components/Content/Patreon/PostCard';
 import fetchUserTier from '@/utils/fetch_user_tier';
 import fetchCampaignPosts from '@/utils/fetch_campaign_posts'
 import { useRouter } from 'next/router';
 import { Container, Card, Row, Text, Grid, Badge } from "@nextui-org/react";
-import LoadingSpinner from '@/components/LoadingSpinner';
-import DiscordWidget from '@/components/DiscordWidget'
-import PatreonContent from '@/components/PatreonContent';
-import YoutubeContent from '@/components/YoutubeContent';
-import ArtContent from '@/components/ArtContent';
+import LoadingSpinner from '@/components/Utility/LoadingSpinner';
+import DiscordWidget from '@/components/Utility/DiscordWidget'
+import PatreonContent from '@/components/Content/Patreon';
+import YoutubeContent from '@/components/Content/Youtube';
+import ArtContent from '@/components/Content/FanArt';
+import Home from '@/components/Layouts/Home/Home.js'
 
 export default function Patreon() {
 
@@ -51,28 +52,19 @@ export default function Patreon() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
+      {/* <header>
         <Navbar />
-      </header>
+      </header> */}
 
       <main>
-        <Container lg gap={0}>
 
-          <PatreonContent />
 
-          <YoutubeContent />
 
-          <ArtContent />
-
-        </Container>
-
+        <Home />
 
 
       </main >
 
-      <footer>
-
-      </footer>
 
     </div >
   )

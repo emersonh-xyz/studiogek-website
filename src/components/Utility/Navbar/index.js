@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import Image from "next/image";
 
 export default function App() {
-    const [variant, setVariant] = useState("floating");
+    const [variant, setVariant] = useState("sticky");
     const [redirectURL, setRedirectURL] = useState();
 
     useEffect(() => {
@@ -13,8 +13,6 @@ export default function App() {
     }, [])
 
     const { data: session } = useSession()
-
-    const variants = ["static", "floating", "sticky"];
 
     return (
         <Navbar isBordered variant={variant}>

@@ -31,7 +31,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
 
-      <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
+      <NextUIProvider theme={lightTheme}>
         <Component {...pageProps} />
       </NextUIProvider>
     </SessionProvider>

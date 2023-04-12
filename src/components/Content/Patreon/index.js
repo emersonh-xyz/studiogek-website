@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import PostCard from '@/components/PostCard';
+import PostCard from '@/components/Content/Patreon/PostCard';
 import fetchCampaignPosts from '@/utils/fetch_campaign_posts'
 import { Container, Card, Text, Grid, Badge } from "@nextui-org/react";
-import LoadingSpinner from '@/components/LoadingSpinner';
+import LoadingSpinner from '@/components/Utility/LoadingSpinner';
 
 export default function PatreonContent() {
 
