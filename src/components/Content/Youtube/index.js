@@ -31,7 +31,7 @@ export default function YoutubeContent() {
             <Text
                 h4
                 weight="thin">
-                Stay up-to-date with Studio Gek's latest uploads on YouTube
+                The latest uploads from our YouTube channel
             </Text>
 
 

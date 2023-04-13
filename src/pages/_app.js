@@ -1,8 +1,7 @@
 import '@/styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { createTheme, NextUIProvider } from "@nextui-org/react"
-import useDarkMode from "use-dark-mode"
-import '../styles/globals.css';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 export default function App({
 
@@ -10,7 +9,6 @@ export default function App({
   pageProps: { session, ...pageProps }
 }) {
 
-  const darkMode = useDarkMode(false);
 
   // 2. Call `createTheme` and pass your custom values
   const lightTheme = createTheme({
@@ -30,10 +28,18 @@ export default function App({
 
   return (
     <SessionProvider session={session}>
-
-      <NextUIProvider theme={lightTheme}>
-        <Component {...pageProps} />
-      </NextUIProvider>
+      <NextThemesProvider
+        defaultTheme="system"
+        attribute="class"
+        value={{
+          light: lightTheme.className,
+          dark: darkTheme.className
+        }}
+      >
+        <NextUIProvider >
+          <Component {...pageProps} />
+        </NextUIProvider>
+      </NextThemesProvider>
     </SessionProvider>
   )
 }

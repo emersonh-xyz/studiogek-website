@@ -3,10 +3,16 @@ import { Navbar, Button, Link, Text, User, Dropdown } from "@nextui-org/react";
 import { signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import { Switch, useTheme } from '@nextui-org/react'
+import { useTheme as useNextTheme } from 'next-themes'
 
 export default function App() {
     const [variant, setVariant] = useState("sticky");
     const [redirectURL, setRedirectURL] = useState();
+
+
+    const { setTheme } = useNextTheme();
+    const { isDark, type } = useTheme();
 
     useEffect(() => {
         setRedirectURL(encodeURIComponent(window.location.origin))
@@ -17,8 +23,7 @@ export default function App() {
     return (
         <Navbar isBordered variant={variant}>
             <Navbar.Brand>
-
-                <Image width={50} height={50} src="/static/logo_white.png"></Image>
+                <Image width={50} height={50} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
                 <Text b color="inherit" hideIn="sm">
                     Studio Gek
                 </Text>
@@ -83,7 +88,14 @@ export default function App() {
                     </Button>
                 }
 
-
+                <Switch
+                    checked={isDark}
+                    onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
+                    size="xs"
+                    bordered
+                    shadow
+                    icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />}
+                />
             </Navbar.Content>
         </Navbar >
 

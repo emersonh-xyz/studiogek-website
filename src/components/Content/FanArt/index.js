@@ -10,7 +10,7 @@ export default function ArtContent() {
             Artwork.map((art) => {
 
                 return (
-                    <Grid xs={4}>
+                    <Grid xs={4} key={art.img}>
                         <Tooltip
                             content={`${art.title} by ${art.author}`}
                             trigger="hover"
@@ -18,7 +18,7 @@ export default function ArtContent() {
                             color="invert"
                             placement="bottom"
                         >
-                            <Card css={{ backgroundColor: "$background" }} isHoverable isPressable >
+                            <Card variant="" css={{ backgroundColor: "$background" }} isPressable >
                                 <Image
                                     src={art.img}
                                     objectFit="scale-down"

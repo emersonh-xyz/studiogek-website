@@ -64,9 +64,7 @@ export default function PatreonContent() {
                     size={60}
                     weight="bold"
                     css={{ ml: "$5" }}
-                    color='$primary'
-
-
+                    color='$warning'
                 >
                     Patreon
                 </Text>
@@ -92,12 +90,12 @@ export default function PatreonContent() {
 
             {status === "unauthenticated" &&
 
-                <Badge css={{ mt: "$5" }} disableOutlin isSquared color="error">
+                <Badge css={{ mt: "$5" }} disableOutline >
                     You must be logged in to view this content
                 </Badge>
 
 
             }
-        </Card>
+        </Card >
     )
 }
