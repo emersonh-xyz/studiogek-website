@@ -10,7 +10,7 @@ export default function ArtContent() {
             Artwork.map((art) => {
 
                 return (
-                    <Grid xs={4} key={art.img}>
+                    <Grid key={art.img}>
                         <Tooltip
                             content={`${art.title} by ${art.author}`}
                             trigger="hover"
@@ -40,7 +40,7 @@ export default function ArtContent() {
     return (
 
         <Card variant='bordered' css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }} id="fan-art">
-            <Container gap={0} css={{ d: "flex", justifyContent: "center" }}>
+            <Container gap={0} css={{ d: "flex", }}>
 
 
                 <Text
@@ -67,13 +67,13 @@ export default function ArtContent() {
 
             <Text
                 h4
-                weight="thin"
-                css={{ ta: "center" }}>
+                weight="medium"
+            >
                 Artwork submitted by members from our Discord
             </Text>
 
 
-            <Grid.Container gap={5} justify="flex-start">
+            <Grid.Container gap={1} justify="flex-start">
 
                 <Art />
 

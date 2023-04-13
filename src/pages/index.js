@@ -14,7 +14,7 @@ import YoutubeContent from '@/components/Content/Youtube';
 import ArtContent from '@/components/Content/FanArt';
 import Home from '@/components/Layouts/Home/Home.js'
 
-export default function Patreon() {
+export default function App() {
 
   const { data: session, status } = useSession()
 

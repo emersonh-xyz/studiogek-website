@@ -73,7 +73,7 @@ export default function PatreonContent() {
 
             <Text
                 h4
-                weight="thin">
+                weight="medium">
                 Stay up-to-date with Studio Gek{"'"}s latest posts
             </Text>
 

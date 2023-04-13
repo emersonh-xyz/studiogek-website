@@ -30,7 +30,7 @@ export default function YoutubeContent() {
 
             <Text
                 h4
-                weight="thin">
+                weight="medium">
                 The latest uploads from our YouTube channel
             </Text>
 
