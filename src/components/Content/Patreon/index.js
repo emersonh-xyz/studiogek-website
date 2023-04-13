@@ -74,7 +74,7 @@ export default function PatreonContent() {
             <Text
                 h4
                 weight="thin">
-                Stay up-to-date with Studio Gek's latest posts
+                Stay up-to-date with Studio Gek{"'"}s latest posts
             </Text>
 
             {postData?.length > 0 ?
