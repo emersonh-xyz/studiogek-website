@@ -1,13 +1,13 @@
-import { useSession } from "next-auth/react"
+import { Container, Text } from "@nextui-org/react";
+
 
 export default function AdminPanel() {
-    const { data: session, status } = useSession();
-
 
 
     return (
-        <div>
-            {session?.user.email}
-        </div>
+        <Container>
+            <Text>Super secret dashboard</Text>
+        </Container>
     )
+
 }
