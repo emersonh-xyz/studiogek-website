@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import PostCard from '@/components/Content/Patreon/PostCard';
-import fetchCampaignPosts from '@/utils/fetch_campaign_posts'
+import fetchRecentPosts from '@/utils/mongo/recent_posts'
 import { Container, Card, Text, Grid, Badge } from "@nextui-org/react";
 import LoadingSpinner from '@/components/Utility/LoadingSpinner';
 
@@ -14,8 +14,9 @@ export default function PatreonContent() {
 
     // Get all of the posts from the campaign
     const getPosts = async () => {
-        const results = await fetchCampaignPosts();
-        setPostData(results.data);
+        const results = await fetchRecentPosts();
+        console.log(results);
+        setPostData(results);
     }
 
     // // Get the current tier of the user
@@ -38,8 +39,8 @@ export default function PatreonContent() {
     // Loop over all post data
     const PostItems = () => {
         return (
-            postData.map((data) => {
-                return <PostCard key={data.id} props={data} content={data.attributes.content} />
+            postData.map((post) => {
+                return <PostCard key={post._id} props={post} />
             })
         )
     }
@@ -56,17 +57,19 @@ export default function PatreonContent() {
                     size={60}
                     weight="bold"
                 >
-                    New from
+                    Full Length
                 </Text>
 
                 <Text
                     h1
                     size={60}
                     weight="bold"
-                    css={{ ml: "$5" }}
-                    color='$warning'
+                    css={{
+                        ml: "$5"
+                    }}
+                    color='$primary'
                 >
-                    Patreon
+                    Reactions
                 </Text>
 
             </Container>
@@ -84,18 +87,10 @@ export default function PatreonContent() {
                 </Grid.Container >
 
                 :
-                status === "authenticated" && <LoadingSpinner />
+                <LoadingSpinner />
 
             }
 
-            {status === "unauthenticated" &&
-
-                <Badge css={{ mt: "$5" }} disableOutline >
-                    You must be logged in to view this content
-                </Badge>
-
-
-            }
         </Card >
     )
 }

@@ -1,13 +1,16 @@
 import Navbar from "@/components/Layouts/Navbar";
 import Head from "next/head";
-import { Image } from "@nextui-org/react";
+import { Image, useTheme } from "@nextui-org/react";
 import { useSession, signOut, signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import { Button, Card, Container, Grid, Text } from "@nextui-org/react";
+import { useTheme as useNextTheme } from 'next-themes'
+
 
 export default function Login() {
 
+    const { isDark, type } = useTheme();
     const searchParams = useSearchParams();
 
     // Get redirect address from Search Params
@@ -31,8 +34,8 @@ export default function Login() {
                 <Container css={{ mt: "$2xl" }} justify="center" alignItems="center" alignContent="center" display="flex" >
 
                     <Card variant="bordered" css={{ mw: "400px", d: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <Card.Header css={{}}>
-                            <Image width={200} height={200} src="/static/logo_white.png" />
+                        <Card.Header css={{ p: 0 }}>
+                            <Card.Image width={250} height={250} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"} />
                         </Card.Header>
 
                         <Card.Header css={{ d: "flex", justifyContent: "center", flexDirection: "column" }}>

@@ -13,15 +13,25 @@ export const authOptions = {
             clientSecret: process.env.PATREON_CLIENT_SECRET
         })
     ],
-    secret: process.env.JWT_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, account, profile, user }) {
 
+            // Aquire our token & id from account inormation
             if (account) {
                 token.accessToken = account.access_token
                 token.id = profile.id
 
             }
+
+            // Sets an isAdmin to True / False if they exist in the user list
+            if (user) {
+                const administrators = ['emersonhicks003@gmail.com', 'ehicks23@uncc.edu']
+                if (administrators.includes(user?.email)) {
+                    token.role = "admin"
+                }
+            }
+
             return token;
         },
 
@@ -32,22 +42,6 @@ export const authOptions = {
 
             return session
         },
-
-        // async signIn(user, account, profile) {
-
-
-        //     console.log(user)
-
-        //     if (user.account.provider === 'patreon') {
-        //         const tier = await getTierId(user)
-        //         console.log(tier);
-
-        //         return {
-        //             ...user,
-        //             tier,
-        //         }
-        //     }
-        // }
 
     }
 

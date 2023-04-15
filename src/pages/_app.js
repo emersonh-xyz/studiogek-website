@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { createTheme, NextUIProvider } from "@nextui-org/react"
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { SSRProvider } from '@react-aria/ssr';
 
 export default function App({
 
@@ -27,19 +28,22 @@ export default function App({
 
 
   return (
-    <SessionProvider session={session}>
-      <NextThemesProvider
-        defaultTheme="system"
-        attribute="class"
-        value={{
-          light: lightTheme.className,
-          dark: darkTheme.className
-        }}
-      >
-        <NextUIProvider >
-          <Component {...pageProps} />
-        </NextUIProvider>
-      </NextThemesProvider>
-    </SessionProvider>
+
+    <SSRProvider>
+      <SessionProvider session={session}>
+        <NextThemesProvider
+          defaultTheme="system"
+          attribute="class"
+          value={{
+            light: lightTheme.className,
+            dark: darkTheme.className
+          }}
+        >
+          <NextUIProvider >
+            <Component {...pageProps} />
+          </NextUIProvider>
+        </NextThemesProvider>
+      </SessionProvider>
+    </SSRProvider>
   )
 }
