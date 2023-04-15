@@ -12,7 +12,7 @@ import DiscordWidget from '@/components/Utility/DiscordWidget'
 import PatreonContent from '@/components/Content/Patreon';
 import YoutubeContent from '@/components/Content/Youtube';
 import ArtContent from '@/components/Content/FanArt';
-import Home from '@/components/Layouts/Home/Home.js'
+import Home from '@/components/Layouts/Pages/Home/Home.js'
 
 export default function App() {
 

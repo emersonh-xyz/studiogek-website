@@ -24,7 +24,7 @@ export default function App() {
         <Navbar isBordered variant={variant}>
             <Navbar.Brand>
                 <Image width={50} height={50} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
-                <Text b color="inherit" hideIn="sm">
+                <Text href="/" as={Link} b color="inherit" hideIn="sm">
                     Studio Gek
                 </Text>
 
@@ -38,12 +38,10 @@ export default function App() {
                 <Dropdown>
                     <Dropdown.Button bordered rounded color="gradient" auto >Reactions</Dropdown.Button>
                     <Dropdown.Menu aria-label="Static Actions">
-                        <Dropdown.Item key="Attack On Titan"> <Navbar.Link href="#">Attack On Titan</Navbar.Link></Dropdown.Item>
-                        <Dropdown.Item key="The Mandalorian">The Mandalorian</Dropdown.Item>
-                        <Dropdown.Item key="The Last Of Us">The Last Of Us</Dropdown.Item>
-                        <Dropdown.Item key="Vinland Sagas">Vinland Saga</Dropdown.Item>
-
-
+                        <Dropdown.Item key="Attack On Titan"> <Navbar.Link href="/reaction/tags/attack-on-titan">Attack On Titan</Navbar.Link></Dropdown.Item>
+                        <Dropdown.Item key="The Mandalorian"> <Navbar.Link href="/reaction/tags/the-mandalorian">The Mandalorian</Navbar.Link></Dropdown.Item>
+                        <Dropdown.Item key="The Last Of Us"><Navbar.Link href="/reaction/tags/the-last-of-us">The Last Of Us</Navbar.Link></Dropdown.Item>
+                        <Dropdown.Item key="Vinland Sagas"><Navbar.Link href="/reaction/tags/vinland-saga">Vinland Saga</Navbar.Link></Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <Navbar.Link href="#fan-art">Fan Art</Navbar.Link>

@@ -1,7 +1,12 @@
 import clientPromise from '../../../../lib/mongodb'
 import slugify from 'slugify'
+import { getToken } from 'next-auth/jwt'
 
 export default async function handler(req, res) {
+
+    const secret = process.env.NEXTAUTH_SECRET
+
+    const token = await getToken({ req, secret });
 
     const client = await clientPromise
     const db = client.db("studiogek_website")
@@ -17,12 +22,17 @@ export default async function handler(req, res) {
         // Limit the length of the resulting string to 50 characters
         safeTitle = safeTitle.substring(0, 50);
 
+
+        // Add a random 6-digit number and a hyphen to the end of the URL
+        const randomNum = Math.floor(Math.random() * 900000) + 100000;
+        safeTitle += `-${randomNum}`;
+
         // Return the safe URL route
         return safeTitle
     };
 
 
-    if (req.method === "POST") {
+    if (req.method === "POST" && token?.role === "admin") {
 
         try {
 
@@ -36,6 +46,7 @@ export default async function handler(req, res) {
                 safeTitle: safeTitle,
                 streamableId: streamableId,
                 imageUrl: imageUrl,
+                timestamp: new Date(),
                 tier: tier,
                 tag: tag
             })
@@ -55,6 +66,6 @@ export default async function handler(req, res) {
         }
 
     } else {
-        res.status(405).json({ message: "Method Not Allowed" });
+        res.status(405).json({ message: "Not Allowed" });
     }
 }
