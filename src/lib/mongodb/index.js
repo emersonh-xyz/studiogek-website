@@ -1,23 +1,19 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+import { MongoClient } from 'mongodb'
 
-const URI = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI;
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}
 
-let clientPromise
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(URI)
+let client
+let clientPromise
 
-
-if (process.env.NODE_ENV !== 'production') {
-
-    if (!global._mongoClientPromise) {
-        global._mongoClientPromise = client.connect()
-    }
-
-    clientPromise = global._monogClientPromise
-} else {
-
-    clientPromise = client.connect();
+if (!clientPromise) {
+    client = new MongoClient(uri, options)
+    clientPromise = client.connect().then(console.log("MongoDB connection established"))
 }
 
 export default clientPromise

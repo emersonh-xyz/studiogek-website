@@ -1,5 +1,7 @@
 import { Button, Container, Text, Collapse, Card, Input, Radio, Grid, Spacer } from "@nextui-org/react";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/router";
+import { useState } from "react";
+
 
 
 export default function AdminPanel() {
@@ -11,26 +13,27 @@ export default function AdminPanel() {
     const [streamableId, setStreamableId] = useState("");
     const [imageUrl, setImageUrl] = useState("");
 
+    const router = useRouter();
 
     async function handleSubmit(e) {
 
-        e.preventDefault();
-        const formData = new FormData();
+        const data = {
+            title: postTitle,
+            streamableId: streamableId,
+            imageUrl: imageUrl,
+            tag: checkedTier,
+            tier: checkedTier,
 
-        formData.append('title', postTitle);
-        formData.append('streamableId', setStreamableId);
-        formData.append('imageUrl', imageUrl)
-        formData.append('tag', checkedTag)
-        formData.append('tier', checkedTier)
+        }
 
-        const response = await axios.post('/api/posts', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        const response = await fetch('/api/posts/new', {
+            method: "POST",
+            body: JSON.stringify(data)
+        }).then((res) => res.json());
 
-        console.log(response);
+        const url = response.data.url
 
+        router.push(`/reaction/${url}`)
     }
 
     return (
@@ -41,7 +44,7 @@ export default function AdminPanel() {
 
                 <Card css={{ height: "fit-content" }}>
                     <Card.Body >
-                        <Text h1 color="success">Create Post</Text>
+                        <Text h1 >Create Post</Text>
                         <Input
                             rounded
                             bordered
@@ -57,7 +60,7 @@ export default function AdminPanel() {
                             bordered
                             label="Streamable Video ID"
                             placeholder="pxxcct"
-                            color="secondary"
+
                             value={streamableId}
                             onChange={((e) => setStreamableId(e.target.value))}
 
@@ -68,7 +71,7 @@ export default function AdminPanel() {
                             bordered
                             label="Thumbnail Link"
                             placeholder="https://image.com/png"
-                            color='warning'
+
                             value={imageUrl}
                             onChange={((e) => setImageUrl(e.target.value))}
 
@@ -94,7 +97,7 @@ export default function AdminPanel() {
                         </Grid.Container>
 
 
-                        <Button onPress={() => { handleSubmitr() }} flat color="success" css={{ mt: 5 }}>Upload Post</Button>
+                        <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 5 }}>Upload Post</Button>
                     </Card.Body>
 
                 </Card>
@@ -104,7 +107,7 @@ export default function AdminPanel() {
                 <Card>
 
                     <Card.Header>
-                        <Text h1 color="success">Post Preview</Text>
+                        <Text h1>Post Preview</Text>
 
                     </Card.Header>
                     <Card.Body>
