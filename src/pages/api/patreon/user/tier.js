@@ -20,7 +20,7 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
-        console.log(results.included[0].relationships.currently_entitled_tiers)
+        // console.log(results.included)
 
         // for (const obj of results.included) {
         //     const tier = tierList.find((tier) => tier.id === obj.id);
@@ -28,8 +28,7 @@ export default async (req, res) => {
         //         return tier.id;
         //     }
         // }
-
-        return "";
+        return results.included[0].relationships.currently_entitled_tiers;
     }
 
     try {

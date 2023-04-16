@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { Switch, useTheme } from '@nextui-org/react'
 import { useTheme as useNextTheme } from 'next-themes'
+import fetchUserTier from "@/utils/fetch_user_tier";
 
 export default function App() {
     const [variant, setVariant] = useState("sticky");
@@ -13,8 +14,18 @@ export default function App() {
 
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
+    const [userTier, setUserTier] = useState();
+
+    // Get the current tier of the user
+    const getTier = async () => {
+        const result = await fetchUserTier();
+        let tier = result.data.data[0].id
+        setUserTier(tier);
+    }
 
     useEffect(() => {
+
+        getTier();
         setRedirectURL(encodeURIComponent(window.location.origin))
     }, [])
 
@@ -60,7 +71,7 @@ export default function App() {
                                     name={`${session.user.name}`}
                                     bordered
                                     color="success"
-                                    description="Gek Tier" />
+                                    description={userTier} />
                             </Dropdown.Trigger>
                         </Navbar.Item>
                         <Dropdown.Menu
