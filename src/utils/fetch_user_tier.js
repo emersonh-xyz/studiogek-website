@@ -6,9 +6,11 @@ export default async function fetchUserTier() {
             return res.json();
         })
 
-    // Filter out the tier from tierList.json
-    const tier = tierList.find((tier) => tier.id === results.data);
+    console.log(results)
 
-    return tier;
+    // // Filter out the tier from tierList.json
+    // const tier = tierList.find((tier) => tier.id === results.data);
+
+    return results;
 
 }

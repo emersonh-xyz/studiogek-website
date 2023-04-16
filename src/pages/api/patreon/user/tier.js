@@ -1,13 +1,16 @@
 import { getToken } from 'next-auth/jwt'
 
 export default async (req, res) => {
-    const secret = process.env.JWT_SECRET
+    const secret = process.env.NEXTAUTH_SECRET
     const token = await getToken({ req, secret: secret })
     const tierList = require("../../../../config/tiers.json")
 
     const getTierId = async () => {
 
+        // const url = `https://www.patreon.com/api/oauth2/v2/identity?include=memberships.currently_entitled_tiers`
+
         const url = `https://www.patreon.com/api/oauth2/v2/identity?include=memberships.currently_entitled_tiers`
+
         // const url = `https://www.patreon.com/api/oauth2/v2/identity`
 
         const results = await fetch(url, {
@@ -17,7 +20,7 @@ export default async (req, res) => {
             },
         }).then((res) => res.json())
 
-        console.log(results.data.relationships.campaign)
+        console.log(results.included[0].relationships.currently_entitled_tiers)
 
         // for (const obj of results.included) {
         //     const tier = tierList.find((tier) => tier.id === obj.id);
