@@ -9,32 +9,18 @@ export default function App() {
 
   const { data: session, status } = useSession()
 
-  const [userTier, setUserTier] = useState();
-  const [postData, setPostData] = useState([]);
-  const [authed, setAuthed] = useState();
-
   const router = useRouter();
 
-  // Get the current tier of the user
-  const getTier = async () => {
-    const results = await fetchUserTier();
-    setUserTier(results);
-  }
+  // const getAllTiers = async () => {
+  //   const results = await fetch('/api/patreon/admin/creator-tiers')
+  //     .then((res) => res.json())
+  //     .catch((err) => console.log(err))
 
-  const getAllTiers = async () => {
-    const results = await fetch('/api/patreon/admin/creator-tiers')
-      .then((res) => res.json())
-      .catch((err) => console.log(err))
+  //   console.log(results)
 
-
-  }
-
+  // }
 
   useEffect(() => {
-
-    // Call our asyncronous functions
-    getTier()
-    getAllTiers()
 
     return () => {
       // this now gets called when the component unmounts

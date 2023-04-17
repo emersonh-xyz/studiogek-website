@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Card, Text, Grid, Button, Link, Container, Tooltip, Row } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
 import { useSession } from 'next-auth/react';
+import timeAgo from '@/utils/timeAgo';
 
 
 
@@ -11,37 +12,15 @@ export default function PostCard({ props }) {
     const { data: session, status } = useSession()
     const router = useRouter();
 
-    function timeAgo(timestamp) {
-        const date = new Date(timestamp);
-        const now = new Date();
-        const seconds = Math.floor((now - date) / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-
-        if (seconds < 50) {
-            return "Just now";
-        } else if (seconds < 60) {
-            return `${seconds} second${seconds === 1 ? '' : 's'} ago`;
-        } else if (minutes < 60) {
-            return `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
-        } else if (hours < 24) {
-            return `${hours} hour${hours === 1 ? '' : 's'} ago`;
-        } else if (days < 7) {
-            return `${days} day${days === 1 ? '' : 's'} ago`;
-        } else {
-            return date.toLocaleDateString();
-        }
-    }
-
     return (
         <Grid sm={4} >
             <Card variant='flat' css={{ mw: "400px", backgroundColor: "$accents0" }}>
                 <Card.Header css={{ flexDirection: "column" }}>
                     <Text h4 b>{props?.title}</Text>
+
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <Icon icon={"ic:outline-access-time-filled"}></Icon>
-                        <Text css={{ ml: "$1" }}>Posted {timeAgo(props.timestamp)}</Text>
+                        <Text css={{ ml: "$2" }}>Posted {timeAgo(props.timestamp)}</Text>
                     </div>
                 </Card.Header>
                 <Card.Divider />

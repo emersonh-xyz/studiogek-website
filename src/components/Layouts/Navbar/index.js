@@ -10,22 +10,19 @@ import fetchUserTier from "@/utils/fetch_user_tier";
 export default function App() {
     const [variant, setVariant] = useState("sticky");
     const [redirectURL, setRedirectURL] = useState();
+    const [userTier, setUserTier] = useState();
 
 
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
-    const [userTier, setUserTier] = useState();
 
-    // Get the current tier of the user
     const getTier = async () => {
-        const result = await fetchUserTier();
-        let tier = result.data.data[0].id
-        setUserTier(tier);
+        const results = await fetchUserTier();
+        setUserTier(results.data);
     }
 
     useEffect(() => {
-
-        getTier();
+        getTier()
         setRedirectURL(encodeURIComponent(window.location.origin))
     }, [])
 
@@ -71,7 +68,7 @@ export default function App() {
                                     name={`${session.user.name}`}
                                     bordered
                                     color="success"
-                                    description={userTier} />
+                                    description={userTier?.display} />
                             </Dropdown.Trigger>
                         </Navbar.Item>
                         <Dropdown.Menu

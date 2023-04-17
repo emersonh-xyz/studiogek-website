@@ -1,7 +1,7 @@
 import { Button, Container, Text, Card, Input, Radio, Grid, Spacer } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
+import tierList from "../../../../config/tierList"
 
 export default function PostCreator() {
 
@@ -86,9 +86,10 @@ export default function PostCreator() {
                         <Grid>
                             <Radio.Group value={checkedTier}
                                 onChange={setCheckedTier} size="sm" label="Tiers" >
-                                <Radio value="gek">Gek Tier</Radio>
-                                <Radio value="uncut">Uncut Tier</Radio>
-                                <Radio value="voting">Voting</Radio>
+                                <Radio value={tierList[2]}>Gek Tier</Radio>
+                                <Radio value={tierList[1]}>Uncut Tier</Radio>
+                                <Radio value={tierList[0]}>Voting</Radio>
+                                <Radio value={tierList[3]}>Public</Radio>
                             </Radio.Group>
                         </Grid>
                     </Grid.Container>

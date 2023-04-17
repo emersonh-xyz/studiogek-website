@@ -15,7 +15,6 @@ export default function PatreonContent() {
     // Get all of the posts from the campaign
     const getPosts = async () => {
         const results = await fetchRecentPosts();
-        console.log(results);
         setPostData(results);
     }
 

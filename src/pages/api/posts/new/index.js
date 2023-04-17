@@ -41,7 +41,7 @@ export default async function handler(req, res) {
             const safeTitle = createSafeUrl(title)
 
 
-            const result = await collection.insertOne({
+            await collection.insertOne({
                 title: title,
                 safeTitle: safeTitle,
                 streamableId: streamableId,
@@ -59,8 +59,6 @@ export default async function handler(req, res) {
             })
 
         } catch (err) {
-            console.log(err)
-
             res.setHeader('Content-Type', 'application/json');
             res.status(500).json({ message: 'Error inserting document', err })
         }

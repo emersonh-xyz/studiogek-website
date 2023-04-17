@@ -1,14 +1,23 @@
 import Head from 'next/head';
-import { Text, Container } from '@nextui-org/react';
+import { Text, Container, Button, Link } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/Utility/LoadingSpinner';
 import Navbar from '@/components/Layouts/Navbar/index.js';
+import timeAgo from '@/utils/timeAgo';
+import { Icon } from '@iconify/react';
+import { signIn, useSession } from 'next-auth/react';
 
 export default function Reaction() {
 
     const [post, setPost] = useState();
-    const [isLoading, setLoading] = useState(true);
+    const [requiredTier, setRequiredTier] = useState();
+
+    const [hasAccess, setAccess] = useState();
+    const [isLoading, setLoading] = useState(false);
+    const [redirectUrl, setRedirectURL] = useState();
+
+    const { data: session, status } = useSession()
 
     const router = useRouter();
     const { id } = router.query;
@@ -18,8 +27,14 @@ export default function Reaction() {
             .then((res) => res.json())
             .catch((err) => alert(err));
 
-        console.log(result.post[0])
-        setPost(result.post[0])
+        if (result.status === 401) {
+            setAccess(false);
+            setRequiredTier(result.data)
+        } else if (result.status === 200) {
+            setAccess(true)
+            setPost(result.data[0])
+        }
+
         setLoading(false)
 
     }
@@ -30,7 +45,13 @@ export default function Reaction() {
             return
         }
 
-        getPost(id)
+
+        if (status === "authenticated") {
+            getPost(id)
+        }
+
+        setRedirectURL()
+
 
     }, [id])
 
@@ -41,6 +62,10 @@ export default function Reaction() {
                 <LoadingSpinner css={{}} />
             </Container>
         )
+    }
+
+    if (status === "unauthenticated") {
+        router.push(`/login`);
     }
 
 
@@ -61,15 +86,29 @@ export default function Reaction() {
 
                 <Container gap={0} lg>
 
-                    <Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
+                    {session &&
 
-                        <Text css={{ ta: "center" }} h1>{post?.title}</Text>
-                        <Container css={{ width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
-                            <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowfullscreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
-                            </iframe>
+                        hasAccess ?
+
+                        <Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
+                            <Text h1 b> {post?.title}</Text>
+                            <Text h4>Posted {timeAgo(post?.timestamp)}</Text>
+                            <Container css={{ mt: "$10", width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
+                                <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowfullscreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
+                                </iframe>
+                            </Container>
                         </Container>
-                    </Container>
 
+                        :
+
+                        <div>
+                            <Text h1>You must be {requiredTier} to view this content</Text>
+                            <Button target='_blank' rounded as={Link} href={`https://www.patreon.com/studiogek/membership`} auto icon={<Icon icon={"mdi:patreon"} />} color="primary" >
+                                Join Patreon
+                            </Button>
+                        </div>
+
+                    }
 
                 </Container>
 
