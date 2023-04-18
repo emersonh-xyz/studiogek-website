@@ -23,8 +23,8 @@ export default async function handler(req, res) {
 
         // Get the user tier
         let userTier = await getTierObject(token);
-        console.log(userTier, "user")
-        console.log(postTier.id)
+        console.log("user tier:", userTier)
+        console.log("post tier:", postTier.id)
 
         // Public post
         if (postTier.id === "0000000") {
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
         if (userTier.id === postTier.id) {
             res.status(200).json({ data: post, status: 200 })
         } else {
-            res.status(401).json({ data: postTier.display, status: 401 })
+            res.status(401).json({ message: "Unauthorized tier", data: postTier.display, status: 401 })
         }
 
 

@@ -14,18 +14,22 @@ export default function Reaction() {
     const [requiredTier, setRequiredTier] = useState();
 
     const [hasAccess, setAccess] = useState();
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(true);
     const [redirectUrl, setRedirectURL] = useState();
 
     const { data: session, status } = useSession()
 
     const router = useRouter();
+
     const { id } = router.query;
 
+    // Get the post by query parameters
     const getPost = async (id) => {
+
+
         const result = await fetch(`/api/posts/post?id=${id}`)
             .then((res) => res.json())
-            .catch((err) => alert(err));
+            .catch((err) => console.log(err));
 
         if (result.status === 401) {
             setAccess(false);
@@ -45,29 +49,20 @@ export default function Reaction() {
             return
         }
 
-
-        if (status === "authenticated") {
-            getPost(id)
-        }
+        getPost(id)
 
         setRedirectURL()
 
 
     }, [id])
 
-
-    if (isLoading) {
-        return (
-            <Container css={{ d: "flex", justifyContent: "center", alignItems: "center" }}>
-                <LoadingSpinner css={{}} />
-            </Container>
-        )
+    // Convert tag into nice looking text
+    function hyphenToTitleCase(str) {
+        return str
+            .split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
     }
-
-    if (status === "unauthenticated") {
-        router.push(`/login`);
-    }
-
 
     return (
         <>
@@ -86,28 +81,45 @@ export default function Reaction() {
 
                 <Container gap={0} lg>
 
-                    {session &&
 
-                        hasAccess ?
+                    {hasAccess &&
 
-                        <Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
+                        < Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
                             <Text h1 b> {post?.title}</Text>
                             <Text h4>Posted {timeAgo(post?.timestamp)}</Text>
+                            <Text as={Link} isExternal color="primary" href={`/reaction/tags/${post?.tag}`}>Watch more {hyphenToTitleCase(post?.tag)}</Text>
                             <Container css={{ mt: "$10", width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
-                                <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowfullscreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
+                                <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
                                 </iframe>
                             </Container>
                         </Container>
+                    }
 
-                        :
+                    {!hasAccess && status === "authenticated" && !isLoading &&
+                        <>
+                            <Text>
+                                Hey it appears you don't have access to this content, sorry about that.
+                            </Text>
+                            <Button>Join Patreon</Button>
+                        </>
 
-                        <div>
-                            <Text h1>You must be {requiredTier} to view this content</Text>
-                            <Button target='_blank' rounded as={Link} href={`https://www.patreon.com/studiogek/membership`} auto icon={<Icon icon={"mdi:patreon"} />} color="primary" >
-                                Join Patreon
-                            </Button>
-                        </div>
+                    }
 
+                    {isLoading &&
+
+                        <Container css={{ d: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <LoadingSpinner css={{}} />
+                        </Container>
+
+                    }
+
+                    {status === "unauthenticated" &&
+                        <>
+                            <Text>
+                                Please login to view the requested content
+                            </Text>
+
+                        </>
                     }
 
                 </Container>

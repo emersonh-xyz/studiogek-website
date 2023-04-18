@@ -16,15 +16,15 @@ export default function App() {
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
 
-    const getTier = async () => {
-        const results = await fetchUserTier();
-        setUserTier(results.data);
-    }
+    // const getTier = async () => {
+    //     const results = await fetchUserTier();
+    //     setUserTier(results.data);
+    // }
 
-    useEffect(() => {
-        getTier()
-        setRedirectURL(encodeURIComponent(window.location.origin))
-    }, [])
+    // useEffect(() => {
+    //     getTier()
+    //     setRedirectURL(encodeURIComponent(window.location.origin))
+    // }, [])
 
     const { data: session } = useSession()
 
@@ -68,7 +68,8 @@ export default function App() {
                                     name={`${session.user.name}`}
                                     bordered
                                     color="success"
-                                    description={userTier?.display} />
+                                // description={userTier?.display} 
+                                />
                             </Dropdown.Trigger>
                         </Navbar.Item>
                         <Dropdown.Menu

@@ -47,7 +47,7 @@ export default function Login() {
 
                             <Button
                                 onClick={() => signIn('patreon', {
-                                    callbackUrl: `${redirectURL}`,
+                                    callbackUrl: `http://localhost:3000/`,
 
                                 })}
                                 auto icon={<Icon icon={"mdi:patreon"} />} >

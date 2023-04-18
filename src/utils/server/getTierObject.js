@@ -10,7 +10,7 @@ export default async function getTierObject(token) {
 
     const results = await fetch(url, {
         headers: {
-            'Authorization': 'Bearer ' + token.accessToken,
+            'Authorization': 'Bearer ' + token?.accessToken,
             'user-agent': 'Chrome: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'
         },
     }).then((res) => res.json())
@@ -19,7 +19,7 @@ export default async function getTierObject(token) {
     // This means we were able to hit the endpoint
     if (results.hasOwnProperty('included')) {
         // Check each tier for a match
-        console.log(results.included)
+        // console.log(results.included)
 
         // Gek
         const isGek = findObjectById(results.included, "9384773")
