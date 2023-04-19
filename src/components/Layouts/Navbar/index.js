@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Button, Link, Text, User, Dropdown } from "@nextui-org/react";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { Switch, useTheme } from '@nextui-org/react'
 import { useTheme as useNextTheme } from 'next-themes'
+import fetchUserTier from "@/utils/fetch_user_tier";
 
 export default function App() {
     const [variant, setVariant] = useState("sticky");
     const [redirectURL, setRedirectURL] = useState();
+    const [userTier, setUserTier] = useState();
 
 
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
 
-    useEffect(() => {
-        setRedirectURL(encodeURIComponent(window.location.origin))
-    }, [])
+    // const getTier = async () => {
+    //     const results = await fetchUserTier();
+    //     setUserTier(results.data);
+    // }
+
+    // useEffect(() => {
+    //     getTier()
+    //     setRedirectURL(encodeURIComponent(window.location.origin))
+    // }, [])
 
     const { data: session } = useSession()
 
@@ -60,7 +68,8 @@ export default function App() {
                                     name={`${session.user.name}`}
                                     bordered
                                     color="success"
-                                    description="Gek Tier" />
+                                // description={userTier?.display} 
+                                />
                             </Dropdown.Trigger>
                         </Navbar.Item>
                         <Dropdown.Menu
@@ -81,7 +90,7 @@ export default function App() {
                     </Dropdown>
                     :
 
-                    <Button rounded as={Link} href={`/login?redirect_to=${redirectURL}`} auto icon={<Icon icon={"mdi:patreon"} />} color="primary" >
+                    <Button onClick={() => signIn("patreon")} rounded auto icon={<Icon icon={"mdi:patreon"} />} color="primary" >
                         Login
                     </Button>
                 }

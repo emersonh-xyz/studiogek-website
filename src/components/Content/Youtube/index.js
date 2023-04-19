@@ -6,7 +6,7 @@ import IframeEmbed from "../../Utility/IframeEmbed";
 export default function YoutubeContent() {
 
     return (
-        <Card variant='bordered' css={{ p: '$10', mt: "$10", backgroundColor: "$accents" }}>
+        <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accents" }}>
             <Container gap={0} css={{ d: "flex" }}>
                 <Text
                     h1

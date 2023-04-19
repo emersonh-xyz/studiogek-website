@@ -19,8 +19,7 @@ export const Content = () => {
             .then((res) => res.json())
             .catch((err) => console.log(err))
 
-
-        setPosts(results.data)
+        setPosts(results?.data)
         console.log(results)
 
     }

@@ -15,7 +15,6 @@ export default function PatreonContent() {
     // Get all of the posts from the campaign
     const getPosts = async () => {
         const results = await fetchRecentPosts();
-        console.log(results);
         setPostData(results);
     }
 
@@ -50,7 +49,7 @@ export default function PatreonContent() {
     }
 
     return (
-        <Card variant='bordered' css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }}>
+        <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }}>
             <Container gap={0} css={{ d: "flex" }}>
                 <Text
                     h1
@@ -76,8 +75,10 @@ export default function PatreonContent() {
 
             <Text
                 h4
-                weight="medium">
-                Stay up-to-date with Studio Gek{"'"}s latest posts
+
+                css={{ color: "$accents6" }}
+            >
+                Stay up-to-date with the newest full length reaction content.
             </Text>
 
             {postData?.length > 0 ?

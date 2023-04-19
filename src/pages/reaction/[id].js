@@ -1,25 +1,45 @@
 import Head from 'next/head';
-import { Text, Container } from '@nextui-org/react';
+import { Text, Container, Button, Link, Badge } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/Utility/LoadingSpinner';
 import Navbar from '@/components/Layouts/Navbar/index.js';
+import timeAgo from '@/utils/timeAgo';
+import { Icon } from '@iconify/react';
+import { signIn, useSession } from 'next-auth/react';
+import hyphenToTitleCase from '@/utils/hyphenToTitleCase';
 
 export default function Reaction() {
 
     const [post, setPost] = useState();
+    const [requiredTier, setRequiredTier] = useState();
+
+    const [hasAccess, setAccess] = useState();
     const [isLoading, setLoading] = useState(true);
+    const [redirectUrl, setRedirectURL] = useState();
+
+    const { data: session, status } = useSession()
 
     const router = useRouter();
+
     const { id } = router.query;
 
+    // Get the post by query parameters
     const getPost = async (id) => {
+
+
         const result = await fetch(`/api/posts/post?id=${id}`)
             .then((res) => res.json())
-            .catch((err) => alert(err));
+            .catch((err) => console.log(err));
 
-        console.log(result.post[0])
-        setPost(result.post[0])
+        if (result.status === 401) {
+            setAccess(false);
+            setRequiredTier(result.data)
+        } else if (result.status === 200) {
+            setAccess(true)
+            setPost(result.data[0])
+        }
+
         setLoading(false)
 
     }
@@ -32,17 +52,10 @@ export default function Reaction() {
 
         getPost(id)
 
+        setRedirectURL()
+
+
     }, [id])
-
-
-    if (isLoading) {
-        return (
-            <Container css={{ d: "flex", justifyContent: "center", alignItems: "center" }}>
-                <LoadingSpinner css={{}} />
-            </Container>
-        )
-    }
-
 
     return (
         <>
@@ -61,15 +74,46 @@ export default function Reaction() {
 
                 <Container gap={0} lg>
 
-                    <Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
 
-                        <Text css={{ ta: "center" }} h1>{post?.title}</Text>
-                        <Container css={{ width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
-                            <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowfullscreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
-                            </iframe>
+                    {hasAccess &&
+
+                        < Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
+                            <Text h1 b> {post?.title}</Text>
+                            <Text h4>Posted {timeAgo(post?.timestamp)}</Text>
+                            <Text as={Link} isExternal color="primary" href={`/reaction/tags/${post?.tag}`}>Watch more {hyphenToTitleCase(post?.tag)}</Text>
+                            <Container css={{ mt: "$10", width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
+                                <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
+                                </iframe>
+                            </Container>
                         </Container>
-                    </Container>
+                    }
 
+                    {!hasAccess && status === "authenticated" && !isLoading &&
+                        <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }}>
+                            <Badge size="lg" isSquared color="error">
+                                Hey this post requires a Patron tier of {requiredTier} or higher to view
+                            </Badge>
+                            <Button target="_blank" as={Link} href="https://www.patreon.com/studiogek" css={{ mt: 14 }}>Join Patreon</Button>
+                        </Container>
+
+                    }
+
+                    {isLoading &&
+
+                        <Container css={{ d: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <LoadingSpinner css={{}} />
+                        </Container>
+
+                    }
+
+                    {status === "unauthenticated" && post?.tier.id !== "0000000" &&
+                        <>
+                            <Text>
+                                Please login to view the requested content
+                            </Text>
+
+                        </>
+                    }
 
                 </Container>
 

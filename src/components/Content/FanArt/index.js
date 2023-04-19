@@ -18,7 +18,7 @@ export default function ArtContent() {
                             color="invert"
                             placement="bottom"
                         >
-                            <Card variant="" css={{ backgroundColor: "$background" }} isPressable >
+                            <Card css={{ backgroundColor: "$background" }} isPressable >
                                 <Image
                                     src={art.img}
                                     objectFit="scale-down"
@@ -39,9 +39,8 @@ export default function ArtContent() {
 
     return (
 
-        <Card variant='bordered' css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }} id="fan-art">
+        <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }} id="fan-art">
             <Container gap={0} css={{ d: "flex", }}>
-
 
                 <Text
                     h1

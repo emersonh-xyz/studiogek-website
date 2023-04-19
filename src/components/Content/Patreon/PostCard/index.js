@@ -1,8 +1,11 @@
 import parse from 'html-react-parser';
 import { useRouter } from "next/router";
-import { Card, Text, Grid, Button, Link, Container, Tooltip } from "@nextui-org/react";
+import { Card, Text, Grid, Button, Link, Container, Tooltip, Row, Badge } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
 import { useSession } from 'next-auth/react';
+import timeAgo from '@/utils/timeAgo';
+import Image from 'next/image';
+import hyphenToTitleCase from '@/utils/hyphenToTitleCase';
 
 
 
@@ -13,60 +16,35 @@ export default function PostCard({ props }) {
 
     return (
         <Grid sm={4} >
-            <Card css={{ w: "400px", h: "300px", backgroundColor: "$accents0" }} variant="flat" >
-
-
-                <Card.Body css={{ p: 0 }}>
+            <Card variant='flat' css={{ h: "fit", mw: "500px", backgroundColor: "$accents0" }}>
+                <Card.Header css={{ maxH: 300 }}>
                     <Card.Image
-                        src={`${props.imageUrl}`}
-                        objectFit="cover"
-                        width="100%"
-                        height="100%"
-                        alt="Relaxing app background"
-                    />
-                </Card.Body>
-                <Card.Footer css={{ d: "flex", flexDirection: "column", justifyContent: "end" }}>
 
-                    <Container gap={0}>
-                        <Text h3>{props.title}</Text>
-
-                        {status === "unauthenticated" ?
-                            <Tooltip content={"You must be signed in"} placement="right">
-                                <Button
-                                    flat
-                                    disabled
-
-                                    target="_blank"
-                                    onClick={() => {
-                                        router.push({
-                                            pathname: '/reaction/[id]',
-                                            query: { id: props.safeTitle }
-                                        })
-                                    }}
-                                >
-                                    View Post
-                                </Button>
-                            </Tooltip>
-                            :
-                            <Button
-                                flat
-
-                                color="primary"
-                                target="_blank"
-                                onClick={() => {
-                                    router.push({
-                                        pathname: '/reaction/[id]',
-                                        query: { id: props.safeTitle }
-                                    })
-                                }}
-                            >
-                                View post
-                            </Button>
+                        width={1920}
+                        height={1080}
+                        objectFit="contain"
+                        src={
+                            props?.imageUrl ? props?.imageUrl
+                                :
+                                "https://img.youtube.com/vi/8C6bei_LNtE/maxresdefault.jpg"
                         }
-
+                    />
+                </Card.Header>
+                <Card.Body css={{ py: 0, mb: 10 }}>
+                    <Container gap={0} css={{ d: 'flex', justifyContent: 'start', flexDirection: "column" }}>
+                        <Text b h3>{props?.title} </Text>
+                        <Link underline href={`/reaction/tags/${props.tag}`} b>{hyphenToTitleCase(props?.tag)}</Link>
+                        <Text size="x-small" b>Posted {timeAgo(props.timestamp)}</Text>
                     </Container>
+
+                </Card.Body>
+
+                <Card.Footer>
+
+                    <Button flat css={{ w: "100%" }} rounded color="primary" size="md" onPress={() => { router.push(`/reaction/${props?.safeTitle}`) }}>View Post</Button>
+
                 </Card.Footer>
-            </Card >
+            </Card>
         </Grid>
     )
 }

@@ -46,10 +46,7 @@ export default function Login() {
                         <Card.Body>
 
                             <Button
-                                onClick={() => signIn('patreon', {
-                                    callbackUrl: `${redirectURL}`,
-
-                                })}
+                                onClick={() => signIn('patreon')}
                                 auto icon={<Icon icon={"mdi:patreon"} />} >
                                 Continue with Patreon
                             </Button>
