@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Text, Container, Button, Link } from '@nextui-org/react';
+import { Text, Container, Button, Link, Badge } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/Utility/LoadingSpinner';
@@ -7,6 +7,7 @@ import Navbar from '@/components/Layouts/Navbar/index.js';
 import timeAgo from '@/utils/timeAgo';
 import { Icon } from '@iconify/react';
 import { signIn, useSession } from 'next-auth/react';
+import hyphenToTitleCase from '@/utils/hyphenToTitleCase';
 
 export default function Reaction() {
 
@@ -56,14 +57,6 @@ export default function Reaction() {
 
     }, [id])
 
-    // Convert tag into nice looking text
-    function hyphenToTitleCase(str) {
-        return str
-            .split("-")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-    }
-
     return (
         <>
             <Head>
@@ -96,12 +89,12 @@ export default function Reaction() {
                     }
 
                     {!hasAccess && status === "authenticated" && !isLoading &&
-                        <>
-                            <Text>
-                                Hey it appears you don't have access to this content, sorry about that.
-                            </Text>
-                            <Button>Join Patreon</Button>
-                        </>
+                        <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }}>
+                            <Badge size="lg" isSquared color="error">
+                                Hey this post requires a Patron tier of {requiredTier} or higher to view
+                            </Badge>
+                            <Button target="_blank" as={Link} href="https://www.patreon.com/studiogek" css={{ mt: 14 }}>Join Patreon</Button>
+                        </Container>
 
                     }
 
@@ -113,7 +106,7 @@ export default function Reaction() {
 
                     }
 
-                    {status === "unauthenticated" &&
+                    {status === "unauthenticated" && post?.tier.id !== "0000000" &&
                         <>
                             <Text>
                                 Please login to view the requested content

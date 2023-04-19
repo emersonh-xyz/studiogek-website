@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     const secret = process.env.NEXTAUTH_SECRET
     const token = await getToken({ req, secret: secret })
 
+    console.log(token)
 
     const client = await clientPromise
     const db = client.db("studiogek_website")
@@ -26,21 +27,27 @@ export default async function handler(req, res) {
         console.log("user tier:", userTier)
         console.log("post tier:", postTier.id)
 
-        // Public post
-        if (postTier.id === "0000000") {
-            res.status(200).json({ data: post, status: 200 })
-        }
+        // // Public post
+        // if (postTier.id === "0000000") {
+        //     res.status(200).json({ data: post, status: 200 })
+        //     return;
+        // }
 
-        if (userTier.id === postTier.id) {
+
+
+        // Check if the tier matches the post tier, if so give post
+        if (userTier.weight >= postTier.weight) {
             res.status(200).json({ data: post, status: 200 })
+            return;
         } else {
             res.status(401).json({ message: "Unauthorized tier", data: postTier.display, status: 401 })
+            return;
         }
-
-
 
     } catch (err) {
         console.log(err)
+        res.status(400).json({ message: err, status: 400 })
+        return;
     }
 
 }

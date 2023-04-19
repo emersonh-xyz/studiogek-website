@@ -86,10 +86,10 @@ export default function PostCreator() {
                         <Grid>
                             <Radio.Group value={checkedTier}
                                 onChange={setCheckedTier} size="sm" label="Tiers" >
-                                <Radio value={tierList[2]}>Gek Tier</Radio>
-                                <Radio value={tierList[1]}>Uncut Tier</Radio>
-                                <Radio value={tierList[0]}>Voting</Radio>
-                                <Radio value={tierList[3]}>Public</Radio>
+                                <Radio value={tierList[3]}>Gek Tier</Radio>
+                                <Radio value={tierList[2]}>Uncut Tier</Radio>
+                                <Radio value={tierList[1]}>Voting</Radio>
+                                <Radio value={tierList[0]}>Public</Radio>
                             </Radio.Group>
                         </Grid>
                     </Grid.Container>

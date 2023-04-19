@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Button, Link, Text, User, Dropdown } from "@nextui-org/react";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { Switch, useTheme } from '@nextui-org/react'
@@ -90,7 +90,7 @@ export default function App() {
                     </Dropdown>
                     :
 
-                    <Button rounded as={Link} href={`/login?redirect_to=${redirectURL}`} auto icon={<Icon icon={"mdi:patreon"} />} color="primary" >
+                    <Button onClick={() => signIn("patreon")} rounded auto icon={<Icon icon={"mdi:patreon"} />} color="primary" >
                         Login
                     </Button>
                 }

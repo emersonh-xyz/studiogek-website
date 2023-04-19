@@ -18,33 +18,30 @@ export default async function getTierObject(token) {
 
     // This means we were able to hit the endpoint
     if (results.hasOwnProperty('included')) {
-        // Check each tier for a match
-        // console.log(results.included)
 
-        // Gek
-        const isGek = findObjectById(results.included, "9384773")
+
+        // Check each tier for a match
+        // Voting
+        const isVoting = findObjectById(results.included, "9384706")
 
         // Uncut
         const isUncut = findObjectById(results.included, "9384741")
 
-        // Voting
-        const isVoting = findObjectById(results.included, "9384706")
+        // Gek
+        const isGek = findObjectById(results.included, "9384773")
 
         if (isGek) {
-            // console.log("Tier matched for Gek Tier")
-            return tierList[2]
+            return tierList[3]
         } else if (isUncut) {
-            // console.log("Tier matched for Voting Tier")
-            return tierList[1]
+            return tierList[2]
         } else if (isVoting) {
-            // console.log("Tier matched for Uncut Tier")
-            return tierList[0]
+            return tierList[1]
         } else {
-            // console.log("No matches were founded")
-            return tierList[3];
+            return tierList[0];
         }
     } else {
-        return tierList[3]
+        // If we can't find anything or it wasn't included just return 0
+        return tierList[0]
     }
 
 }
