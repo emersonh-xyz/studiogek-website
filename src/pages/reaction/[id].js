@@ -32,6 +32,8 @@ export default function Reaction() {
             .then((res) => res.json())
             .catch((err) => console.log(err));
 
+
+
         if (result.status === 401) {
             setAccess(false);
             setRequiredTier(result.data)
@@ -78,9 +80,9 @@ export default function Reaction() {
                     {hasAccess &&
 
                         < Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
-                            <Text h1 b> {post?.title}</Text>
+                            <Text h1 b> {post?.title} {post?.seasonNumber} x {post?.episodeNumber}</Text>
                             <Text h4>Posted {timeAgo(post?.timestamp)}</Text>
-                            <Text as={Link} isExternal color="primary" href={`/reaction/tags/${post?.tag}`}>Watch more {hyphenToTitleCase(post?.tag)}</Text>
+                            <Text as={Link} isExternal color="primary" href={`/reaction/tags/${post?.tag}`}>Watch more {post?.tag.title}</Text>
                             <Container css={{ mt: "$10", width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
                                 <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
                                 </iframe>

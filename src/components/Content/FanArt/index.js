@@ -18,15 +18,13 @@ export default function ArtContent() {
                             color="invert"
                             placement="bottom"
                         >
-                            <Card css={{ backgroundColor: "$background" }} isPressable >
-                                <Image
-                                    src={art.img}
-                                    objectFit="scale-down"
-                                    height={400}
-                                    width={400}
-                                    alt="Card image background"
-                                />
-                            </Card>
+                            <Image
+                                width="200px"
+                                height="200px"
+                                src={art.img}
+                                objectFit="scale-down"
+                                alt="Card image background"
+                            />
 
                         </Tooltip>
                     </Grid >
@@ -40,7 +38,7 @@ export default function ArtContent() {
     return (
 
         <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }} id="fan-art">
-            <Container gap={0} css={{ d: "flex", }}>
+            <Container gap={0} css={{ d: "flex", justifyContent: "center" }}>
 
                 <Text
                     h1
@@ -66,13 +64,13 @@ export default function ArtContent() {
 
             <Text
                 h4
-                weight="medium"
-            >
+                css={{ color: "$accents6", d: "flex", justifyContent: "center" }}
+                weight="medium">
                 Artwork submitted by members from our Discord
             </Text>
 
 
-            <Grid.Container gap={1} justify="flex-start">
+            <Grid.Container gap={1} justify="center">
 
                 <Art />
 

@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     const db = client.db("studiogek_website")
     const collection = db.collection("posts")
 
+
     const createSafeUrl = (title) => {
         // Remove all non-alphanumeric characters and convert to lowercase
         let safeTitle = slugify(title, { lower: true, strict: true });
@@ -31,21 +32,21 @@ export default async function handler(req, res) {
         return safeTitle
     };
 
-
     if (req.method === "POST" && token?.role === "admin") {
 
         try {
 
-            const { title, streamableId, imageUrl, tier, tag } = JSON.parse(req.body)
+            const { title, seasonNumber, episodeNumber, streamableId, tier, tag } = JSON.parse(req.body)
 
-            const safeTitle = createSafeUrl(title)
 
+            const url = createSafeUrl(title)
 
             await collection.insertOne({
                 title: title,
-                safeTitle: safeTitle,
+                url: url,
+                seasonNumber: seasonNumber,
+                episodeNumber: episodeNumber,
                 streamableId: streamableId,
-                imageUrl: imageUrl,
                 timestamp: new Date(),
                 tier: tier,
                 tag: tag
@@ -54,12 +55,13 @@ export default async function handler(req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
                 data: {
-                    url: safeTitle
+                    url: url
                 }
             })
 
         } catch (err) {
             res.setHeader('Content-Type', 'application/json');
+            console.log(err)
             res.status(500).json({ message: 'Error inserting document', err })
         }
 
