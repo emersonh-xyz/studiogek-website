@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import PostCard from '@/components/Content/Patreon/PostCard';
 import fetchRecentPosts from '@/utils/mongo/recent_posts'
-import { Container, Card, Text, Grid, Badge } from "@nextui-org/react";
+import { Container, Card, Text, Grid, Badge, Button } from "@nextui-org/react";
 import LoadingSpinner from '@/components/Utility/LoadingSpinner';
 
 export default function PatreonContent() {
@@ -49,11 +49,14 @@ export default function PatreonContent() {
     }
 
     return (
-        <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }}>
-            <Container gap={0} css={{ d: "flex" }}>
+        <Container css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }}>
+            <Container gap={0} css={{
+                d: "flex",
+                justifyContent: "center",
+
+            }}>
                 <Text
                     h1
-                    size={60}
                     weight="bold"
                 >
                     Full Length
@@ -61,37 +64,42 @@ export default function PatreonContent() {
 
                 <Text
                     h1
-                    size={60}
                     weight="bold"
                     css={{
-                        ml: "$5"
+                        '@xs': {
+                            ml: "$5",
+                        },
                     }}
                     color='$primary'
                 >
                     Reactions
                 </Text>
 
+
+
             </Container>
 
             <Text
                 h4
-
-                css={{ color: "$accents6" }}
+                css={{ color: "$accents6", d: "flex", justifyContent: "center" }}
             >
                 Stay up-to-date with the newest full length reaction content.
             </Text>
 
-            {postData?.length > 0 ?
+            {
+                postData?.length > 0 ?
 
-                <Grid.Container gap={1} justify="flex-start">
-                    < PostItems />
-                </Grid.Container >
+                    <Grid.Container gap={2} justify="flex-start">
+                        < PostItems />
+                    </Grid.Container >
 
-                :
-                <LoadingSpinner />
+                    :
+                    <LoadingSpinner />
 
             }
 
-        </Card >
+
+
+        </Container >
     )
 }

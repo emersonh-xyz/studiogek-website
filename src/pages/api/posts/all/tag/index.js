@@ -4,10 +4,11 @@ export default async function handler(req, res) {
 
     const client = await clientPromise
     const db = client.db("studiogek_website")
-    const tagName = req.query.tagName
+    const safeTitle = req.query.tagName
 
     try {
-        const taggedPosts = await db.collection('posts').find({ tag: tagName }).toArray();
+        const taggedPosts = await db.collection('posts').find({ "tag.safeTitle": safeTitle }).toArray();
+        console.log(taggedPosts)
 
         if (taggedPosts.length > 0) {
             res.status(200).json({ data: taggedPosts })

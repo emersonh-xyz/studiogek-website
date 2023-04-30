@@ -1,7 +1,8 @@
 import { Button, Container, Text, Card, Input, Radio, Grid, Spacer, Checkbox } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import tierList from "../../../../config/tierList"
+import tierList from "../../../config/tierList"
+
 import clientPromise from "@/lib/mongodb";
 
 export default function PostCreator({ tags }) {
@@ -20,6 +21,7 @@ export default function PostCreator({ tags }) {
 
         const data = {
             title: postTitle,
+            titleFormatted: `${postTitle} ${seasonNumber}x${episodeNumber}`,
             seasonNumber: seasonNumber,
             episodeNumber: episodeNumber,
             streamableId: streamableId,
@@ -121,17 +123,13 @@ export default function PostCreator({ tags }) {
                 </Card.Header>
                 <Card.Body>
 
-                    <Text >{postTitle}</Text>
-                    <Text>{checkedTag.title}</Text>
 
                     <Container css={{ width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
                         <iframe src={`https://streamable.com/e/${streamableId}`} frameBorder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
                         </iframe>
                     </Container>
                     <Container css={{ p: 0, position: "relative", display: "inline-block" }}>
-                        <Card.Image css={{ filter: "blur(4px) brightness(40%)", backgroundColor: "rgba(0, 0, 0, 0.5)" }} objectFit="cover" src={checkedTag.thumbnail} />
-                        <Text h1 css={{ position: "absolute", top: "10%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 1, color: "White" }}>{postTitle}</Text>
-                        <Text h2 css={{ position: "absolute", top: "90%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 1, color: "White" }}>Season {seasonNumber} Episode {episodeNumber}</Text>
+                        <Card.Image css={{ filter: "brightness(40%)", backgroundColor: "rgba(0, 0, 0, 0.5)" }} objectFit="cover" src={checkedTag.thumbnail} />
                     </Container>
                 </Card.Body>
 
@@ -147,16 +145,12 @@ export async function getServerSideProps() {
         const client = await clientPromise
         const db = client.db("studiogek_website")
 
-        try {
-            const tags = await db.collection('tags').find().toArray();
 
-            return {
-                props: { tags: JSON.parse(JSON.stringify(tags)) },
-            };
+        const tags = await db.collection('tags').find().toArray();
 
-        } catch (err) {
-            console.log(err)
-        }
+        return {
+            props: { tags: JSON.parse(JSON.stringify(tags)) },
+        };
 
     } catch (e) {
         console.error(e);

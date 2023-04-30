@@ -1,6 +1,4 @@
-import EditPosts from "@/components/Utility/Admin/EditPosts";
-import PostCreator from "@/components/Utility/Admin/PostCreator";
-import { Button, Container, Text, Collapse, Card, Input, Radio, Grid, Spacer } from "@nextui-org/react";
+import { Button, Container, Text, Link } from "@nextui-org/react";
 
 
 
@@ -10,10 +8,11 @@ export default function AdminPanel() {
     return (
 
         <Container>
-            <Text h1 color="primary">Admin Dashboard</Text>
+            <Text h1 color="">Admin Dashboard</Text>
 
-            <PostCreator />
-            {/* <EditPosts /> */}
+            <Button as={Link} href="/admin/post-creator" color={"primary"}>Post Creator</Button>
+            <Button as={Link} href="/admin/tag-creator" color={"warning"} css={{ mt: "10px" }} >Tag Creator</Button>
+
 
         </Container >
     )

@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     try {
 
         // Get the current tier of the post
-        let post = await db.collection('posts').find({ safeTitle: id }).toArray();
+        let post = await db.collection('posts').find({ url: id }).toArray();
         let postTier = post[0].tier;
         // console.log(postTier)
 
@@ -26,13 +26,6 @@ export default async function handler(req, res) {
         let userTier = await getTierObject(token);
         console.log("user tier:", userTier)
         console.log("post tier:", postTier.id)
-
-        // // Public post
-        // if (postTier.id === "0000000") {
-        //     res.status(200).json({ data: post, status: 200 })
-        //     return;
-        // }
-
 
 
         // Check if the tier matches the post tier, if so give post
@@ -49,5 +42,6 @@ export default async function handler(req, res) {
         res.status(400).json({ message: err, status: 400 })
         return;
     }
+
 
 }

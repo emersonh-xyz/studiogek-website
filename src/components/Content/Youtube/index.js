@@ -7,7 +7,7 @@ export default function YoutubeContent() {
 
     return (
         <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accents" }}>
-            <Container gap={0} css={{ d: "flex" }}>
+            <Container gap={0} css={{ d: "flex", justifyContent: "center" }}>
                 <Text
                     h1
                     size={60}
@@ -30,6 +30,7 @@ export default function YoutubeContent() {
 
             <Text
                 h4
+                css={{ color: "$accents6", d: "flex", justifyContent: "center" }}
                 weight="medium">
                 The latest uploads from our YouTube channel
             </Text>
