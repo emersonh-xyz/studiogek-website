@@ -46,7 +46,7 @@ export default function PostCard({ props }) {
 
                                 <Col>
                                     <Text color="#d1d1d1" size={16}>
-                                        {props.title} {props?.seasonNumber} x {props?.episodeNumber}
+                                        {props.title} {props?.seasonNumber}x{props?.episodeNumber}
                                     </Text>
                                     <Link href={`/reaction/tags/${props.tag.safeTitle}`} css={{ fontSize: "12px", color: "#d1d1d1", fontWeight: "$medium" }} underline >
                                         {hyphenToTitleCase(props.tag.safeTitle)} ● {timeAgo(props.timestamp)}
@@ -57,15 +57,16 @@ export default function PostCard({ props }) {
                         <Col>
                             <Row justify="flex-end">
                                 <Button
-                                    flat
+                                    size="sm"
                                     auto
-                                    rounded
-                                    css={{ color: "#94f9f0", bg: "#94f9f026" }}
+                                    ghost
+                                    color="success"
+
 
                                 >
                                     <Text
                                         css={{ color: "inherit" }}
-                                        size={12}
+                                        size={10}
                                         weight="bold"
                                         transform="uppercase"
                                         as={Link}

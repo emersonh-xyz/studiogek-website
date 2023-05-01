@@ -59,6 +59,8 @@ export default function Reaction() {
 
     }, [id])
 
+
+
     return (
         <>
             <Head>
@@ -74,24 +76,26 @@ export default function Reaction() {
 
             <main>
 
-                <Container gap={0} lg>
+
+                <Container gap={0} lg  >
 
 
                     {hasAccess &&
 
-                        < Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
-                            <Text h1 b> {post?.title} {post?.seasonNumber} x {post?.episodeNumber}</Text>
-                            <Text h4>Posted {timeAgo(post?.timestamp)}</Text>
-                            <Text as={Link} isExternal color="primary" href={`/reaction/tags/${post?.tag}`}>Watch more {post?.tag.title}</Text>
+                        <Container Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
+                            <Text size={20}> {post?.title} {post?.seasonNumber}x{post?.episodeNumber}</Text>
+                            <Text size={18} color="$accents6">Posted {timeAgo(post?.timestamp)}</Text>
+                            <Text as={Link} color="primary" href={`/reaction/tags/${post?.tag.safeTitle}`}>Watch more {post?.tag.title}</Text>
                             <Container css={{ mt: "$10", width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
                                 <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
                                 </iframe>
                             </Container>
+
                         </Container>
                     }
 
                     {!hasAccess && status === "authenticated" && !isLoading &&
-                        <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }}>
+                        <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }} >
                             <Badge size="lg" isSquared color="error">
                                 Hey this post requires a Patron tier of {requiredTier} or higher to view
                             </Badge>

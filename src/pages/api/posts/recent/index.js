@@ -5,7 +5,7 @@ const handler = async (req, res) => {
 
     try {
         const posts = await db.collection('posts')
-            .find({}, { projection: { streamableId: 0 } })
+            .find({})
             .sort({ _id: -1 })
             .limit(6)
             .toArray()

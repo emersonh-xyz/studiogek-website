@@ -99,8 +99,8 @@ export default function App() {
                     checked={isDark}
                     onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
                     size="xs"
-                    bordered
-                    shadow
+
+
                     icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />}
                 />
             </Navbar.Content>

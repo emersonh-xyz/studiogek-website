@@ -10,13 +10,11 @@ export default function YoutubeContent() {
             <Container gap={0} css={{ d: "flex", justifyContent: "center" }}>
                 <Text
                     h1
-                    size={60}
-                    weight="bold"
                 >
-                    New from
+                    New from YouTube
                 </Text>
 
-                <Text
+                {/* <Text
                     h1
                     size={60}
                     weight="bold"
@@ -24,7 +22,7 @@ export default function YoutubeContent() {
                     color='error'
                 >
                     YouTube
-                </Text>
+                </Text> */}
 
             </Container>
 

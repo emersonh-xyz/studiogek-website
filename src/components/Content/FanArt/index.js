@@ -40,22 +40,20 @@ export default function ArtContent() {
         <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }} id="fan-art">
             <Container gap={0} css={{ d: "flex", justifyContent: "center" }}>
 
-                <Text
+                {/* <Text
                     h1
                     size={60}
                     weight="bold"
-
                 >
                     Wall of
-                </Text>
+                </Text> */}
 
                 <Text
                     h1
-                    size={60}
-                    weight="bold"
-                    css={{ textGradient: "45deg, $purple600 -20%, $pink600 100%", ml: "$7" }}
+
+                    css={{ textGradient: "45deg, $purple600 -20%, $pink600 100%" }}
                 >
-                    Fan Art
+                    Wall of Fan Art
                 </Text>
 
 

@@ -15,6 +15,10 @@ export const Content = () => (
 
             <ArtContent />
 
+            <Container gap={0} css={{ m: 0, p: 20, w: "100%" }}>
+                <Text css={{ ta: "center" }}>© 2023 Studio Gek. All Rights Reserved.</Text>
+            </Container>
+
         </Container>
     </Box>
 );
