@@ -61,8 +61,6 @@ export default function PostCard({ props }) {
                                     auto
                                     ghost
                                     color="success"
-
-
                                 >
                                     <Text
                                         css={{ color: "inherit" }}

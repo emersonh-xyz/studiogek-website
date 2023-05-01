@@ -44,9 +44,7 @@ export default function PatreonContent() {
         )
     }
 
-    if (status === "loading") {
-        return <LoadingSpinner />
-    }
+
 
     return (
         <Container css={{ p: '$10', mt: "$10", backgroundColor: "$accent2" }}>
