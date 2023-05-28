@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Button, Link, Text, User, Dropdown } from "@nextui-org/react";
+import { Navbar, Button, Link, Text, User, Dropdown, Avatar } from "@nextui-org/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { Switch, useTheme } from '@nextui-org/react'
 import { useTheme as useNextTheme } from 'next-themes'
-import fetchUserTier from "@/utils/fetch_user_tier";
 
 export default function App() {
     const [variant, setVariant] = useState("sticky");
     const [redirectURL, setRedirectURL] = useState();
+    const [tags, setTags] = useState([]);
     const [userTier, setUserTier] = useState();
 
 
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
 
-    // const getTier = async () => {
-    //     const results = await fetchUserTier();
-    //     setUserTier(results.data);
-    // }
+    const getAllTags = async () => {
+        const results = await fetch("/api/tags/all")
+            .then((res) => res.json());
+        setTags(results.data);
+        console.log(results)
+    }
 
-    // useEffect(() => {
-    //     getTier()
-    //     setRedirectURL(encodeURIComponent(window.location.origin))
-    // }, [])
+    useEffect(() => {
+        getAllTags();
+    }, [])
 
     const { data: session } = useSession()
 
@@ -43,15 +44,17 @@ export default function App() {
                 <Navbar.Link target="_blank" href="https://www.patreon.com/studiogek/">Patreon</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://discord.gg/studiogek">Discord</Navbar.Link>
 
-                <Dropdown>
-                    <Dropdown.Button bordered rounded color="gradient" auto >Reactions</Dropdown.Button>
+                <Dropdown >
+                    <Dropdown.Button light>Full Length</Dropdown.Button>
                     <Dropdown.Menu aria-label="Static Actions">
-                        <Dropdown.Item key="Attack On Titan"> <Navbar.Link href="/reaction/tags/attack-on-titan">Attack On Titan</Navbar.Link></Dropdown.Item>
-                        <Dropdown.Item key="The Mandalorian"> <Navbar.Link href="/reaction/tags/the-mandalorian">The Mandalorian</Navbar.Link></Dropdown.Item>
-                        <Dropdown.Item key="The Last Of Us"><Navbar.Link href="/reaction/tags/the-last-of-us">The Last Of Us</Navbar.Link></Dropdown.Item>
-                        <Dropdown.Item key="Vinland Sagas"><Navbar.Link href="/reaction/tags/vinland-saga">Vinland Saga</Navbar.Link></Dropdown.Item>
+                        {tags?.map((tag) => {
+                            return (
+                                <Dropdown.Item key={tag.title}> <Navbar.Link href={`/reaction/tags/${tag.safeTitle}`}>{tag.title}</Navbar.Link></Dropdown.Item>
+                            )
+                        })}
                     </Dropdown.Menu>
                 </Dropdown>
+
                 <Navbar.Link href="#fan-art">Fan Art</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://shop.studiogekyt.com/">Shop</Navbar.Link>
 
@@ -63,12 +66,12 @@ export default function App() {
                     <Dropdown placement="bottom-right">
                         <Navbar.Item>
                             <Dropdown.Trigger>
-                                <User
-                                    src={`${session.user.image}`}
-                                    name={`${session.user.name}`}
+                                <Avatar
+                                    auto
+                                    size="md"
+                                    src={session.user.image}
+                                    color="primary"
                                     bordered
-                                    color="success"
-                                // description={userTier?.display} 
                                 />
                             </Dropdown.Trigger>
                         </Navbar.Item>

@@ -10,6 +10,8 @@ export default async function handler(req, res) {
         const taggedPosts = await db.collection('posts').find({ "tag.safeTitle": safeTitle }).toArray();
         console.log(taggedPosts)
 
+
+        // Should definitely rewrite this omg
         if (taggedPosts.length > 0) {
             res.status(200).json({ data: taggedPosts })
         } else {

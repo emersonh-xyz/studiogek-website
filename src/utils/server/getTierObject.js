@@ -21,6 +21,7 @@ export default async function getTierObject(token) {
 
 
         // Check each tier for a match
+
         // Voting
         const isVoting = findObjectById(results.included, "9384706")
 
@@ -29,6 +30,7 @@ export default async function getTierObject(token) {
 
         // Gek
         const isGek = findObjectById(results.included, "9384773")
+
 
         if (isGek) {
             return tierList[3]

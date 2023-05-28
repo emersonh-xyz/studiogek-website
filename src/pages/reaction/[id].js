@@ -1,13 +1,13 @@
 import Head from 'next/head';
-import { Text, Container, Button, Link, Badge } from '@nextui-org/react';
+import { Text, Container, Button, Link, Badge, Modal } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/Utility/LoadingSpinner';
 import Navbar from '@/components/Layouts/Navbar/index.js';
 import timeAgo from '@/utils/timeAgo';
-import { Icon } from '@iconify/react';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import hyphenToTitleCase from '@/utils/hyphenToTitleCase';
+import { Icon } from '@iconify/react';
 
 export default function Reaction() {
 
@@ -33,7 +33,7 @@ export default function Reaction() {
             .catch((err) => console.log(err));
 
 
-
+        // This is some hacky shit I should probably rewrite but oh well
         if (result.status === 401) {
             setAccess(false);
             setRequiredTier(result.data)
@@ -48,14 +48,12 @@ export default function Reaction() {
 
     useEffect(() => {
 
+        // If we haven't loaded yet don't try to use query params
         if (!id) {
             return
         }
 
         getPost(id)
-
-        setRedirectURL()
-
 
     }, [id])
 
@@ -94,16 +92,38 @@ export default function Reaction() {
                         </Container>
                     }
 
+                    {/*If we don't have access and we're logged in*/}
                     {!hasAccess && status === "authenticated" && !isLoading &&
                         <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }} >
-                            <Badge size="lg" isSquared color="error">
-                                Hey this post requires a Patron tier of {requiredTier} or higher to view
-                            </Badge>
-                            <Button target="_blank" as={Link} href="https://www.patreon.com/studiogek" css={{ mt: 14 }}>Join Patreon</Button>
+                            <Modal
+                                preventClose={true}
+                                blur
+                                aria-labelledby="modal-title"
+                                open={true}
+
+                            >
+                                <Modal.Header>
+                                    <Text id="modal-title" size={20}>
+                                        403 Forbidden
+                                    </Text>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Text css={{ ta: 'center   ' }}>You must be <Text b>{requiredTier}</Text> to view this content</Text>
+                                </Modal.Body>
+                                <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
+                                    <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
+                                        Back Home
+                                    </Button>
+                                    <Button flat auto color="warning" onPress={(() => router.push('https://www.patreon.com/studiogek'))} icon={<Icon width={20} icon="mdi:patreon" />}>
+                                        Join Patreon
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                         </Container>
 
                     }
 
+                    {/* Loading state*/}
                     {isLoading &&
 
                         <Container css={{ d: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -112,12 +132,13 @@ export default function Reaction() {
 
                     }
 
+
+                    {/*If we're unauthenticated and the post isn't a public post force a login */}
                     {status === "unauthenticated" && post?.tier.id !== "0000000" &&
                         <>
                             <Text>
                                 Please login to view the requested content
                             </Text>
-
                         </>
                     }
 

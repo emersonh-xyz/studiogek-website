@@ -11,9 +11,6 @@ import hyphenToTitleCase from '@/utils/hyphenToTitleCase';
 
 export default function PostCard({ props }) {
 
-    const { data: session, status } = useSession()
-    const router = useRouter();
-
     console.log("props", props)
 
     return (
@@ -49,7 +46,7 @@ export default function PostCard({ props }) {
                                         {props.title} {props?.seasonNumber}x{props?.episodeNumber}
                                     </Text>
                                     <Link href={`/reaction/tags/${props.tag.safeTitle}`} css={{ fontSize: "12px", color: "#d1d1d1", fontWeight: "$medium" }} underline >
-                                        {hyphenToTitleCase(props.tag.safeTitle)} ● {timeAgo(props.timestamp)}
+                                        {timeAgo(props.timestamp)}
                                     </Link>
                                 </Col>
                             </Row>
