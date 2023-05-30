@@ -9,7 +9,14 @@ export default function YoutubeContent() {
         <Card css={{ p: '$10', mt: "$10", backgroundColor: "$accents" }}>
             <Container gap={0} css={{ d: "flex", justifyContent: "center" }}>
                 <Text
-                    h1
+                    css={{
+                        fontWeight: 'bold',
+                        fontSize: "$4xl",
+                        ta: 'center',
+                        "@xs": {
+                            fontSize: "$5xl"
+                        }
+                    }}
                 >
                     New from YouTube
                 </Text>
