@@ -41,7 +41,7 @@ export default function YoutubeContent() {
             </Text>
 
 
-            <Grid.Container gap={2} justify="flex-start">
+            <Grid.Container gap={4} justify="flex-start">
 
                 <Row>
                     <IframeEmbed id={1} />
