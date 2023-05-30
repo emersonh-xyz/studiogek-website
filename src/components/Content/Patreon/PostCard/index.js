@@ -22,10 +22,10 @@ export default function PostCard({ props }) {
                     />
                 </Card.Body>
                 <Card.Footer
-                    isBlurred
+
                     css={{
 
-                        bgBlur: "#0f111466",
+
                         borderTop: "$borderWeights$light solid $gray800",
                         bottom: 0,
                         zIndex: 1,
@@ -38,7 +38,7 @@ export default function PostCard({ props }) {
                                     <Text size={16} weight="bold">
                                         <Link href={`/reaction/${props.url}`} css={{ fontWeight: " $medium", color: "$accents8" }} underline >{props?.tag.title} {props?.seasonNumber}x{props?.episodeNumber}</Link>
                                     </Text>
-                                    <Text color="white" css={{ fontSize: "13px" }}  >
+                                    <Text weight="semibold" css={{ fontSize: "13px" }}  >
                                         Posted {timeAgo(props.timestamp)}
                                     </Text>
                                 </Col>
