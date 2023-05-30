@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Button, Link, Text, User, Dropdown, Avatar } from "@nextui-org/react";
+import { Navbar, Button, Link, Text, User, Dropdown, Avatar, Modal } from "@nextui-org/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { Switch, useTheme } from '@nextui-org/react'
 import { useTheme as useNextTheme } from 'next-themes'
+import { useRouter } from "next/router";
 
 export default function App() {
     const [variant, setVariant] = useState("sticky");
-    const [redirectURL, setRedirectURL] = useState();
     const [tags, setTags] = useState([]);
-    const [userTier, setUserTier] = useState();
-
-
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
+
+
+    // Modal stuff
+    const [visible, setVisible] = React.useState(false);
+    const handler = () => setVisible(true);
+    const closeHandler = () => {
+        setVisible(false);
+        console.log("closed");
+    };
+
+    const router = useRouter();
 
     const getAllTags = async () => {
         const results = await fetch("/api/tags/all")
@@ -27,12 +35,27 @@ export default function App() {
         getAllTags();
     }, [])
 
+    const collapseItems = [
+        "Patreon",
+        "Discord",
+        "Full Length",
+        "Fan Art",
+        "Shop",
+    ];
+
     const { data: session } = useSession()
 
     return (
         <Navbar isBordered variant={variant}>
             <Navbar.Brand>
-                <Image width={50} height={50} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
+                <Navbar.Toggle css={{
+                    visibility: "visible",
+                    '@xs': {
+                        visibility: "hidden"
+                    }
+                }}
+                    aria-label="toggle navigation" />
+                <Image onClick={() => router.push("/")} width={50} height={50} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
                 <Text href="/" as={Link} b color="inherit" hideIn="sm">
                     Studio Gek
                 </Text>
@@ -55,7 +78,6 @@ export default function App() {
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <Navbar.Link href="#fan-art">Fan Art</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://shop.studiogekyt.com/">Shop</Navbar.Link>
 
             </Navbar.Content>
@@ -107,6 +129,85 @@ export default function App() {
                     icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />}
                 />
             </Navbar.Content>
+            <Navbar.Collapse css={{
+                visibility: "visible",
+                '@xs': {
+                    visibility: "hidden"
+                }
+            }}>
+
+                <Navbar.CollapseItem >
+                    <Link
+                        color="inherit"
+                        css={{
+                            minWidth: "100%",
+                        }}
+                        onClick={handler}
+
+                    >
+                        Full Length
+                    </Link>
+                </Navbar.CollapseItem>
+
+                <Navbar.CollapseItem>
+                    <Link
+                        color="inherit"
+                        css={{
+                            minWidth: "100%",
+                        }}
+                        href="#"
+                    >
+                        Patreon
+                    </Link>
+                </Navbar.CollapseItem>
+
+                <Navbar.CollapseItem>
+                    <Link
+                        color="inherit"
+                        css={{
+                            minWidth: "100%",
+                        }}
+                        href="#"
+                    >
+                        Discord
+                    </Link>
+                </Navbar.CollapseItem>
+
+                <Navbar.CollapseItem>
+                    <Link
+                        color="inherit"
+                        css={{
+                            minWidth: "100%",
+                        }}
+                        href="#"
+                    >
+                        Shop
+                    </Link>
+                </Navbar.CollapseItem>
+
+            </Navbar.Collapse>
+
+            <Modal
+                closeButton
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={closeHandler}
+            >
+                <Modal.Header>
+                    <Text id="modal-title" size={18}>
+                        Reaction Content
+
+                    </Text>
+                </Modal.Header>
+                <Modal.Body css={{ ta: "center" }}>
+                    {tags?.map((tag) => {
+                        return (
+                            <Button onPress={() => router.push(`/reaction/tags/${tag.safeTitle}`)} key={tag.title} color="primary" css={{ d: 'flex', justifyContent: 'center', justifyItems: 'center' }}>{tag.title}</Button>
+                        )
+                    })}
+                </Modal.Body>
+            </Modal>
+
         </Navbar >
 
     )

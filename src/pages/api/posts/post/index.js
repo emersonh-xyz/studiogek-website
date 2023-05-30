@@ -24,8 +24,8 @@ export default async function handler(req, res) {
 
         // Get the user tier
         let userTier = await getTierObject(token);
-        console.log("user tier:", userTier)
-        console.log("post tier:", postTier.id)
+        // console.log("user tier:", userTier)
+        // console.log("post tier:", postTier.id)
 
 
         // Check if the tier matches the post tier, if so give post

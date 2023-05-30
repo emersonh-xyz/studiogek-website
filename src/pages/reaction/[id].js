@@ -81,7 +81,7 @@ export default function Reaction() {
                     {hasAccess &&
 
                         <Container Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
-                            <Text size={20}> {post?.title} {post?.seasonNumber}x{post?.episodeNumber}</Text>
+                            <Text size={20}> {post?.tag?.title} {post?.seasonNumber}x{post?.episodeNumber}</Text>
                             <Text size={18} color="$accents6">Posted {timeAgo(post?.timestamp)}</Text>
                             <Text as={Link} color="primary" href={`/reaction/tags/${post?.tag.safeTitle}`}>Watch more {post?.tag.title}</Text>
                             <Container css={{ mt: "$10", width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
