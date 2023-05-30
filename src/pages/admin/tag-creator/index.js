@@ -7,7 +7,7 @@ export default function AdminPanel() {
 
 
     const [tagTitle, setTagTitle] = useState("");
-    const [tagThumbnail, setTagThumbnail] = useState("");
+    // const [tagThumbnail, setTagThumbnail] = useState("");
 
     const router = useRouter();
 
@@ -19,7 +19,7 @@ export default function AdminPanel() {
         const data = {
             title: tagTitle,
             safeTitle: hyphenate(tagTitle),
-            thumbnail: tagThumbnail
+            // thumbnail: tagThumbnail
         }
 
         const response = await fetch('/api/tags/new', {
@@ -28,6 +28,7 @@ export default function AdminPanel() {
         }).then((res) => res.json());
 
         if (response) {
+            alert("Tag succesfully created")
             router.push(`/admin/`)
         }
 
@@ -55,7 +56,7 @@ export default function AdminPanel() {
                             }}
 
                         />
-                        <Input
+                        {/* <Input
                             css={{ mt: 5 }}
                             rounded
                             bordered
@@ -66,7 +67,7 @@ export default function AdminPanel() {
                                 setTagThumbnail(e.target.value)
                             }}
 
-                        />
+                        /> */}
 
                         <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 10, w: "50px" }}>Create Tag</Button>
                     </Card.Body>

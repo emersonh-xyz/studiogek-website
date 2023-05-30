@@ -15,13 +15,12 @@ export default async function handler(req, res) {
 
         try {
 
-            const { title, safeTitle, thumbnail } = JSON.parse(req.body)
-
+            const { title, safeTitle } = JSON.parse(req.body)
 
             await collection.insertOne({
                 title: title,
                 safeTitle: safeTitle,
-                thumbnail: thumbnail,
+                // thumbnail: thumbnail,
             })
 
             res.setHeader('Content-Type', 'application/json');

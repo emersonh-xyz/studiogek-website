@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
         try {
 
-            const { title, seasonNumber, episodeNumber, streamableId, tier, tag } = JSON.parse(req.body)
+            const { title, seasonNumber, episodeNumber, streamableId, tier, tag, thumbnail } = JSON.parse(req.body)
 
 
             const url = createSafeUrl(title)
@@ -47,6 +47,7 @@ export default async function handler(req, res) {
                 seasonNumber: seasonNumber,
                 episodeNumber: episodeNumber,
                 streamableId: streamableId,
+                thumbnail: thumbnail,
                 timestamp: new Date(),
                 tier: tier,
                 tag: tag

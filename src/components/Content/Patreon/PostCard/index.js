@@ -19,19 +19,15 @@ export default function PostCard({ props }) {
             <Card >
                 <Card.Body css={{ p: 0 }}>
                     <Card.Image
-                        src={props.tag.thumbnail}
-                        objectFit="cover"
-                        width={800}
-                        height={300}
+                        src={props.thumbnail}
+                        objectFit="fit"
                         alt={props.title}
                     />
                 </Card.Body>
                 <Card.Footer
                     isBlurred
                     css={{
-                        position: "absolute",
-                        bgBlur: "#0f111466",
-                        borderTop: "$borderWeights$light solid $gray800",
+
                         bottom: 0,
                         zIndex: 1,
 
@@ -43,11 +39,12 @@ export default function PostCard({ props }) {
 
                                 <Col>
                                     <Text color="#d1d1d1" size={16}>
-                                        {props.title} {props?.seasonNumber}x{props?.episodeNumber}
+
+                                        <Link href={`/reaction/${props.url}`} css={{ fontWeight: "$medium" }} underline >{props?.tag.title} {props?.seasonNumber}x{props?.episodeNumber}</Link>
                                     </Text>
-                                    <Link href={`/reaction/tags/${props.tag.safeTitle}`} css={{ fontSize: "12px", color: "#d1d1d1", fontWeight: "$medium" }} underline >
-                                        {timeAgo(props.timestamp)}
-                                    </Link>
+                                    <Text css={{ fontSize: "12px", fontWeight: "$medium" }} underline >
+                                        Posted {timeAgo(props.timestamp)}
+                                    </Text>
                                 </Col>
                             </Row>
                         </Col>
@@ -56,8 +53,8 @@ export default function PostCard({ props }) {
                                 <Button
                                     size="sm"
                                     auto
-                                    ghost
-                                    color="success"
+                                    flat
+
                                 >
                                     <Text
                                         css={{ color: "inherit" }}

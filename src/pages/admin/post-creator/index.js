@@ -14,6 +14,7 @@ export default function PostCreator({ tags }) {
     const [episodeNumber, setEpisodeNumber] = useState("");
     const [seasonNumber, setSeasonNumber] = useState("");
     const [streamableId, setStreamableId] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
 
     const router = useRouter();
 
@@ -25,6 +26,7 @@ export default function PostCreator({ tags }) {
             seasonNumber: seasonNumber,
             episodeNumber: episodeNumber,
             streamableId: streamableId,
+            thumbnail: thumbnail,
             tag: checkedTag,
             tier: checkedTier,
 
@@ -41,7 +43,7 @@ export default function PostCreator({ tags }) {
     }
 
     return (
-        <Container gap={0} css={{ d: 'flex', flexWrap: 'nowrap' }}>
+        <Container gap={0} css={{ d: 'flex', flexWrap: 'nowrap', p: 20 }}>
 
             <Card css={{ height: "fit-content" }}>
                 <Card.Body >
@@ -79,10 +81,17 @@ export default function PostCreator({ tags }) {
                         bordered
                         label="Streamable Video ID"
                         placeholder="pxxcct"
-
                         value={streamableId}
                         onChange={((e) => setStreamableId(e.target.value))}
-
+                    />
+                    <Input
+                        css={{ mt: 5 }}
+                        rounded
+                        bordered
+                        label="Thumbnail Link"
+                        placeholder="google.com/image.png"
+                        value={thumbnail}
+                        onChange={((e) => setThumbnail(e.target.value))}
                     />
 
 
@@ -121,15 +130,15 @@ export default function PostCreator({ tags }) {
                     <Text h1>Post Preview</Text>
 
                 </Card.Header>
-                <Card.Body>
-
+                <Card.Body >
+                    <Text css={{ d: "flex" }}>{checkedTag.title} {seasonNumber}x{episodeNumber}</Text>
 
                     <Container css={{ width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
                         <iframe src={`https://streamable.com/e/${streamableId}`} frameBorder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
                         </iframe>
                     </Container>
                     <Container css={{ p: 0, position: "relative", display: "inline-block" }}>
-                        <Card.Image css={{ filter: "brightness(40%)", backgroundColor: "rgba(0, 0, 0, 0.5)" }} objectFit="cover" src={checkedTag.thumbnail} />
+                        <Card.Image css={{ filter: "brightness(40%)", backgroundColor: "rgba(0, 0, 0, 0.5)" }} objectFit="cover" src={thumbnail} />
                     </Container>
                 </Card.Body>
 
