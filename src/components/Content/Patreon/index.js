@@ -54,7 +54,15 @@ export default function PatreonContent() {
 
             }}>
                 <Text
-                    h1
+
+                    css={{
+                        fontWeight: 'bold',
+                        fontSize: "$4xl",
+                        ta: 'center',
+                        "@xs": {
+                            fontSize: "$5xl"
+                        }
+                    }}
                 >
                     Full Length Reactions
                 </Text>
@@ -78,7 +86,7 @@ export default function PatreonContent() {
 
             <Text
                 h4
-                css={{ color: "$accents6", d: "flex", justifyContent: "center" }}
+                css={{ color: "$accents6", ta: 'center' }}
             >
                 Stay up-to-date with the newest full length reaction content from Patreon.
             </Text>
