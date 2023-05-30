@@ -11,7 +11,7 @@ import hyphenToTitleCase from '@/utils/hyphenToTitleCase';
 
 export default function PostCard({ props }) {
 
-    console.log("props", props)
+    // console.log("props", props)
 
     return (
 
