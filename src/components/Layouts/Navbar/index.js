@@ -104,8 +104,9 @@ export default function App() {
                             </Dropdown.Item>
                             <Dropdown.Item icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />} withDivider key="theme change" >
                                 <Text
-                                    checked={isDark}
-                                    onClick={() => setTheme(prev => prev === "dark" ? "light" : "dark")}
+                                    onClick={() => {
+                                        isDark ? setTheme("light") : setTheme("dark")
+                                    }}
                                     size="md"
                                 >{isDark ? "Dark Mode" : "Light Mode"}</Text>
                             </Dropdown.Item>
