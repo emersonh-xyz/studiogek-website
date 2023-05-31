@@ -95,18 +95,15 @@ export default function App() {
                         </Navbar.Item>
                         <Dropdown.Menu
                             aria-label="User menu actions"
-                            color="secondary"
+                            color="primary"
                         >
                             <Dropdown.Item key="profile" css={{ height: "$18" }}>
-                                <Text b color="inherit" css={{ d: "flex" }}>
-                                    Signed in as
-                                </Text>
-                                <Text b color="inherit" css={{ d: "flex" }}>
-                                    {session?.user.name}
+                                <Text b color="inherit" >
+                                    Signed in as <Text size={14}>{session?.user.email}</Text>
                                 </Text>
                             </Dropdown.Item>
-                            <Dropdown.Item key="logout" withDivider color="error">
-                                <Text onClick={() => signOut()}>Log Out</Text>
+                            <Dropdown.Item icon={<Icon icon={"material-symbols:logout"}></Icon>} key="logout" withDivider color="error">
+                                <Text onClick={() => signOut()}>Sign out</Text>
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
