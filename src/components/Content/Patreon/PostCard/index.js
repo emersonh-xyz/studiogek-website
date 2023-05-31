@@ -13,21 +13,16 @@ export default function PostCard({ props }) {
     return (
 
         <Grid sm={4} key={props.id}>
-            <Card css={{ w: "500px", h: "100%" }} isPressable isHoverable onPress={() => router.push(`/reaction/${props.url}`)}>
+            <Card css={{ d: 'flex', justifyItems: 'center', m: "auto" }} isPressable isHoverable onPress={() => router.push(`/reaction/${props.url}`)}>
                 <Card.Body css={{ p: 0 }}>
                     <Card.Image
                         src={props.thumbnail}
                         alt={props.title}
-                        objectFit="cover"
-                        width="100%"
-                        height="200px"
-
                     />
                 </Card.Body>
                 <Card.Footer
 
                     css={{
-
 
                         borderTop: "$borderWeights$light solid $gray800",
                         bottom: 0,
