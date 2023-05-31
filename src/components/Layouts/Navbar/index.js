@@ -46,66 +46,63 @@ export default function App() {
     const { data: session } = useSession()
 
     return (
-        <Navbar isBordered variant={variant}>
-            <Navbar.Brand>
-                <Navbar.Toggle css={{
-                    visibility: "visible",
-                    '@xs': {
-                        visibility: "hidden"
-                    }
+        <Navbar isBordered variant="sticky">
+            <Navbar.Toggle showIn="xs" />
+            <Navbar.Brand
+                css={{
+                    "@xs": {
+                        w: "12%",
+                    },
                 }}
-                    aria-label="toggle navigation" />
-                <Image onClick={() => router.push("/")} width={50} height={50} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
-                <Text href="/" as={Link} b color="inherit" hideIn="sm">
-                    Studio Gek
-                </Text>
+            >
 
+                <Image onClick={() => router.push("/")} width={60} height={60} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
             </Navbar.Brand>
-            <Navbar.Content hideIn="xs">
-
-
+            <Navbar.Content
+                enableCursorHighlight
+                activeColor="primary"
+                hideIn="xs"
+                variant="highlight-rounded"
+            >
+                {/* <Navbar.Link target="_blank" href="https://www.patreon.com/studiogek/">Home</Navbar.Link> */}
+                <Navbar.Link onClick={() => handler()} target="_blank">Full Length</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://www.patreon.com/studiogek/">Patreon</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://discord.gg/studiogek">Discord</Navbar.Link>
-
-                <Dropdown >
-                    <Dropdown.Button light>Full Length</Dropdown.Button>
-                    <Dropdown.Menu aria-label="Static Actions">
-                        {tags?.map((tag) => {
-                            return (
-                                <Dropdown.Item key={tag.title}> <Navbar.Link href={`/reaction/tags/${tag.safeTitle}`}>{tag.title}</Navbar.Link></Dropdown.Item>
-                            )
-                        })}
-                    </Dropdown.Menu>
-                </Dropdown>
-
                 <Navbar.Link target="_blank" href="https://shop.studiogekyt.com/">Shop</Navbar.Link>
 
+
             </Navbar.Content>
-
-
-            <Navbar.Content>
+            <Navbar.Content
+                css={{
+                    "@xs": {
+                        w: "12%",
+                        jc: "flex-end",
+                    },
+                }}
+            >
                 {session ?
                     <Dropdown placement="bottom-right">
                         <Navbar.Item>
                             <Dropdown.Trigger>
                                 <Avatar
-                                    auto
-                                    size="md"
-                                    src={session.user.image}
-                                    color="primary"
                                     bordered
+                                    as="button"
+                                    color="primary"
+                                    size="md"
+                                    src={`${session?.user.image}`}
                                 />
                             </Dropdown.Trigger>
                         </Navbar.Item>
                         <Dropdown.Menu
                             aria-label="User menu actions"
-                            color="primary">
+                            color="secondary"
+                        >
                             <Dropdown.Item key="profile" css={{ height: "$18" }}>
                                 <Text b color="inherit" css={{ d: "flex" }}>
                                     Signed in as
                                 </Text>
                                 <Text b color="inherit" css={{ d: "flex" }}>
-                                    {session.user.email}
+                                    {session?.user.name}
                                 </Text>
                             </Dropdown.Item>
                             <Dropdown.Item key="logout" withDivider color="error">
@@ -114,36 +111,28 @@ export default function App() {
                         </Dropdown.Menu>
                     </Dropdown>
                     :
-
-                    <Button onClick={() => signIn("patreon")} rounded auto icon={<Icon icon={"mdi:patreon"} />} color="primary" >
-                        Login
-                    </Button>
+                    <Avatar
+                        bordered
+                        as="button"
+                        color="primary"
+                        size="md"
+                        icon={<Icon width={20} height={20} icon={"clarity:avatar-solid"}></Icon>}
+                        onClick={() => signIn("patreon")}
+                    />
                 }
-
-                <Switch
-                    checked={isDark}
-                    onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
-                    size="xs"
-
-
-                    icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />}
-                />
             </Navbar.Content>
-            <Navbar.Collapse css={{
-                visibility: "visible",
-                '@xs': {
-                    visibility: "hidden"
-                }
-            }}>
+            <Navbar.Collapse>
 
-                <Navbar.CollapseItem >
+                <Navbar.CollapseItem>
                     <Link
                         color="inherit"
                         css={{
                             minWidth: "100%",
+                            "&:hover": {
+                                color: "$primary"
+                            }
                         }}
-                        onClick={handler}
-
+                        onPress={handler}
                     >
                         Full Length
                     </Link>
@@ -154,8 +143,11 @@ export default function App() {
                         color="inherit"
                         css={{
                             minWidth: "100%",
+                            "&:hover": {
+                                color: "$primary"
+                            }
                         }}
-                        href="#"
+                        href="https://www.patreon.com/studiogek/"
                     >
                         Patreon
                     </Link>
@@ -166,8 +158,11 @@ export default function App() {
                         color="inherit"
                         css={{
                             minWidth: "100%",
+                            "&:hover": {
+                                color: "$primary"
+                            }
                         }}
-                        href="#"
+                        href="https://discord.gg/studiogek/"
                     >
                         Discord
                     </Link>
@@ -178,14 +173,18 @@ export default function App() {
                         color="inherit"
                         css={{
                             minWidth: "100%",
+                            "&:hover": {
+                                color: "$primary"
+                            }
                         }}
-                        href="#"
+                        href="https://www.shop.studiogekyt.com/"
                     >
                         Shop
                     </Link>
                 </Navbar.CollapseItem>
 
             </Navbar.Collapse>
+
 
             <Modal
                 closeButton
@@ -195,7 +194,7 @@ export default function App() {
             >
                 <Modal.Header>
                     <Text id="modal-title" size={18}>
-                        Reaction Content
+                        Reaction Content (this is very temporary)
 
                     </Text>
                 </Modal.Header>
@@ -208,7 +207,6 @@ export default function App() {
                 </Modal.Body>
             </Modal>
 
-        </Navbar >
-
+        </Navbar>
     )
 }
