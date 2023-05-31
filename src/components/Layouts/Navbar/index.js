@@ -81,7 +81,7 @@ export default function App() {
                 }}
             >
                 {session ?
-                    <Dropdown placement="bottom-right">
+                    <Dropdown closeOnSelect={false} placement="bottom-right">
                         <Navbar.Item>
                             <Dropdown.Trigger>
                                 <Avatar
@@ -101,6 +101,13 @@ export default function App() {
                                 <Text b color="inherit" >
                                     Signed in as <Text size={14}>{session?.user.email}</Text>
                                 </Text>
+                            </Dropdown.Item>
+                            <Dropdown.Item icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />} withDivider key="theme change" >
+                                <Text
+                                    checked={isDark}
+                                    onClick={() => setTheme(prev => prev === "dark" ? "light" : "dark")}
+                                    size="md"
+                                >{isDark ? "Dark Mode" : "Light Mode"}</Text>
                             </Dropdown.Item>
                             <Dropdown.Item icon={<Icon icon={"material-symbols:logout"}></Icon>} key="logout" withDivider color="error">
                                 <Text onClick={() => signOut()}>Sign out</Text>
