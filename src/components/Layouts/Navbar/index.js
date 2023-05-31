@@ -111,14 +111,39 @@ export default function App() {
                         </Dropdown.Menu>
                     </Dropdown>
                     :
-                    <Avatar
-                        bordered
-                        as="button"
-                        color="primary"
-                        size="md"
-                        icon={<Icon width={20} height={20} icon={"clarity:avatar-solid"}></Icon>}
-                        onClick={() => signIn("patreon")}
-                    />
+                    <Dropdown closeOnSelect={false} placement="bottom-right" >
+                        <Navbar.Item >
+                            <Dropdown.Trigger>
+                                <Avatar
+                                    bordered
+                                    as="button"
+                                    color="inherit"
+                                    size="md"
+                                    icon={<Icon width={20} height={20} icon={"clarity:avatar-solid"}></Icon>}
+
+                                />
+                            </Dropdown.Trigger>
+                        </Navbar.Item>
+                        <Dropdown.Menu
+                            aria-label="User menu actions"
+
+                        >
+
+                            <Dropdown.Item fill="var(--nextui-colors-secondary)" icon={<Icon icon={"mdi:patreon"} />} key="login">
+                                <Text onClick={() => signIn("patreon")} rounded auto color="inherit" >
+
+                                    Login
+                                </Text>
+                            </Dropdown.Item>
+                            <Dropdown.Item icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />} withDivider key="theme change" >
+                                <Text
+                                    checked={isDark}
+                                    onClick={() => setTheme(prev => prev === "dark" ? "light" : "dark")}
+                                    size="md"
+                                >{isDark ? "Dark Mode" : "Light Mode"}</Text>
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 }
             </Navbar.Content>
             <Navbar.Collapse>
