@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Card, Text, Grid, Button, Link, Container, Tooltip, Row, Badge, Col } from "@nextui-org/react";
 
 import timeAgo from '@/utils/timeAgo';
+import { Icon } from '@iconify/react';
 
 
 
@@ -34,10 +35,14 @@ export default function PostCard({ props }) {
                             <Row>
                                 <Col>
                                     <Text size={16} weight="bold">
-                                        <Link href={`/reaction/${props.url}`} css={{ fontWeight: " $medium", color: "$accents8" }} underline >{props?.tag.title} {props?.seasonNumber}x{props?.episodeNumber}</Link>
+                                        <Link href={`/reaction/${props.url}`} css={{ fontWeight: " $medium", color: "$accents8" }} underline >{props?.tag.title} {props?.seasonNumber}x{props?.episodeNumber} FULL</Link>
                                     </Text>
+
                                     <Text weight="semibold" css={{ fontSize: "13px" }}  >
                                         Posted {timeAgo(props.timestamp)}
+                                    </Text>
+                                    <Text size={12} weight="bold">
+                                        <Link href={`/reaction/tags/${props?.tag.safeTitle}`} css={{ fontWeight: " $medium", color: "primary" }} underline >{props?.tag.title}</Link>
                                     </Text>
                                 </Col>
                             </Row>
