@@ -146,7 +146,7 @@ export default function App() {
                                         isDark ? setTheme("light") : setTheme("dark")
                                     }}
                                     size="md"
-                                >{isDark ? "Light Theme" : "Dark Light"}</Text>
+                                >{isDark ? "Light Theme" : "Dark Theme"}</Text>
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
