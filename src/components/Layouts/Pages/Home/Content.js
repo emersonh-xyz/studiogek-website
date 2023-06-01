@@ -11,7 +11,10 @@ export const Content = () => (
 
             <PatreonContent />
 
-            <YoutubeContent />
+            {/*Lets just hide this section until I find a better fix*/}
+            <Container css={{ visibility: "hidden", h: 0, '@xs': { visibility: "visible", h: 'auto' } }}>
+                <YoutubeContent />
+            </Container>
 
             <ArtContent />
 
