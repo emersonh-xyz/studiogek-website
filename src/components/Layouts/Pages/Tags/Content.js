@@ -1,4 +1,4 @@
-import { Text, Spacer, Container, Grid, Card, Input, Switch } from "@nextui-org/react"
+import { Text, Spacer, Container, Grid, Card, Input, Switch, Dropdown, StyledDropdownSectionTitle } from "@nextui-org/react"
 import { Box } from "./Box.js"
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router.js";
@@ -16,6 +16,7 @@ export const Content = () => {
     const [searchEpisode, setSearchEpisode] = useState('')
 
     const [sortByNewest, setSortByNewest] = useState(true);
+    const [selected, setSelected] = React.useState('Oldest');
 
 
     const getPostsByTag = async () => {
@@ -52,13 +53,13 @@ export const Content = () => {
         <Box css={{ px: "$12", mt: "$8", "@xsMax": { px: "$10" } }}>
 
 
-            <Container css={{ d: "flex", flexWrap: "no-wrap" }} lg gap={1}>
+            <Container css={{ justifyContent: 'center', w: "fit-content", d: "flex", flexWrap: "wrap", "@xs": { flexWrap: "nowrap" } }} lg gap={1}>
 
                 {posts?.length > 0 && posts !== "No posts" ?
 
                     <>
 
-                        <Card variant="bordered" css={{ w: "fit-content", h: "fit-content", mt: "$3" }}>
+                        <Card variant="bordered" css={{ w: "full", '@xs': { w: "fit-content" }, h: "fit-content", mt: "$3" }}>
 
                             <Card.Body>
 
@@ -77,8 +78,27 @@ export const Content = () => {
                                     onChange={(e) => setSearchEpisode(e.target.value)}
                                 />
 
-                                <Text size={14} color="$accents7" css={{ mt: "$5" }}>Sort by: Newest</Text>
-                                <Switch checked onChange={() => { setPosts([...posts].reverse()) }} size={"xs"} ></Switch>
+                                <div style={{ display: 'flex', alignItems: 'center', paddingTop: "10px" }}>
+                                    <Text size={14} color="$accents7" css={{ marginRight: '10px' }}>
+                                        Sort by:
+                                    </Text>
+                                    <Dropdown style={{ position: 'relative' }}>
+                                        <Dropdown.Button flat size="sm" >
+                                            {selected}
+                                        </Dropdown.Button>
+                                        <Dropdown.Menu
+                                            style={{ position: 'absolute', top: '100%', left: 0 }}
+                                            disallowEmptySelection
+                                            selectionMode="single"
+                                            selectedKeys={selected}
+                                            onSelectionChange={setSelected}
+                                        >
+                                            <Dropdown.Item key="Oldest"><Text onClick={() => setPosts([...posts].reverse())}>Oldest</Text></Dropdown.Item>
+                                            <Dropdown.Item key="Newest"><Text onClick={() => setPosts([...posts].reverse())}>Newest</Text></Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
+                                {/* <Switch checked onChange={() => { setPosts([...posts].reverse()) }} size={"xs"} ></Switch> */}
                             </Card.Body>
 
 
