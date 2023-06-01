@@ -108,7 +108,7 @@ export default function App() {
                                         isDark ? setTheme("light") : setTheme("dark")
                                     }}
                                     size="md"
-                                >{isDark ? "Dark Mode" : "Light Mode"}</Text>
+                                >{isDark ? "Light Theme" : "Dark Theme"}</Text>
                             </Dropdown.Item>
                             <Dropdown.Item icon={<Icon icon={"material-symbols:logout"}></Icon>} key="logout" withDivider color="error">
                                 <Text onClick={() => signOut()}>Sign out</Text>
@@ -146,7 +146,7 @@ export default function App() {
                                         isDark ? setTheme("light") : setTheme("dark")
                                     }}
                                     size="md"
-                                >{isDark ? "Dark Mode" : "Light Mode"}</Text>
+                                >{isDark ? "Light Theme" : "Dark Light"}</Text>
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
