@@ -18,13 +18,15 @@ export default function ArtContent() {
                             color="invert"
                             placement="bottom"
                         >
-                            <Image
-                                width="200px"
-                                height="200px"
-                                src={art.img}
-                                objectFit="scale-down"
-                                alt="Card image background"
-                            />
+                            <Link href={art.img}>
+                                <Image
+                                    width="200px"
+                                    height="200px"
+                                    src={art.img}
+                                    objectFit="scale-down"
+                                    alt="Card image background"
+                                />
+                            </Link>
 
                         </Tooltip>
                     </Grid >
