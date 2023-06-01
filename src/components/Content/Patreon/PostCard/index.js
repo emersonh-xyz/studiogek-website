@@ -3,18 +3,15 @@ import { useRouter } from "next/router";
 import { Card, Text, Grid, Button, Link, Container, Tooltip, Row, Badge, Col } from "@nextui-org/react";
 
 import timeAgo from '@/utils/timeAgo';
-import { Icon } from '@iconify/react';
-
 
 
 export default function PostCard({ props }) {
 
     const router = useRouter();
-
     return (
 
         <Grid sm={4} key={props.id}>
-            <Card css={{ d: 'flex', justifyItems: 'center', m: "auto" }} isPressable isHoverable onPress={() => router.push(`/reaction/${props.url}`)}>
+            <Card variant={'bordered'} css={{ d: 'flex', justifyItems: 'center', m: "auto" }} isPressable isHoverable onPress={() => router.push(`/reaction/${props.url}`)}>
                 <Card.Body css={{ p: 0 }}>
                     <Card.Image
                         src={props.thumbnail}
@@ -25,9 +22,7 @@ export default function PostCard({ props }) {
 
                     css={{
 
-                        borderTop: "$borderWeights$light solid $gray800",
-                        bottom: 0,
-                        zIndex: 1,
+
                     }}
                 >
                     <Row>
