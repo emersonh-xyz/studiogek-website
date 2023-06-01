@@ -57,7 +57,7 @@ export default function PatreonContent() {
 
                     css={{
                         fontWeight: 'bold',
-                        fontSize: "$4xl",
+                        fontSize: "$3xl",
                         ta: 'center',
                         "@xs": {
                             fontSize: "$5xl"
@@ -85,7 +85,7 @@ export default function PatreonContent() {
             </Container>
 
             <Text
-                h4
+                h5
                 css={{ color: "$accents6", ta: 'center' }}
             >
                 Stay up-to-date with the newest full length reaction content from Patreon.
