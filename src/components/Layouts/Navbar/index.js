@@ -122,9 +122,9 @@ export default function App() {
                                 <Avatar
                                     bordered
                                     as="button"
-                                    color="inherit"
+                                    color={"primary"}
                                     size="md"
-                                    icon={<Icon width={15} height={15} icon={"clarity:avatar-solid"}></Icon>}
+                                    icon={<Icon color="white" width={15} height={15} icon={"clarity:avatar-solid"}></Icon>}
 
                                 />
                             </Dropdown.Trigger>
