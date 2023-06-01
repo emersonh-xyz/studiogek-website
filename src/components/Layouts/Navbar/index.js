@@ -56,7 +56,7 @@ export default function App() {
                 }}
             >
 
-                <Image onClick={() => router.push("/")} width={60} height={60} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
+                <Image onClick={() => router.push("/")} width={85} height={85} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
             </Navbar.Brand>
             <Navbar.Content
                 enableCursorHighlight
@@ -124,7 +124,7 @@ export default function App() {
                                     as="button"
                                     color="inherit"
                                     size="md"
-                                    icon={<Icon width={20} height={20} icon={"clarity:avatar-solid"}></Icon>}
+                                    icon={<Icon width={15} height={15} icon={"clarity:avatar-solid"}></Icon>}
 
                                 />
                             </Dropdown.Trigger>
