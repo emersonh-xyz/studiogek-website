@@ -223,16 +223,15 @@ export default function App() {
                 open={visible}
                 onClose={closeHandler}
             >
-                <Modal.Header>
-                    <Text id="modal-title" size={18}>
+                <Modal.Header >
+                    <Text h4 id="modal-title" >
                         Reaction Content (this is very temporary)
-
                     </Text>
                 </Modal.Header>
-                <Modal.Body css={{ ta: "center" }}>
+                <Modal.Body>
                     {tags?.map((tag) => {
                         return (
-                            <Button onPress={() => router.push(`/reaction/tags/${tag.safeTitle}`)} key={tag.title} color="primary" css={{ d: 'flex', justifyContent: 'center', justifyItems: 'center' }}>{tag.title}</Button>
+                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="primary" css={{ ta: 'center' }}>{tag.title}</Link>
                         )
                     })}
                 </Modal.Body>
