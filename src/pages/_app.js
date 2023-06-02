@@ -33,7 +33,7 @@ export default function App({
     <SSRProvider>
       <SessionProvider session={session}>
         <NextThemesProvider
-          defaultTheme="system"
+          defaultTheme="dark"
           attribute="class"
           value={{
             light: lightTheme.className,

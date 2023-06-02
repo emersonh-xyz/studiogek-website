@@ -16,6 +16,7 @@ export default async function getTierObject(token) {
     }).then((res) => res.json())
 
 
+    console.log(results)
     // This means we were able to hit the endpoint
     if (results.hasOwnProperty('included')) {
 

@@ -56,7 +56,7 @@ export default function App() {
                 }}
             >
 
-                <Image onClick={() => router.push("/")} width={60} height={60} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
+                <Image onClick={() => router.push("/")} width={85} height={85} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
             </Navbar.Brand>
             <Navbar.Content
                 enableCursorHighlight
@@ -81,7 +81,7 @@ export default function App() {
                 }}
             >
                 {session ?
-                    <Dropdown placement="bottom-right">
+                    <Dropdown closeOnSelect={false} placement="bottom-right">
                         <Navbar.Item>
                             <Dropdown.Trigger>
                                 <Avatar
@@ -102,6 +102,14 @@ export default function App() {
                                     Signed in as <Text size={14}>{session?.user.email}</Text>
                                 </Text>
                             </Dropdown.Item>
+                            <Dropdown.Item icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />} withDivider key="theme change" >
+                                <Text
+                                    onClick={() => {
+                                        isDark ? setTheme("light") : setTheme("dark")
+                                    }}
+                                    size="md"
+                                >{isDark ? "Light Theme" : "Dark Theme"}</Text>
+                            </Dropdown.Item>
                             <Dropdown.Item icon={<Icon icon={"material-symbols:logout"}></Icon>} key="logout" withDivider color="error">
                                 <Text onClick={() => signOut()}>Sign out</Text>
                             </Dropdown.Item>
@@ -114,9 +122,9 @@ export default function App() {
                                 <Avatar
                                     bordered
                                     as="button"
-                                    color="inherit"
+                                    color={"primary"}
                                     size="md"
-                                    icon={<Icon width={20} height={20} icon={"clarity:avatar-solid"}></Icon>}
+                                    icon={<Icon color="white" width={15} height={15} icon={"clarity:avatar-solid"}></Icon>}
 
                                 />
                             </Dropdown.Trigger>
@@ -134,10 +142,11 @@ export default function App() {
                             </Dropdown.Item>
                             <Dropdown.Item icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />} withDivider key="theme change" >
                                 <Text
-                                    checked={isDark}
-                                    onClick={() => setTheme(prev => prev === "dark" ? "light" : "dark")}
+                                    onClick={() => {
+                                        isDark ? setTheme("light") : setTheme("dark")
+                                    }}
                                     size="md"
-                                >{isDark ? "Dark Mode" : "Light Mode"}</Text>
+                                >{isDark ? "Light Theme" : "Dark Theme"}</Text>
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -214,16 +223,15 @@ export default function App() {
                 open={visible}
                 onClose={closeHandler}
             >
-                <Modal.Header>
-                    <Text id="modal-title" size={18}>
+                <Modal.Header >
+                    <Text h4 id="modal-title" >
                         Reaction Content (this is very temporary)
-
                     </Text>
                 </Modal.Header>
-                <Modal.Body css={{ ta: "center" }}>
+                <Modal.Body>
                     {tags?.map((tag) => {
                         return (
-                            <Button onPress={() => router.push(`/reaction/tags/${tag.safeTitle}`)} key={tag.title} color="primary" css={{ d: 'flex', justifyContent: 'center', justifyItems: 'center' }}>{tag.title}</Button>
+                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="primary" css={{ ta: 'center' }}>{tag.title}</Link>
                         )
                     })}
                 </Modal.Body>

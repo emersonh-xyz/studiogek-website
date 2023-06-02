@@ -18,13 +18,15 @@ export default function ArtContent() {
                             color="invert"
                             placement="bottom"
                         >
-                            <Image
-                                width="200px"
-                                height="200px"
-                                src={art.img}
-                                objectFit="scale-down"
-                                alt="Card image background"
-                            />
+                            <Link href={art.img}>
+                                <Image
+                                    width="100%"
+                                    height="200px"
+                                    src={art.img}
+                                    objectFit="scale-down"
+                                    alt="Card image background"
+                                />
+                            </Link>
 
                         </Tooltip>
                     </Grid >
@@ -49,9 +51,17 @@ export default function ArtContent() {
                 </Text> */}
 
                 <Text
-                    h1
 
-                    css={{ textGradient: "45deg, $purple600 -20%, $pink600 100%" }}
+                    css={{
+                        textGradient: "45deg, $purple600 -20%, $pink600 100%",
+                        fontWeight: 'bold',
+                        fontSize: "$3xl",
+                        ta: 'center',
+                        "@xs": {
+                            fontSize: "$5xl"
+                        }
+                    }}
+
                 >
                     Wall of Fan Art
                 </Text>
@@ -61,8 +71,8 @@ export default function ArtContent() {
 
 
             <Text
-                h4
-                css={{ color: "$accents6", d: "flex", justifyContent: "center" }}
+                h5
+                css={{ color: "$accents6", ta: "center" }}
                 weight="medium">
                 Artwork submitted by members from our Discord
             </Text>

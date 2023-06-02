@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const secret = process.env.NEXTAUTH_SECRET
     const token = await getToken({ req, secret: secret })
 
-    console.log(token)
+    // console.log(token)
 
     const client = await clientPromise
     const db = client.db("studiogek_website")
@@ -20,13 +20,13 @@ export default async function handler(req, res) {
         // Get the current tier of the post
         let post = await db.collection('posts').find({ url: id }).toArray();
         let postTier = post[0].tier;
-        // console.log(postTier)
 
         // Get the user tier
         let userTier = await getTierObject(token);
+
+        // Debug statement for user and post tier
         // console.log("user tier:", userTier)
         // console.log("post tier:", postTier.id)
-
 
         // Check if the tier matches the post tier, if so give post
         if (userTier.weight >= postTier.weight) {
