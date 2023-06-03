@@ -17,27 +17,27 @@ export default async function handler(req, res) {
 
     try {
 
-        // Get the current tier of the post
+        // Get current tier of the post
         let post = await db.collection('posts').find({ url: id }).toArray();
         let postTier = post[0].tier;
 
-        // Get the user tier
+        // Grab  user tier
         let userTier = await getTierObject(token);
 
-        // Debug statement for user and post tier
         // console.log("user tier:", userTier)
         // console.log("post tier:", postTier.id)
 
-        // Check if the tier matches the post tier, if so send post back
+        // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
             res.status(200).json({ data: post, status: 200 })
             return;
 
-            // If post is Gek and user is Uncut and a week passed since post date 
+            // Authorize if week passed and uncut tier 
         } else if (postTier.id === "9384773" && userTier.id === "9384741" && hasAWeekPassed(post.timestamp)) {
             res.status(200).json({ data: post, status: 200 })
             return;
         }
+        // Not authorized
         else {
             res.status(401).json({ message: "Unauthorized tier", data: postTier.display, status: 401 })
             return;

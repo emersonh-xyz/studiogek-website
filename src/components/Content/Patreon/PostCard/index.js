@@ -40,6 +40,7 @@ export default function PostCard({ props }) {
                                         <Link href={`/reaction/tags/${props?.tag.safeTitle}`} css={{ fontWeight: " $medium", color: "primary" }} underline >{props?.tag.title}</Link>
                                     </Text>
                                 </Col>
+                                <Badge color="primary">{props.tier.id === "0000000" ? "Public" : "Patron Exclusive"}</Badge>
                             </Row>
                         </Col>
 
