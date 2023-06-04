@@ -11,7 +11,7 @@ export default function App() {
     const [variant, setVariant] = useState("sticky");
     const [tags, setTags] = useState([]);
     const { setTheme } = useNextTheme();
-    const { isDark, type } = useTheme();
+    const { isDark } = useTheme();
 
 
     // Modal stuff
@@ -34,6 +34,7 @@ export default function App() {
     useEffect(() => {
         getAllTags();
     }, [])
+
 
     const collapseItems = [
         "Patreon",
