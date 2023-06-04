@@ -52,14 +52,13 @@ export const Content = () => {
 
         <Box css={{ px: "$12", mt: "$8", "@xsMax": { px: "$10" } }}>
 
-
             <Container css={{ justifyContent: 'center', w: "fit-content", d: "flex", flexWrap: "wrap", "@xs": { flexWrap: "nowrap" } }} lg gap={1}>
 
                 {posts?.length > 0 && posts !== "No posts" ?
 
                     <>
 
-                        <Card variant="bordered" css={{ w: "full", '@xs': { w: "fit-content" }, h: "fit-content", mt: "$3" }}>
+                        <Card variant="bordered" css={{ w: "full", '@xs': { w: "400px" }, h: "fit-content", mt: "$3" }}>
 
                             <Card.Body>
 
