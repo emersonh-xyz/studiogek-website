@@ -60,13 +60,42 @@ export default function App() {
                 <Image onClick={() => router.push("/")} width={85} height={85} src={isDark ? "/static/logo_white.png" : "/static/logo_black.png"}></Image>
             </Navbar.Brand>
             <Navbar.Content
-                enableCursorHighlight
+
                 activeColor="primary"
                 hideIn="xs"
-                variant="highlight-rounded"
+                variant="underline-rounded"
             >
                 {/* <Navbar.Link target="_blank" href="https://www.patreon.com/studiogek/">Home</Navbar.Link> */}
-                <Navbar.Link onClick={() => handler()} target="_blank">Full Length</Navbar.Link>
+                <Dropdown>
+                    <Navbar.Item>
+                        <Dropdown.Button css={{ mr: '0', p: 0 }} color="default" light>
+                            Full Length
+                        </Dropdown.Button>
+                    </Navbar.Item>
+                    <Dropdown.Menu
+                        color="primary"
+                        variant="light"
+                        aria-label="Actions"
+                    >
+                        {tags?.map((tag, idx) => {
+                            if (idx > 0) {
+                                return (
+                                    <Dropdown.Item withDivider>
+                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                    </Dropdown.Item>
+                                )
+                            } else {
+                                return (
+                                    <Dropdown.Item >
+                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                    </Dropdown.Item>
+                                )
+                            }
+
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>
+
                 <Navbar.Link target="_blank" href="https://www.patreon.com/studiogek/">Patreon</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://discord.gg/studiogek">Discord</Navbar.Link>
                 <Navbar.Link target="_blank" href="https://shop.studiogekyt.com/">Shop</Navbar.Link>
@@ -138,7 +167,7 @@ export default function App() {
                             <Dropdown.Item fill="var(--nextui-colors-secondary)" icon={<Icon icon={"mdi:patreon"} />} key="login">
                                 <Text onClick={() => signIn("patreon")} rounded auto color="inherit" >
 
-                                    Login
+                                    Login with Patreon
                                 </Text>
                             </Dropdown.Item>
                             <Dropdown.Item icon={<Icon icon={isDark ? "ph:moon-fill" : "ph:sun-fill"} />} withDivider key="theme change" >
@@ -155,20 +184,37 @@ export default function App() {
             </Navbar.Content>
             <Navbar.Collapse>
 
-                <Navbar.CollapseItem>
-                    <Link
-                        color="inherit"
-                        css={{
-                            minWidth: "100%",
-                            "&:hover": {
-                                color: "$primary"
-                            }
-                        }}
-                        onPress={handler}
+
+                <Dropdown>
+                    <Navbar.CollapseItem>
+                        <Dropdown.Button css={{ mr: '0', p: 0 }} color="default" light>
+                            <Text size={18} weight={"medium"}>Full Length</Text>
+                        </Dropdown.Button>
+                    </Navbar.CollapseItem>
+                    <Dropdown.Menu
+                        color="primary"
+                        variant="light"
+                        aria-label="Actions"
                     >
-                        Full Length
-                    </Link>
-                </Navbar.CollapseItem>
+                        {tags?.map((tag, idx) => {
+                            if (idx > 0) {
+                                return (
+                                    <Dropdown.Item withDivider>
+                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                    </Dropdown.Item>
+                                )
+                            } else {
+                                return (
+                                    <Dropdown.Item >
+                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                    </Dropdown.Item>
+                                )
+                            }
+
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>
+
 
                 <Navbar.CollapseItem>
                     <Link
@@ -218,7 +264,7 @@ export default function App() {
             </Navbar.Collapse>
 
 
-            <Modal
+            {/* <Modal
                 closeButton
                 aria-labelledby="modal-title"
                 open={visible}
@@ -236,7 +282,7 @@ export default function App() {
                         )
                     })}
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
 
         </Navbar>
     )
