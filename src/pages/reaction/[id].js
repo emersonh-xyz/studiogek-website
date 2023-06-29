@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/Utility/LoadingSpinner';
 import Navbar from '@/components/Layouts/Navbar/index.js';
 import timeAgo from '@/utils/timeAgo';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import hyphenToTitleCase from '@/utils/hyphenToTitleCase';
 import { Icon } from '@iconify/react';
 
@@ -115,6 +115,7 @@ export default function Reaction() {
                                     <Button flat auto color="warning" onPress={(() => router.push('https://www.patreon.com/studiogek'))} icon={<Icon width={20} icon="mdi:patreon" />}>
                                         Join Patreon
                                     </Button>
+
                                 </Modal.Footer>
                             </Modal>
                         </Container>
@@ -151,8 +152,11 @@ export default function Reaction() {
                                             <Text css={{ ta: 'center   ' }}>You must be <Text b>{requiredTier}</Text> to view this content</Text>
                                         </Modal.Body>
                                         <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
-                                            <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:user" />} auto color="primary" >
+                                            <Button onPress={() => signIn('patreon')} flat icon={<Icon width={20} icon="mdi:user" />} auto color="primary" >
                                                 Login
+                                            </Button>
+                                            <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
+                                                Back Home
                                             </Button>
 
                                         </Modal.Footer>

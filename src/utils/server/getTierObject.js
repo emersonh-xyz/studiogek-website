@@ -20,9 +20,6 @@ export default async function getTierObject(token) {
     // This means we were able to hit the endpoint
     if (results.hasOwnProperty('included')) {
 
-
-        // Check each tier for a match
-
         // Voting
         const isVoting = findObjectById(results.included, "9384706")
 

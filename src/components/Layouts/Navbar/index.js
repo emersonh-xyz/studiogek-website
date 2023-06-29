@@ -80,13 +80,13 @@ export default function App() {
                         {tags?.map((tag, idx) => {
                             if (idx > 0) {
                                 return (
-                                    <Dropdown.Item withDivider>
+                                    <Dropdown.Item key={idx} withDivider>
                                         <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
                                     </Dropdown.Item>
                                 )
                             } else {
                                 return (
-                                    <Dropdown.Item >
+                                    <Dropdown.Item key={idx}>
                                         <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
                                     </Dropdown.Item>
                                 )
