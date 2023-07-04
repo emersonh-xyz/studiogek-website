@@ -41,6 +41,15 @@ export default async function handler(req, res) {
 
             const url = createSafeUrl(title)
 
+            const date = new Date();
+
+
+            let uncutUnlockDate = new Date(new Date().setDate(new Date().getDate() + 7));
+            const options = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'UTC' };
+
+            // String format
+            uncutUnlockDate = new Date(uncutUnlockDate).toLocaleString('en-US', options)
+
             await collection.insertOne({
                 title: title,
                 url: url,
@@ -48,7 +57,8 @@ export default async function handler(req, res) {
                 episodeNumber: episodeNumber,
                 streamableId: streamableId,
                 thumbnail: thumbnail,
-                timestamp: new Date(),
+                timestamp: date,
+                uncutUnlockDate: uncutUnlockDate,
                 tier: tier,
                 tag: tag
             })

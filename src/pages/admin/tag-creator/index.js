@@ -6,9 +6,7 @@ import { useState } from "react";
 export default function AdminPanel() {
 
 
-    const [tagTitle, setTagTitle] = useState("");
-    // const [tagThumbnail, setTagThumbnail] = useState("");
-
+    const [title, setTitle] = useState("");
     const router = useRouter();
 
     function hyphenate(str) {
@@ -16,10 +14,10 @@ export default function AdminPanel() {
     }
 
     async function handleSubmit() {
+
         const data = {
-            title: tagTitle,
-            safeTitle: hyphenate(tagTitle),
-            // thumbnail: tagThumbnail
+            title: title,
+            safeTitle: hyphenate(title),
         }
 
         const response = await fetch('/api/tags/new', {
@@ -28,7 +26,7 @@ export default function AdminPanel() {
         }).then((res) => res.json());
 
         if (response) {
-            alert("Tag succesfully created")
+            alert("Tag was succesfully created, click OK to redirect")
             router.push(`/admin/`)
         }
 
@@ -44,31 +42,16 @@ export default function AdminPanel() {
                 <Card css={{ height: "fit-content" }}>
                     <Card.Body >
                         <Text h1 color="warning">Tag Creator</Text>
-
                         <Input
                             rounded
                             bordered
                             label="Tag Title"
                             placeholder="Attack On Tian"
-                            value={tagTitle}
+                            value={title}
                             onChange={(e) => {
-                                setTagTitle(e.target.value)
+                                setTitle(e.target.value)
                             }}
-
                         />
-                        {/* <Input
-                            css={{ mt: 5 }}
-                            rounded
-                            bordered
-                            label="Tag Thumbnail"
-                            placeholder="google.com/image.png"
-                            value={tagThumbnail}
-                            onChange={(e) => {
-                                setTagThumbnail(e.target.value)
-                            }}
-
-                        /> */}
-
                         <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 10, w: "50px" }}>Create Tag</Button>
                     </Card.Body>
 

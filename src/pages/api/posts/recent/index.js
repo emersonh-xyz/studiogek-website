@@ -7,7 +7,7 @@ const handler = async (req, res) => {
         const posts = await db.collection('posts')
             .find({})
             .sort({ _id: -1 })
-            .limit(3)
+            .limit(6)
             .toArray()
         res.status(200).json(posts)
     } catch (err) {

@@ -35,6 +35,7 @@ export default function PostCard({ props }) {
 
                                     <Text weight="semibold" css={{ fontSize: "13px" }}  >
                                         Posted {timeAgo(props.timestamp)}
+
                                     </Text>
                                     <Text size={12} weight="bold">
                                         <Link href={`/reaction/tags/${props?.tag.safeTitle}`} css={{ fontWeight: " $medium", color: "primary" }} underline >{props?.tag.title}</Link>

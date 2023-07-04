@@ -24,9 +24,6 @@ export default async function handler(req, res) {
         // Grab  user tier
         let userTier = await getTierObject(token);
 
-        // console.log("user tier:", userTier)
-        // console.log("post tier:", postTier.id)
-
         // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
             res.status(200).json({ data: post, status: 200 })
@@ -39,7 +36,7 @@ export default async function handler(req, res) {
         }
         // Not authorized
         else {
-            res.status(401).json({ message: "Unauthorized tier", data: postTier.display, status: 401 })
+            res.status(401).json({ message: "Unauthorized tier", data: { tier: postTier.display, unlockDate: post[0].uncutUnlockDate }, status: 401 })
             return;
         }
 

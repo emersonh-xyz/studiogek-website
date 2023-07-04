@@ -13,6 +13,7 @@ export default function Reaction() {
 
     const [post, setPost] = useState();
     const [requiredTier, setRequiredTier] = useState();
+    const [uncutUnlockDate, setUncutUnlockDate] = useState();
 
     const [hasAccess, setAccess] = useState();
     const [isLoading, setLoading] = useState(true);
@@ -36,7 +37,9 @@ export default function Reaction() {
         // This is some hacky shit I should probably rewrite but oh well
         if (result.status === 401) {
             setAccess(false);
-            setRequiredTier(result.data)
+            setRequiredTier(result.data.tier)
+            setUncutUnlockDate(result.data.unlockDate)
+
         } else if (result.status === 200) {
             setAccess(true)
             setPost(result.data[0])
@@ -147,9 +150,12 @@ export default function Reaction() {
                                             <Text id="modal-title" size={20}>
                                                 403 Forbidden
                                             </Text>
+
                                         </Modal.Header>
                                         <Modal.Body>
+
                                             <Text css={{ ta: 'center   ' }}>You must be <Text b>{requiredTier}</Text> to view this content</Text>
+                                            <Text css={{ ta: 'center   ' }}>This post unlocks on <Text css={{ color: "$primary" }} b>{uncutUnlockDate}</Text> for <Text b>Uncut Tier</Text></Text>
                                         </Modal.Body>
                                         <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
                                             <Button onPress={() => signIn('patreon')} flat icon={<Icon width={20} icon="mdi:user" />} auto color="primary" >
@@ -163,7 +169,20 @@ export default function Reaction() {
                                     </Modal>
                                 </Container>
                             </Text>
+
+
+                            <Container Container css={{ mt: "$10", mb: "$10" }} alignContent='center' justify='center' display='flex' direction='column'>
+                                <Text size={20}> Post Title Season Number Episode Number</Text>
+                                <Text size={18} color="$accents6">Posted </Text>
+                                <Text as={Link} color="primary" href={`/reaction/tags/${post?.tag.safeTitle}`}>Watch more {post?.tag.title}</Text>
+                                <Container >
+                                    <img width={1920} height={1080} src="https://www.dexerto.com/cdn-cgi/image/width=3840,quality=75,format=auto/https://editors.dexerto.com/wp-content/uploads/2022/12/15/chainsaw-man-anime-pv3.jpg" />
+                                </Container>
+
+                            </Container>
                         </>
+
+
                     }
 
                 </Container>

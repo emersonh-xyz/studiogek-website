@@ -7,8 +7,8 @@ import clientPromise from "@/lib/mongodb";
 
 export default function PostCreator({ tags }) {
 
-    const [checkedTag, setCheckedTag] = useState('attack-on-titan');
-    const [checkedTier, setCheckedTier] = useState('gek');
+    const [checkedTag, setCheckedTag] = useState('');
+    const [checkedTier, setCheckedTier] = useState('');
 
     const [postTitle, setPostTitle] = useState("");
     const [episodeNumber, setEpisodeNumber] = useState("");
@@ -29,17 +29,25 @@ export default function PostCreator({ tags }) {
             thumbnail: thumbnail,
             tag: checkedTag,
             tier: checkedTier,
-
         }
-
         const response = await fetch('/api/posts/new', {
             method: "POST",
             body: JSON.stringify(data)
         }).then((res) => res.json());
 
         const url = response.data.url
-
         router.push(`/reaction/${url}`)
+    }
+
+    const UploadButton = () => {
+        if (seasonNumber && episodeNumber && streamableId && thumbnail && checkedTag && checkedTier) {
+            return (
+                <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 5 }}>Create Post</Button>
+            )
+        }
+        return (
+            <Button disabled flat css={{ mt: 5 }}>Create Post</Button>
+        )
     }
 
     return (
@@ -47,22 +55,34 @@ export default function PostCreator({ tags }) {
 
             <Card css={{ height: "fit-content" }}>
                 <Card.Body >
-                    <Text h1 >Create Post</Text>
+                    <Text h1 >Post Creator</Text>
+
+
+                    <Button.Group flat size="xs" color="primary" >
+                        {tags && tags.map((tag) => {
+                            return (
+                                <Button onClick={() => setCheckedTag(tag)} key={tag.safeTitle}>{tag.title}</Button>
+                            )
+                        })}
+                    </Button.Group>
+
                     <Input
                         rounded
                         bordered
-                        label="Post Title"
-                        placeholder="Attack On Tian 1x2"
+                        label="Title"
+                        placeholder="Attack on Titan"
                         color="primary"
                         value={postTitle}
                         onChange={(e) => setPostTitle(e.target.value)}
                     />
+
                     <Input
                         rounded
                         bordered
                         label="Season #"
                         placeholder="1"
                         color="primary"
+                        type="number"
                         value={seasonNumber}
                         onChange={(e) => setSeasonNumber(e.target.value)}
                     />
@@ -72,6 +92,7 @@ export default function PostCreator({ tags }) {
                         label="Episode #"
                         placeholder="1"
                         color="primary"
+                        type="number"
                         value={episodeNumber}
                         onChange={(e) => setEpisodeNumber(e.target.value)}
                     />
@@ -94,7 +115,6 @@ export default function PostCreator({ tags }) {
                         onChange={((e) => setThumbnail(e.target.value))}
                     />
 
-
                     <Grid>
                         <Radio.Group value={checkedTier} orientation="horizontal"
                             onChange={setCheckedTier} size="sm" label="Tiers" >
@@ -105,19 +125,8 @@ export default function PostCreator({ tags }) {
                         </Radio.Group>
                     </Grid>
 
+                    <UploadButton />
 
-                    <Text color="$accents6">Show Tag</Text>
-                    <Button.Group flat size="xs" color="primary" >
-
-                        {tags && tags.map((tag) => {
-                            return (
-                                <Button onClick={() => setCheckedTag(tag)} key={tag.safeTitle}>{tag.title}</Button>
-                            )
-                        })}
-
-                    </Button.Group>
-
-                    <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 5 }}>Upload Post</Button>
                 </Card.Body>
 
             </Card>
@@ -131,7 +140,9 @@ export default function PostCreator({ tags }) {
 
                 </Card.Header>
                 <Card.Body >
-                    <Text css={{ d: "flex" }}>{checkedTag.title} {seasonNumber}x{episodeNumber}</Text>
+                    <Text css={{ d: "flex" }}>Show: <Text b> {checkedTag.title}</Text></Text>
+                    <Text css={{ d: "flex" }}>Season: <Text b> {seasonNumber}</Text></Text>
+                    <Text css={{ d: "flex" }}>Episode: <Text b>{' '}{episodeNumber}</Text></Text>
 
                     <Container css={{ width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
                         <iframe src={`https://streamable.com/e/${streamableId}`} frameBorder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
