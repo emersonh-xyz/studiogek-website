@@ -109,7 +109,7 @@ export default function Reaction() {
                                     </Text>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <Text css={{ ta: 'center   ' }}>You don't have access to view this content</Text>
+                                    <Text css={{ ta: 'center' }}>You don't have access to view this content</Text>
                                 </Modal.Body>
                                 <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
                                     <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
