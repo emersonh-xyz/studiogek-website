@@ -24,8 +24,6 @@ export default async function handler(req, res) {
         // Grab  user tier
         let userTier = await getTierObject(token);
 
-        console.log("User Tier", userTier);
-
         // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
             res.status(200).json({ data: post, status: 200 })
