@@ -93,8 +93,8 @@ export default function Reaction() {
                         </Container>
                     }
 
-                    {/*If we don't have access and we're logged in*/}
-                    {!hasAccess && status === "authenticated" && !isLoading &&
+                    {/*Not logged and no access*/}
+                    {!hasAccess && status === "unauthenticated" && !isLoading &&
                         <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }} >
                             <Modal
                                 preventClose={true}
@@ -109,16 +109,15 @@ export default function Reaction() {
                                     </Text>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <Text css={{ ta: 'center   ' }}>You must be <Text b>{requiredTier}</Text> to view this content</Text>
+                                    <Text css={{ ta: 'center   ' }}>You don't have access to view this content</Text>
                                 </Modal.Body>
                                 <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
                                     <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
                                         Back Home
                                     </Button>
-                                    <Button flat auto color="warning" onPress={(() => router.push('https://www.patreon.com/studiogek'))} icon={<Icon width={20} icon="mdi:patreon" />}>
-                                        Join Patreon
+                                    <Button onPress={() => signIn('patreon')} flat icon={<Icon width={20} icon="mdi:user" />} auto color="secondary" >
+                                        Login
                                     </Button>
-
                                 </Modal.Footer>
                             </Modal>
                         </Container>
@@ -134,8 +133,8 @@ export default function Reaction() {
 
                     }
 
-
-                    {!hasAccess && post?.tier.id !== "0000000" && !isLoading &&
+                    {/* Logged in but don't have access*/}
+                    {!hasAccess && status === "authenticated" && !isLoading &&
                         <>
                             <Text>
                                 <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }} >
@@ -144,27 +143,25 @@ export default function Reaction() {
                                         blur
                                         aria-labelledby="modal-title"
                                         open={true}
-
                                     >
                                         <Modal.Header>
                                             <Text id="modal-title" size={20}>
                                                 403 Forbidden
                                             </Text>
-
                                         </Modal.Header>
                                         <Modal.Body>
-
                                             <Text css={{ ta: 'center   ' }}>You must be <Text b>{requiredTier}</Text> to view this content</Text>
                                             <Text css={{ ta: 'center   ' }}>This post unlocks on <Text css={{ color: "$primary" }} b>{uncutUnlockDate}</Text> for <Text b>Uncut Tier</Text></Text>
                                         </Modal.Body>
                                         <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
-                                            <Button onPress={() => signIn('patreon')} flat icon={<Icon width={20} icon="mdi:user" />} auto color="primary" >
-                                                Login
-                                            </Button>
                                             <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
                                                 Back Home
                                             </Button>
-
+                                            <a href="https://www.patreon.com/studiogek" target='blank'>
+                                                <Button flat auto color="warning" icon={<Icon width={20} icon="mdi:patreon" />}>
+                                                    Join Patreon
+                                                </Button>
+                                            </a>
                                         </Modal.Footer>
                                     </Modal>
                                 </Container>
