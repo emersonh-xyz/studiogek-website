@@ -38,7 +38,6 @@ export default async function handler(req, res) {
 
             const { title, seasonNumber, episodeNumber, streamableId, tier, tag, thumbnail } = JSON.parse(req.body)
 
-
             const url = createSafeUrl(title)
 
             const date = new Date();

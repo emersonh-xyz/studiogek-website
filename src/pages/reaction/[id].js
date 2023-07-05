@@ -28,7 +28,6 @@ export default function Reaction() {
     // Get the post by query parameters
     const getPost = async (id) => {
 
-
         const result = await fetch(`/api/posts/post?id=${id}`)
             .then((res) => res.json())
             .catch((err) => console.log(err));
@@ -58,7 +57,7 @@ export default function Reaction() {
 
         getPost(id)
 
-    }, [id])
+    }, [id, session])
 
     return (
         <>

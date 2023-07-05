@@ -39,19 +39,17 @@ export const authOptions = {
     callbacks: {
         async jwt({ token, account, profile, user }) {
 
-            // Aquire our token & id from account inormation
             if (account) {
                 token.accessToken = account.access_token
                 token.id = profile.id
             }
-            // Sets an isAdmin to True / False if they exist in the user list
+
             if (user) {
-                const administrators = ['emersonhicks003@gmail.com', 'ehicks23@uncc.edu']
+                const administrators = ['emersonhicks003@gmail.com']
                 if (administrators.includes(user?.email)) {
                     token.role = "admin"
                 }
             }
-
             return token;
         },
 
