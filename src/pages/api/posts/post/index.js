@@ -4,7 +4,7 @@ import getTierObject from '@/utils/server/getTierObject'
 import { getToken } from 'next-auth/jwt';
 
 // Hard coded release date to 3 days
-const UNCUT_RELEASE_TIME = 259200000;
+const UNCUT_RELEASE_TIME = 300000;
 
 export default async function handler(req, res) {
 
@@ -52,13 +52,12 @@ export default async function handler(req, res) {
 }
 
 function isUncutReleased(postDate) {
+
     // Get the current timestamp
     let now = new Date();
 
     // Convert the provided timestamp to a Date object
     let providedTimestamp = new Date(postDate);
-
-    console.log(providedTimestamp)
 
     // Calculate the difference in milliseconds
     let timeDifference = now.getTime() - providedTimestamp.getTime();

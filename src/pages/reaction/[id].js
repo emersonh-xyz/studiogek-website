@@ -150,7 +150,7 @@ export default function Reaction() {
                                         </Modal.Header>
                                         <Modal.Body>
                                             <Text css={{ ta: 'center   ' }}>You must be <Text b>{requiredTier}</Text> to view this content</Text>
-                                            <Text css={{ ta: 'center   ' }}>This post unlocks on <Text css={{ color: "$primary" }} b>{uncutUnlockDate}</Text> for <Text b>Uncut Tier</Text></Text>
+                                            <Text css={{ ta: 'center   ' }}>This post unlocks on <Text css={{ color: "$primary" }} b>{uncutUnlockDate} EST</Text> for <Text b>Uncut Tier</Text></Text>
                                         </Modal.Body>
                                         <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
                                             <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >

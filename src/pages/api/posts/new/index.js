@@ -44,7 +44,7 @@ export default async function handler(req, res) {
             // Unlock date for Uncut (3 days)
             let uncutUnlockDate = new Date(new Date().setDate(new Date().getDate() + 3));
 
-            const options = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'UTC' };
+            const options = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'America/New_York' };
 
             // String format
             uncutUnlockDate = new Date(uncutUnlockDate).toLocaleString('en-US', options)
