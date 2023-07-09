@@ -2,15 +2,17 @@ import fetchUserTier from '@/utils/fetch_user_tier';
 import clientPromise from '../../../../lib/mongodb'
 import getTierObject from '@/utils/server/getTierObject'
 import { getToken } from 'next-auth/jwt';
+import { getSession } from 'next-auth/react';
 
 // Hard coded release date to 3 days
-const UNCUT_RELEASE_TIME = 300000;
+const UNCUT_RELEASE_TIME = 259200000;
 
 export default async function handler(req, res) {
 
 
     const secret = process.env.NEXTAUTH_SECRET
     const token = await getToken({ req, secret: secret })
+    const session = await getSession()
 
     const client = await clientPromise
     const db = client.db("studiogek_website")
@@ -25,10 +27,6 @@ export default async function handler(req, res) {
         // Grab user tier
         let userTier = await getTierObject(token);
 
-        isUncutReleased(post[0].timestamp)
-
-
-
         console.log(`DEBUG: \n
         Uncut Ready: ${isUncutReleased(post[0].timestamp)}\n
         User Tier: ${userTier.id}\n
@@ -39,12 +37,11 @@ export default async function handler(req, res) {
         if (userTier.weight >= postTier.weight) {
             res.status(200).json({ data: post, status: 200 })
             return;
-
-            // Authorize if week passed and uncut tier 
         }
 
+
+        // Authorize if uncut has released and our user is an uncut tier!!
         if (userTier.id === "9384741" && isUncutReleased(post[0].timestamp)) {
-            console.log("hello world")
             res.status(200).json({ data: post, status: 200 })
             return;
         }
@@ -71,9 +68,6 @@ function isUncutReleased(postDate) {
 
     // Calculate the difference in milliseconds
     let timeDifference = now.getTime() - providedTimestamp.getTime();
-
-    console.log(providedTimestamp)
-    console.log(timeDifference)
 
     // Check if time has passed
     if (timeDifference >= UNCUT_RELEASE_TIME) {
