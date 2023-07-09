@@ -41,16 +41,17 @@ export default async function handler(req, res) {
             return;
 
             // Authorize if week passed and uncut tier 
-        } else if (userTier.id === "9384741" && isUncutReleased(post.timestamp)) {
+        }
+
+        if (userTier.id === "9384741" && isUncutReleased(post.timestamp)) {
             console.log("hello world")
             res.status(200).json({ data: post, status: 200 })
             return;
         }
+
         // Not authorized
-        else {
-            res.status(401).json({ message: "Unauthorized tier", data: { tier: postTier.display, unlockDate: post[0].uncutUnlockDate }, status: 401 })
-            return;
-        }
+        res.status(401).json({ message: "Unauthorized tier", data: { tier: postTier.display, unlockDate: post[0].uncutUnlockDate }, status: 401 })
+        return;
 
     } catch (err) {
         console.log(err)
