@@ -21,16 +21,21 @@ export default async function getTierObject(token) {
     if (results.hasOwnProperty('included')) {
 
         // Voting
-        const isVoting = findObjectById(results.included, "9384706")
+        const isVoting = findObjectById(results.included, "9384706");
 
         // Uncut
-        const isUncut = findObjectById(results.included, "9384741")
+        const isUncut = findObjectById(results.included, "9384741");
 
         // Gek
-        const isGek = findObjectById(results.included, "9384773")
+        const isGek = findObjectById(results.included, "9384773");
+
+        // Juicy
+        const isJuicy = findObjectById(results.included, "9956198");
 
 
-        if (isGek) {
+        if (isJuicy) {
+            return tierList[4];
+        } else if (isGek) {
             return tierList[3]
         } else if (isUncut) {
             return tierList[2]

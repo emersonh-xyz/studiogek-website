@@ -25,7 +25,6 @@ export default async (req, res) => {
             data: results
         })
 
-
     } catch (e) {
         return res.status(400).json({
             status: e.message

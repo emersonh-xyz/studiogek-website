@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         let post = await db.collection('posts').find({ url: id }).toArray();
         let postTier = post[0].tier;
 
-        // Grab  user tier
+        // Grab user tier
         let userTier = await getTierObject(token);
 
         // Check if the tier matches the post tier, then send post back
