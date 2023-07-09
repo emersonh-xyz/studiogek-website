@@ -12,7 +12,7 @@ export default function App() {
   const router = useRouter();
 
   // const getAllTiers = async () => {
-  //   const results = await fetch('/api/patreon/admin/creator-tiers')
+  //   const results = await fetch('/api/patreon/campaign/tiers')
   //     .then((res) => res.json())
   //     .catch((err) => console.log(err))
 
@@ -21,6 +21,8 @@ export default function App() {
   // }
 
   useEffect(() => {
+
+    // getAllTiers()
 
     return () => {
       // this now gets called when the component unmounts

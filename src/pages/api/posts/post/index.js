@@ -9,8 +9,6 @@ export default async function handler(req, res) {
     const secret = process.env.NEXTAUTH_SECRET
     const token = await getToken({ req, secret: secret })
 
-    // console.log(token)
-
     const client = await clientPromise
     const db = client.db("studiogek_website")
     const id = req.query.id

@@ -18,6 +18,11 @@
         "id": "9384773",
         "display": "Gek Tier",
         "weight": 100
+    },
+    {
+        "id": "9956198",
+        "display": "Juicy Tier",
+        "weight": 150
     }
  
 ]

@@ -7,7 +7,6 @@ export default async (req, res) => {
 
 
     try {
-
         const tier = await getTierObject(token);
 
         return res.status(200).json({
