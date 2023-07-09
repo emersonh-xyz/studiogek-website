@@ -32,7 +32,6 @@ export default async function getTierObject(token) {
         // Juicy
         const isJuicy = findObjectById(results.included, "9956198");
 
-
         if (isJuicy) {
             return tierList[4];
         } else if (isGek) {

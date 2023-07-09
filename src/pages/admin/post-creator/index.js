@@ -30,6 +30,7 @@ export default function PostCreator({ tags }) {
             tag: checkedTag,
             tier: checkedTier,
         }
+
         const response = await fetch('/api/posts/new', {
             method: "POST",
             body: JSON.stringify(data)
@@ -52,12 +53,9 @@ export default function PostCreator({ tags }) {
 
     return (
         <Container gap={0} css={{ d: 'flex', flexWrap: 'nowrap', p: 20 }}>
-
             <Card css={{ height: "fit-content" }}>
                 <Card.Body >
                     <Text h1 >Post Creator</Text>
-
-
                     <Button.Group flat size="xs" color="primary" >
                         {tags && tags.map((tag) => {
                             return (
@@ -65,7 +63,6 @@ export default function PostCreator({ tags }) {
                             )
                         })}
                     </Button.Group>
-
                     <Input
                         rounded
                         bordered
@@ -114,7 +111,6 @@ export default function PostCreator({ tags }) {
                         value={thumbnail}
                         onChange={((e) => setThumbnail(e.target.value))}
                     />
-
                     <Grid>
                         <Radio.Group value={checkedTier} orientation="horizontal"
                             onChange={setCheckedTier} size="sm" label="Tiers" >
@@ -124,26 +120,18 @@ export default function PostCreator({ tags }) {
                             <Radio value={tierList[0]}>Public</Radio>
                         </Radio.Group>
                     </Grid>
-
                     <UploadButton />
-
                 </Card.Body>
-
             </Card>
-
             <Spacer x={2} />
-
             <Card>
-
                 <Card.Header>
                     <Text h1>Post Preview</Text>
-
                 </Card.Header>
                 <Card.Body >
                     <Text css={{ d: "flex" }}>Show: <Text b> {checkedTag.title}</Text></Text>
                     <Text css={{ d: "flex" }}>Season: <Text b> {seasonNumber}</Text></Text>
                     <Text css={{ d: "flex" }}>Episode: <Text b>{' '}{episodeNumber}</Text></Text>
-
                     <Container css={{ width: "100%", height: "0px", position: "relative", pb: "56.250%" }}>
                         <iframe src={`https://streamable.com/e/${streamableId}`} frameBorder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
                         </iframe>
@@ -152,8 +140,6 @@ export default function PostCreator({ tags }) {
                         <Card.Image css={{ filter: "brightness(40%)", backgroundColor: "rgba(0, 0, 0, 0.5)" }} objectFit="cover" src={thumbnail} />
                     </Container>
                 </Card.Body>
-
-
             </Card>
         </Container >
     )
@@ -164,7 +150,6 @@ export async function getServerSideProps() {
 
         const client = await clientPromise
         const db = client.db("studiogek_website")
-
 
         const tags = await db.collection('tags').find().toArray();
 

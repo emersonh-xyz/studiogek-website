@@ -3,6 +3,9 @@ import clientPromise from '../../../../lib/mongodb'
 import getTierObject from '@/utils/server/getTierObject'
 import { getToken } from 'next-auth/jwt';
 
+// Hard coded release date to 3 days
+const UNCUT_RELEASE_TIME = 259200000;
+
 export default async function handler(req, res) {
 
 
@@ -22,13 +25,15 @@ export default async function handler(req, res) {
         // Grab user tier
         let userTier = await getTierObject(token);
 
+        isUncutReleased(post[0].timestamp)
+
         // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
             res.status(200).json({ data: post, status: 200 })
             return;
 
             // Authorize if week passed and uncut tier 
-        } else if (postTier.id === "9384773" && userTier.id === "9384741" && hasAWeekPassed(post.timestamp)) {
+        } else if (postTier.id === "9384773" && userTier.id === "9384741" && isUncutReleased(post.timestamp)) {
             res.status(200).json({ data: post, status: 200 })
             return;
         }
@@ -44,24 +49,24 @@ export default async function handler(req, res) {
         return;
     }
 
-
 }
 
-function hasAWeekPassed(postDate) {
+function isUncutReleased(postDate) {
     // Get the current timestamp
-    var now = new Date();
+    let now = new Date();
 
     // Convert the provided timestamp to a Date object
-    var providedTimestamp = new Date(postDate);
+    let providedTimestamp = new Date(postDate);
+
+    console.log(providedTimestamp)
 
     // Calculate the difference in milliseconds
-    var timeDifference = now.getTime() - providedTimestamp.getTime();
+    let timeDifference = now.getTime() - providedTimestamp.getTime();
 
-    // Define the number of milliseconds in a week
-    var millisecondsInWeek = 7 * 24 * 60 * 60 * 1000;
+    console.log(timeDifference)
 
-    // Check if a week has passed
-    if (timeDifference >= millisecondsInWeek) {
+    // Check if time has passed
+    if (timeDifference >= UNCUT_RELEASE_TIME) {
         return true;
     } else {
         return false;

@@ -23,7 +23,6 @@ export default async function handler(req, res) {
         // Limit the length of the resulting string to 50 characters
         safeTitle = safeTitle.substring(0, 50);
 
-
         // Add a random 6-digit number and a hyphen to the end of the URL
         const randomNum = Math.floor(Math.random() * 900000) + 100000;
         safeTitle += `-${randomNum}`;
@@ -42,8 +41,9 @@ export default async function handler(req, res) {
 
             const date = new Date();
 
+            // Unlock date for Uncut (3 days)
+            let uncutUnlockDate = new Date(new Date().setDate(new Date().getDate() + 3));
 
-            let uncutUnlockDate = new Date(new Date().setDate(new Date().getDate() + 7));
             const options = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'UTC' };
 
             // String format
