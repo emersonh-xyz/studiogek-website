@@ -43,7 +43,7 @@ export default async function handler(req, res) {
             // Authorize if week passed and uncut tier 
         }
 
-        if (userTier.id === "9384741" && isUncutReleased(post.timestamp)) {
+        if (userTier.id === "9384741" && isUncutReleased(post[0].timestamp)) {
             console.log("hello world")
             res.status(200).json({ data: post, status: 200 })
             return;
