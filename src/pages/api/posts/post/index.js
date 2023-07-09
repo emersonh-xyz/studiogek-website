@@ -27,13 +27,22 @@ export default async function handler(req, res) {
 
         isUncutReleased(post[0].timestamp)
 
+
+
+        console.log(`DEBUG: \n
+        Uncut Ready: ${isUncutReleased(post[0].timestamp)}\n
+        User Tier: ${userTier.id}\n
+        Post Info: ${postTier.id}`
+        )
+
         // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
             res.status(200).json({ data: post, status: 200 })
             return;
 
             // Authorize if week passed and uncut tier 
-        } else if (postTier.id === "9384773" && userTier.id === "9384741" && isUncutReleased(post.timestamp)) {
+        } else if (userTier.id === "9384741" && isUncutReleased(post.timestamp)) {
+            console.log("hello world")
             res.status(200).json({ data: post, status: 200 })
             return;
         }
@@ -62,12 +71,15 @@ function isUncutReleased(postDate) {
     // Calculate the difference in milliseconds
     let timeDifference = now.getTime() - providedTimestamp.getTime();
 
+    console.log(providedTimestamp)
     console.log(timeDifference)
 
     // Check if time has passed
     if (timeDifference >= UNCUT_RELEASE_TIME) {
+        console.log(true)
         return true;
     } else {
+        console.log(false);
         return false;
     }
 }
