@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Button, Link, Text, User, Dropdown, Avatar, Modal } from "@nextui-org/react";
+import { Navbar, Button, Link, Text, User, Dropdown, Avatar, Modal, Divider } from "@nextui-org/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
@@ -234,64 +234,49 @@ export default function App() {
                     </Link>
                 </Navbar.CollapseItem>
 
-                <Dropdown>
-                    <Navbar.CollapseItem>
-                        <Dropdown.Button css={{ mr: '0', p: 0 }} color="default" light>
-                            <Text size={18} weight={"medium"}>Full Length</Text>
-                        </Dropdown.Button>
-                    </Navbar.CollapseItem>
-                    <Dropdown.Menu
-                        color="primary"
-                        variant="light"
-                        aria-label="Actions"
-                    >
-                        {tags?.map((tag, idx) => {
-                            if (idx > 0) {
-                                return (
-                                    <Dropdown.Item key={idx} withDivider>
-                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
-                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
-                                        </div>
-                                    </Dropdown.Item>
-                                )
-                            } else {
-                                return (
-                                    <Dropdown.Item key={idx} >
-                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
-                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
-                                        </div>
-                                    </Dropdown.Item>
-                                )
-                            }
 
-                        })}
-                    </Dropdown.Menu>
-                </Dropdown>
+                <Navbar.CollapseItem>
+
+                    <Link
+                        onClick={handler}
+                        color="inherit"
+                        css={{
+                            minWidth: "100%",
+                            "&:hover": {
+                                color: "$primary"
+                            }
+                        }}>Full Length</Link>
+
+                </Navbar.CollapseItem>
 
 
             </Navbar.Collapse>
 
 
-            {/* <Modal
+            <Modal
                 closeButton
                 aria-labelledby="modal-title"
                 open={visible}
                 onClose={closeHandler}
+                css={{ m: "$10" }}
             >
                 <Modal.Header >
                     <Text h4 id="modal-title" >
-                        Reaction Content (this is very temporary)
+                        Reaction Content
                     </Text>
+
                 </Modal.Header>
-                <Modal.Body>
+                <Divider></Divider>
+                <Modal.Body css={{ overflowY: "scroll", h: "$60" }}>
                     {tags?.map((tag) => {
                         return (
-                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="primary" css={{ ta: 'center' }}>{tag.title}</Link>
+                            <Link block underline href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} b color="inherit" css={{ ta: 'center' }}>{tag.title}</Link>
                         )
                     })}
-                </Modal.Body>
-            </Modal> */}
 
-        </Navbar>
+                </Modal.Body>
+            </Modal>
+
+        </Navbar >
     )
 }
