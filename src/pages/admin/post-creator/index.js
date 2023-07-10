@@ -43,7 +43,7 @@ export default function PostCreator({ tags }) {
     }
 
     const UploadButton = () => {
-        if (seasonNumber && episodeNumber && streamableId && thumbnail && checkedTag && checkedTier) {
+        if (seasonNumber && episodeNumber && (streamableId || redirectLink) && thumbnail && checkedTag && checkedTier) {
             return (
                 <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 5 }}>Create Post</Button>
             )
