@@ -187,39 +187,6 @@ export default function App() {
             <Navbar.Collapse>
 
 
-                <Dropdown>
-                    <Navbar.CollapseItem>
-                        <Dropdown.Button css={{ mr: '0', p: 0 }} color="default" light>
-                            <Text size={18} weight={"medium"}>Full Length</Text>
-                        </Dropdown.Button>
-                    </Navbar.CollapseItem>
-                    <Dropdown.Menu
-                        color="primary"
-                        variant="light"
-                        aria-label="Actions"
-                    >
-                        {tags?.map((tag, idx) => {
-                            if (idx > 0) {
-                                return (
-                                    <Dropdown.Item key={idx} withDivider>
-                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
-                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
-                                        </div>
-                                    </Dropdown.Item>
-                                )
-                            } else {
-                                return (
-                                    <Dropdown.Item key={idx} >
-                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
-                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
-                                        </div>
-                                    </Dropdown.Item>
-                                )
-                            }
-
-                        })}
-                    </Dropdown.Menu>
-                </Dropdown>
 
 
                 <Navbar.CollapseItem>
@@ -266,6 +233,41 @@ export default function App() {
                         Shop
                     </Link>
                 </Navbar.CollapseItem>
+
+                <Dropdown>
+                    <Navbar.CollapseItem>
+                        <Dropdown.Button css={{ mr: '0', p: 0 }} color="default" light>
+                            <Text size={18} weight={"medium"}>Full Length</Text>
+                        </Dropdown.Button>
+                    </Navbar.CollapseItem>
+                    <Dropdown.Menu
+                        color="primary"
+                        variant="light"
+                        aria-label="Actions"
+                    >
+                        {tags?.map((tag, idx) => {
+                            if (idx > 0) {
+                                return (
+                                    <Dropdown.Item key={idx} withDivider>
+                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
+                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        </div>
+                                    </Dropdown.Item>
+                                )
+                            } else {
+                                return (
+                                    <Dropdown.Item key={idx} >
+                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
+                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        </div>
+                                    </Dropdown.Item>
+                                )
+                            }
+
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>
+
 
             </Navbar.Collapse>
 
