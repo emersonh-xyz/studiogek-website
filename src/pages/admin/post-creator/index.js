@@ -61,11 +61,11 @@ export default function PostCreator({ tags }) {
                     <Button.Group flat size="xs" color="primary" >
                         {tags && tags.map((tag) => {
                             return (
-                                <Button onClick={() => setCheckedTag(tag)} key={tag.safeTitle}>{tag.title}</Button>
+                                <Button onClick={() => { setCheckedTag(tag); setPostTitle(tag.title) }} key={tag.safeTitle}>{tag.title}</Button>
                             )
                         })}
                     </Button.Group>
-                    <Input
+                    {/* <Input
                         rounded
                         bordered
                         label="Title"
@@ -73,7 +73,7 @@ export default function PostCreator({ tags }) {
                         color="primary"
                         value={postTitle}
                         onChange={(e) => setPostTitle(e.target.value)}
-                    />
+                    /> */}
 
                     <Input
                         rounded
