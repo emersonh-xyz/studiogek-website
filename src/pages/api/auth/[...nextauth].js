@@ -50,6 +50,7 @@ export const authOptions = {
                     token.role = "admin"
                 }
             }
+
             return token;
         },
 

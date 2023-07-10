@@ -91,7 +91,7 @@ export default function PostCreator({ tags }) {
                         label="Episode #"
                         placeholder="1"
                         color="primary"
-                        type="number"
+
                         value={episodeNumber}
                         onChange={(e) => setEpisodeNumber(e.target.value)}
                     />
