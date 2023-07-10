@@ -17,7 +17,7 @@ export default function Reaction() {
 
     const [hasAccess, setAccess] = useState();
     const [isLoading, setLoading] = useState(true);
-    const [redirectUrl, setRedirectURL] = useState();
+    const [redirectLink, setRedirectLink] = useState();
 
     const { data: session, status } = useSession()
 
@@ -42,6 +42,9 @@ export default function Reaction() {
         } else if (result.status === 200) {
             setAccess(true)
             setPost(result.data[0])
+            if (result.data[0].redirectLink?.length > 0) {
+                setRedirectLink(result.data[0].redirectLink);
+            }
         }
 
         setLoading(false)
@@ -122,6 +125,39 @@ export default function Reaction() {
                         </Container>
 
                     }
+
+
+                    {/*Not logged and no access*/}
+                    {redirectLink &&
+                        <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }} >
+                            <Modal
+                                preventClose={true}
+                                blur
+                                aria-labelledby="modal-title"
+                                open={true}
+
+                            >
+                                <Modal.Header>
+                                    <Text id="modal-title" size={20}>
+                                        This post is only accessible on Patreon
+                                    </Text>
+                                </Modal.Header>
+
+                                <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
+                                    <Button flat auto icon={<Icon width={20} icon="mdi:patreon" />}>
+                                        <a color='primary' href={redirectLink} target='_blank'>
+                                            View on Patreon
+                                        </a>
+                                    </Button>
+                                    <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
+                                        Back Home
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </Container>
+
+                    }
+
 
                     {/* Loading state*/}
                     {isLoading &&
