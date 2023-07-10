@@ -15,6 +15,7 @@ export default function PostCreator({ tags }) {
     const [seasonNumber, setSeasonNumber] = useState("");
     const [streamableId, setStreamableId] = useState("");
     const [thumbnail, setThumbnail] = useState("");
+    const [redirectLink, setRedirectLink] = useState("");
 
     const router = useRouter();
 
@@ -29,6 +30,7 @@ export default function PostCreator({ tags }) {
             thumbnail: thumbnail,
             tag: checkedTag,
             tier: checkedTier,
+            redirectLink: redirectLink
         }
 
         const response = await fetch('/api/posts/new', {
@@ -110,6 +112,15 @@ export default function PostCreator({ tags }) {
                         placeholder="google.com/image.png"
                         value={thumbnail}
                         onChange={((e) => setThumbnail(e.target.value))}
+                    />
+                    <Input
+                        css={{ mt: 5 }}
+                        rounded
+                        bordered
+                        label="Redirect Link (ONLY USE IF NOT USING STREAMABLE)"
+                        placeholder="ONLY USE IF NOT USING STREAMABLE VIDEO"
+                        value={redirectLink}
+                        onChange={((e) => setRedirectLink(e.target.value))}
                     />
                     <Grid>
                         <Radio.Group value={checkedTier} orientation="horizontal"
