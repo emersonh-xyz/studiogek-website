@@ -35,15 +35,6 @@ export default function App() {
         getAllTags();
     }, [])
 
-
-    const collapseItems = [
-        "Patreon",
-        "Discord",
-        "Full Length",
-        "Fan Art",
-        "Shop",
-    ];
-
     const { data: session } = useSession()
 
     return (
@@ -185,10 +176,20 @@ export default function App() {
                 }
             </Navbar.Content>
             <Navbar.Collapse>
-
-
-
-
+                <Navbar.CollapseItem>
+                    <Link
+                        color="inherit"
+                        css={{
+                            minWidth: "100%",
+                            "&:hover": {
+                                color: "$primary"
+                            }
+                        }}
+                        onClick={() => router.push('/')}
+                    >
+                        Home
+                    </Link>
+                </Navbar.CollapseItem>
                 <Navbar.CollapseItem>
                     <Link
                         color="inherit"
@@ -203,7 +204,6 @@ export default function App() {
                         Patreon
                     </Link>
                 </Navbar.CollapseItem>
-
                 <Navbar.CollapseItem>
                     <Link
                         color="inherit"
@@ -218,7 +218,6 @@ export default function App() {
                         Discord
                     </Link>
                 </Navbar.CollapseItem>
-
                 <Navbar.CollapseItem>
                     <Link
                         color="inherit"
