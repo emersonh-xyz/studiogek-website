@@ -17,7 +17,7 @@ export default function Reaction() {
 
     const [hasAccess, setAccess] = useState();
     const [isLoading, setLoading] = useState(true);
-    const [redirectUrl, setRedirectURL] = useState();
+    const [redirectLink, setRedirectLink] = useState();
 
     const { data: session, status } = useSession()
 
@@ -42,6 +42,9 @@ export default function Reaction() {
         } else if (result.status === 200) {
             setAccess(true)
             setPost(result.data[0])
+            if (result.data[0].redirectLink?.length > 0) {
+                setRedirectLink(result.data[0].redirectLink);
+            }
         }
 
         setLoading(false)
@@ -115,13 +118,46 @@ export default function Reaction() {
                                         Login
                                     </Button>
                                     <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
-                                        Back Home
+                                        Home
                                     </Button>
                                 </Modal.Footer>
                             </Modal>
                         </Container>
 
                     }
+
+
+                    {/*Not logged and no access*/}
+                    {redirectLink &&
+                        <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }} >
+                            <Modal
+                                preventClose={true}
+                                blur
+                                aria-labelledby="modal-title"
+                                open={true}
+
+                            >
+                                <Modal.Header>
+                                    <Text id="modal-title" size={18}>
+                                        {post?.tag?.title} {post?.seasonNumber}x{post?.episodeNumber} is only avaliable on Patreon
+                                    </Text>
+                                </Modal.Header>
+
+                                <Modal.Body css={{ d: 'flex', flexDirection: "column", }}>
+                                    <Button css={{ backgroundColor: "#FF424D" }} flat auto icon={<Icon color='white' width={20} icon="mdi:patreon" />}>
+                                        <Link css={{ color: "white" }} href={redirectLink} target='_blank'>
+                                            View on Patreon
+                                        </Link>
+                                    </Button>
+                                    <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="white" >
+                                        Home
+                                    </Button>
+                                </Modal.Body>
+                            </Modal>
+                        </Container>
+
+                    }
+
 
                     {/* Loading state*/}
                     {isLoading &&
@@ -154,7 +190,7 @@ export default function Reaction() {
                                         </Modal.Body>
                                         <Modal.Footer css={{ d: 'flex', justifyContent: "center" }}>
                                             <Button onPress={() => router.push('/')} flat icon={<Icon width={20} icon="mdi:home" />} auto color="primary" >
-                                                Back Home
+                                                Home
                                             </Button>
                                             <a href="https://www.patreon.com/studiogek" target='blank'>
                                                 <Button flat auto color="warning" icon={<Icon width={20} icon="mdi:patreon" />}>

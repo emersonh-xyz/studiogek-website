@@ -15,6 +15,7 @@ export default function PostCreator({ tags }) {
     const [seasonNumber, setSeasonNumber] = useState("");
     const [streamableId, setStreamableId] = useState("");
     const [thumbnail, setThumbnail] = useState("");
+    const [redirectLink, setRedirectLink] = useState("");
 
     const router = useRouter();
 
@@ -29,6 +30,7 @@ export default function PostCreator({ tags }) {
             thumbnail: thumbnail,
             tag: checkedTag,
             tier: checkedTier,
+            redirectLink: redirectLink
         }
 
         const response = await fetch('/api/posts/new', {
@@ -41,7 +43,7 @@ export default function PostCreator({ tags }) {
     }
 
     const UploadButton = () => {
-        if (seasonNumber && episodeNumber && streamableId && thumbnail && checkedTag && checkedTier) {
+        if (seasonNumber && episodeNumber && (streamableId || redirectLink) && thumbnail && checkedTag && checkedTier) {
             return (
                 <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 5 }}>Create Post</Button>
             )
@@ -59,11 +61,11 @@ export default function PostCreator({ tags }) {
                     <Button.Group flat size="xs" color="primary" >
                         {tags && tags.map((tag) => {
                             return (
-                                <Button onClick={() => setCheckedTag(tag)} key={tag.safeTitle}>{tag.title}</Button>
+                                <Button onClick={() => { setCheckedTag(tag); setPostTitle(tag.title) }} key={tag.safeTitle}>{tag.title}</Button>
                             )
                         })}
                     </Button.Group>
-                    <Input
+                    {/* <Input
                         rounded
                         bordered
                         label="Title"
@@ -71,7 +73,7 @@ export default function PostCreator({ tags }) {
                         color="primary"
                         value={postTitle}
                         onChange={(e) => setPostTitle(e.target.value)}
-                    />
+                    /> */}
 
                     <Input
                         rounded
@@ -110,6 +112,15 @@ export default function PostCreator({ tags }) {
                         placeholder="google.com/image.png"
                         value={thumbnail}
                         onChange={((e) => setThumbnail(e.target.value))}
+                    />
+                    <Input
+                        css={{ mt: 5 }}
+                        rounded
+                        bordered
+                        label="Redirect Link (ONLY USE IF NOT USING STREAMABLE)"
+                        placeholder="ONLY USE IF NOT USING STREAMABLE VIDEO"
+                        value={redirectLink}
+                        onChange={((e) => setRedirectLink(e.target.value))}
                     />
                     <Grid>
                         <Radio.Group value={checkedTier} orientation="horizontal"
