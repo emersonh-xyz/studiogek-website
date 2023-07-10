@@ -81,13 +81,17 @@ export default function App() {
                             if (idx > 0) {
                                 return (
                                     <Dropdown.Item key={idx} withDivider>
-                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
+                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        </div>
                                     </Dropdown.Item>
                                 )
                             } else {
                                 return (
                                     <Dropdown.Item key={idx}>
-                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
+                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        </div>
                                     </Dropdown.Item>
                                 )
                             }
@@ -163,10 +167,8 @@ export default function App() {
                             aria-label="User menu actions"
 
                         >
-
                             <Dropdown.Item fill="var(--nextui-colors-secondary)" icon={<Icon icon={"mdi:patreon"} />} key="login">
                                 <Text onClick={() => signIn("patreon")} rounded auto color="inherit" >
-
                                     Login with Patreon
                                 </Text>
                             </Dropdown.Item>
@@ -200,13 +202,17 @@ export default function App() {
                             if (idx > 0) {
                                 return (
                                     <Dropdown.Item key={idx} withDivider>
-                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
+                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        </div>
                                     </Dropdown.Item>
                                 )
                             } else {
                                 return (
                                     <Dropdown.Item key={idx} >
-                                        <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        <div onClick={() => router.push(`/reaction/tags/${tag.safeTitle}`)}>
+                                            <Link href={`/reaction/tags/${tag.safeTitle}`} key={tag.title} color="inherit">{tag.title}</Link>
+                                        </div>
                                     </Dropdown.Item>
                                 )
                             }
