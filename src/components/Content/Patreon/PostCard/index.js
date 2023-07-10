@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Card, Text, Grid, Button, Link, Container, Tooltip, Row, Badge, Col } from "@nextui-org/react";
 
 import timeAgo from '@/utils/timeAgo';
+import { Icon } from '@iconify/react';
 
 
 export default function PostCard({ props }) {
@@ -30,7 +31,7 @@ export default function PostCard({ props }) {
                             <Row>
                                 <Col>
                                     <Text size={16} weight="bold">
-                                        <Link href={`/reaction/${props.url}`} css={{ fontWeight: " $medium", color: "$accents8" }} underline >{props?.tag.title} {props?.seasonNumber}x{props?.episodeNumber} FULL</Link>
+                                        <Link href={`/reaction/${props.url}`} css={{ fontWeight: " $medium", color: "$accents8" }} underline >{props?.tag.title} {props?.seasonNumber}x{props?.episodeNumber}</Link>
                                     </Text>
 
                                     <Text weight="semibold" css={{ fontSize: "13px" }}  >
@@ -41,7 +42,7 @@ export default function PostCard({ props }) {
                                         <Link href={`/reaction/tags/${props?.tag.safeTitle}`} css={{ fontWeight: " $medium", color: "primary" }} underline >{props?.tag.title}</Link>
                                     </Text>
                                 </Col>
-                                <Badge color="primary">{props.tier.id === "0000000" ? "Public" : "Patron Exclusive"}</Badge>
+                                <Badge size="sm" disableOutline css={{ backgroundColor: "#FF424D" }}><Icon css={{ padding: "$10" }} icon={"mdi:patreon"} /></Badge>
                             </Row>
                         </Col>
 
