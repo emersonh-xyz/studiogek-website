@@ -41,7 +41,7 @@ export default function AdminPanel() {
     }
 
     return (
-        isAdmin ? <AdminDashboard /> : <div>You shouldn't be here</div>
+        isAdmin ? <AdminDashboard /> : <div>Nice try</div>
 
 
 
