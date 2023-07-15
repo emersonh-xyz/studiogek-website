@@ -20,17 +20,17 @@ export default async function getTierObject(token) {
     // This means we were able to hit the endpoint
     if (results.hasOwnProperty('included')) {
 
-        // Voting
-        const isVoting = findObjectById(results.included, "9384706");
-
-        // Uncut
-        const isUncut = findObjectById(results.included, "9384741");
+        // Juicy
+        const isJuicy = findObjectById(results.included, "9956198");
 
         // Gek
         const isGek = findObjectById(results.included, "9384773");
 
-        // Juicy
-        const isJuicy = findObjectById(results.included, "9956198");
+        // Uncut
+        const isUncut = findObjectById(results.included, "9384741");
+
+        // Voting
+        const isVoting = findObjectById(results.included, "9384706");
 
         if (isJuicy) {
             return tierList[4];
