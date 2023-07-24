@@ -71,10 +71,8 @@ function isUncutReleased(postDate) {
 
     // Check if time has passed
     if (timeDifference >= UNCUT_RELEASE_TIME) {
-        console.log(true)
         return true;
     } else {
-        console.log(false);
         return false;
     }
 }

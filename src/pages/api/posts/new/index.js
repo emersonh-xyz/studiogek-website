@@ -35,7 +35,7 @@ export default async function handler(req, res) {
 
         try {
 
-            const { title, seasonNumber, episodeNumber, streamableId, tier, tag, thumbnail, redirectLink } = JSON.parse(req.body)
+            const { title, seasonNumber, episodeNumber, streamableId, tier, tag, thumbnail, redirectLink, streamableThumbnail } = JSON.parse(req.body)
 
             const url = createSafeUrl(title)
 
@@ -49,13 +49,16 @@ export default async function handler(req, res) {
             // String format
             uncutUnlockDate = new Date(uncutUnlockDate).toLocaleString('en-US', options)
 
+            // Determine which thumbnail to use
+            let _thumbnail = streamableThumbnail ? `https://thumbs-east.streamable.com/image/${streamableId}.jpg` : thumbnail
+
             await collection.insertOne({
                 title: title,
                 url: url,
                 seasonNumber: seasonNumber,
                 episodeNumber: episodeNumber,
                 streamableId: streamableId,
-                thumbnail: thumbnail,
+                thumbnail: _thumbnail,
                 timestamp: date,
                 uncutUnlockDate: uncutUnlockDate,
                 tier: tier,

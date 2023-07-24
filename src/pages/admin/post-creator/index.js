@@ -16,6 +16,8 @@ export default function PostCreator({ tags }) {
     const [streamableId, setStreamableId] = useState("");
     const [thumbnail, setThumbnail] = useState("");
     const [redirectLink, setRedirectLink] = useState("");
+    const [useStreamableThumbnail, setStreamableThumbnail] = useState(true);
+
 
     const router = useRouter();
 
@@ -28,6 +30,7 @@ export default function PostCreator({ tags }) {
             episodeNumber: episodeNumber,
             streamableId: streamableId,
             thumbnail: thumbnail,
+            streamableThumbnail: useStreamableThumbnail,
             tag: checkedTag,
             tier: checkedTier,
             redirectLink: redirectLink
@@ -43,7 +46,7 @@ export default function PostCreator({ tags }) {
     }
 
     const UploadButton = () => {
-        if (seasonNumber && episodeNumber && (streamableId || redirectLink) && thumbnail && checkedTag && checkedTier) {
+        if (seasonNumber && episodeNumber && (streamableId || redirectLink) && (thumbnail || useStreamableThumbnail) && checkedTag && checkedTier) {
             return (
                 <Button onPress={() => { handleSubmit() }} flat color="success" css={{ mt: 5 }}>Create Post</Button>
             )
@@ -108,10 +111,20 @@ export default function PostCreator({ tags }) {
                         rounded
                         bordered
                         label="Thumbnail Link"
-                        placeholder="google.com/image.png"
+                        placeholder={useStreamableThumbnail ? "N/A" : "google.png/png"}
                         value={thumbnail}
+                        disabled={useStreamableThumbnail}
                         onChange={((e) => setThumbnail(e.target.value))}
                     />
+                    <Checkbox
+                        css={{ mt: 5 }}
+                        onChange={setStreamableThumbnail}
+                        isSelected={useStreamableThumbnail}
+                        size="sm"
+
+                    >
+                        Use Streamable Thumbnail
+                    </Checkbox>
                     <Input
                         css={{ mt: 5 }}
                         rounded
