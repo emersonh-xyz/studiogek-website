@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
 
         // Get the post following this one
-        const nextPost = await db.collection('posts').find({ _id: { $gt: postId } }).sort({ _id: 1 }).limit(1).toArray();
+        const nextPost = await db.collection('posts').find({ _id: { $gt: postId }, 'tag.title': post[0].tag.title }).sort({ _id: 1 }).limit(1).toArray();
 
         if (nextPost) {
             post = { ...post, nextPost: nextPost[0]?.url };
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
 
         // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
-            console.log('hi', post.nextPost);
+            console.log(nextPost[0]?.url)
             res.status(200).json({ data: post, status: 200 })
             return;
         }

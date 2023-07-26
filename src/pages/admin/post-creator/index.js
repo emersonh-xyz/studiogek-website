@@ -8,7 +8,7 @@ import clientPromise from "@/lib/mongodb";
 export default function PostCreator({ tags }) {
 
     const [checkedTag, setCheckedTag] = useState('');
-    const [checkedTier, setCheckedTier] = useState('');
+    const [checkedTier, setCheckedTier] = useState(tierList[2]);
 
     const [postTitle, setPostTitle] = useState("");
     const [episodeNumber, setEpisodeNumber] = useState("");
@@ -61,7 +61,8 @@ export default function PostCreator({ tags }) {
             <Card css={{ height: "fit-content" }}>
                 <Card.Body >
                     <Text h1 >Post Creator</Text>
-                    <Button.Group flat size="xs" color="primary" >
+
+                    <Button.Group css={{ d: 'flex', flexWrap: "wrap" }} flat size="xs" color="primary" >
                         {tags && tags.map((tag) => {
                             return (
                                 <Button onClick={() => { setCheckedTag(tag); setPostTitle(tag.title) }} key={tag.safeTitle}>{tag.title}</Button>
