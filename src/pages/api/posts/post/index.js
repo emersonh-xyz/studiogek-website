@@ -47,7 +47,6 @@ export default async function handler(req, res) {
 
         // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
-            console.log(nextPost[0]?.url)
             res.status(200).json({ data: post, status: 200 })
             return;
         }
