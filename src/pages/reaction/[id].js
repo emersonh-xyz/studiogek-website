@@ -141,7 +141,8 @@ export default function Reaction() {
                     {redirectLink &&
                         <Container gap={0} display='flex' direction='column' alignItems='center' css={{ p: 20 }} >
                             <Modal
-                                preventClose={true}
+                                closeButton
+                                preventClose={false}
                                 blur
                                 aria-labelledby="modal-title"
                                 open={true}
