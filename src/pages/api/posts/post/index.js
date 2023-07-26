@@ -22,19 +22,32 @@ export default async function handler(req, res) {
 
         // Get current tier of the post
         let post = await db.collection('posts').find({ url: id }).toArray();
-        let postTier = post[0].tier;
+        const postTier = post[0].tier;
+        const postId = post[0]._id;
+
+
+        // Get the post following this one
+        const nextPost = await db.collection('posts').find({ _id: { $gt: postId } }).sort({ _id: 1 }).limit(1).toArray();
+
+        if (nextPost) {
+            post = { ...post, nextPost: nextPost[0]?.url };
+        } else {
+            post = { ...post, nextPost: null };
+        }
+
 
         // Grab user tier
-        let userTier = await getTierObject(token);
+        const userTier = await getTierObject(token);
 
-        console.log(`DEBUG: \n
-        Uncut Ready: ${isUncutReleased(post[0].timestamp)}\n
-        User Tier: ${userTier.id}\n
-        Post Info: ${postTier.id}`
-        )
+        // console.log(`DEBUG: \n
+        // Uncut Ready: ${isUncutReleased(post[0].timestamp)}\n
+        // User Tier: ${userTier.id}\n
+        // Post Info: ${postTier.id}`
+        // )
 
         // Check if the tier matches the post tier, then send post back
         if (userTier.weight >= postTier.weight) {
+            console.log('hi', post.nextPost);
             res.status(200).json({ data: post, status: 200 })
             return;
         }

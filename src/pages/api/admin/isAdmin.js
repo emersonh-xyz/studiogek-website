@@ -7,7 +7,7 @@ export default async (req, res) => {
 
     try {
 
-        console.log(token?.role)
+        // console.log(token?.role)
 
         if (token?.role === "admin") {
             return res.status(200).json({
