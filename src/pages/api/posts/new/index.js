@@ -1,16 +1,18 @@
 import clientPromise from '../../../../lib/mongodb'
 import slugify from 'slugify'
 import { getToken } from 'next-auth/jwt'
+import { Webhook, MessageBuilder } from 'discord-webhook-node'
 
 export default async function handler(req, res) {
 
     const secret = process.env.NEXTAUTH_SECRET
-
     const token = await getToken({ req, secret });
 
     const client = await clientPromise
     const db = client.db("studiogek_website")
     const collection = db.collection("posts")
+
+    const webHook = new Webhook(process.env.WEBHOOK_URL)
 
 
     const createSafeUrl = (title) => {
@@ -52,6 +54,7 @@ export default async function handler(req, res) {
             // Determine which thumbnail to use
             let _thumbnail = streamableThumbnail ? `https://thumbs-east.streamable.com/image/${streamableId}.jpg` : thumbnail
 
+            // Inser into mongo collection
             await collection.insertOne({
                 title: title,
                 url: url,
@@ -66,6 +69,23 @@ export default async function handler(req, res) {
                 redirectLink: redirectLink
             })
 
+            const postUrl = `https://studiogek.vercel.app/reaction/${url}`
+
+            // Discord Webhook
+            const embed = new MessageBuilder()
+                .setTitle(`${title} ${seasonNumber}x${episodeNumber} Full Length`)
+                .setAuthor('Studo Gek', null, 'https://studiogek.vercel.app/')
+                .setURL(`${postUrl}`)
+                .setColor('#ffffff')
+                // .setThumbnail(`https://c5.patreon.com/external/favicon/android-chrome-512x512.png`)
+                .setDescription(`A new reaction for **${title}** was just posted for **${tier.display}+**!`)
+                .setImage(`${_thumbnail}`)
+                .setFooter(`Uploaded`)
+                .setTimestamp();
+
+            // webHook.send(embed)
+
+            // Success redirect
             res.setHeader('Content-Type', 'application/json');
             res.status(200).json({
                 data: {

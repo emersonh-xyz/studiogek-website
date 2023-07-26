@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
     try {
         const taggedPosts = await db.collection('posts').find({ "tag.safeTitle": safeTitle }).toArray();
-        console.log(taggedPosts)
+        // console.log(taggedPosts)
 
 
         // Should definitely rewrite this omg

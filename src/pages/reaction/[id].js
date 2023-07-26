@@ -12,6 +12,7 @@ import { Icon } from '@iconify/react';
 export default function Reaction() {
 
     const [post, setPost] = useState();
+    const [nextPostUrl, setNextPostUrl] = useState();
     const [requiredTier, setRequiredTier] = useState();
     const [uncutUnlockDate, setUncutUnlockDate] = useState();
 
@@ -36,18 +37,19 @@ export default function Reaction() {
         // This is some hacky shit I should probably rewrite but oh well
         if (result.status === 401) {
             setAccess(false);
-            setRequiredTier(result.data.tier)
-            setUncutUnlockDate(result.data.unlockDate)
+            setRequiredTier(result.data.tier);
+            setUncutUnlockDate(result.data.unlockDate);
 
         } else if (result.status === 200) {
-            setAccess(true)
-            setPost(result.data[0])
+            setAccess(true);
+            setPost(result.data[0]);
+            setNextPostUrl(result.data.nextPost);
             if (result.data[0].redirectLink?.length > 0) {
                 setRedirectLink(result.data[0].redirectLink);
             }
         }
 
-        setLoading(false)
+        setLoading(false);
 
     }
 
@@ -93,7 +95,13 @@ export default function Reaction() {
                                 <iframe src={`https://streamable.com/e/${post?.streamableId}`} frameborder="0" width="100%" height="100%" allowFullScreen style={{ width: "100%", height: "100%", position: "absolute", left: "0", top: "0", overflow: "hidden" }}>
                                 </iframe>
                             </Container>
-
+                            <Container gap={0} css={{ mt: "$10", d: 'flex', justifyContent: 'right' }}>
+                                {nextPostUrl ?
+                                    <Button onPress={() => router.push(`/reaction/${nextPostUrl}`)} size={'sm'} auto icon={<Icon icon={'ph:play-fill'} />}>Next Episode</Button>
+                                    :
+                                    <Button disabled size={'sm'} auto icon={<Icon icon={'ph:play-fill'} />}>Next Episode</Button>
+                                }
+                            </Container>
                         </Container>
                     }
 
