@@ -52,6 +52,10 @@ export const Content = () => {
 
         <Box css={{ px: "$12", mt: "$8", "@xsMax": { px: "$10" } }}>
 
+            <Container lg gap={1}>
+                <Text
+                >Showing {posts?.length} results for {posts[0]?.title}</Text>
+            </Container>
             <Container css={{ justifyContent: 'center', w: "fit-content", d: "flex", flexWrap: "wrap", "@xs": { flexWrap: "nowrap" } }} lg gap={1}>
 
                 {posts?.length > 0 && posts !== "No posts" ?
