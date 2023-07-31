@@ -83,7 +83,7 @@ export default async function handler(req, res) {
                 .setFooter(`Uploaded`)
                 .setTimestamp();
 
-            // webHook.send(embed)
+            webHook.send(embed)
 
             // Success redirect
             res.setHeader('Content-Type', 'application/json');
